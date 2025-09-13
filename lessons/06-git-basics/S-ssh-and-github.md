@@ -8,6 +8,10 @@ keywords:
 
 # Connecting to GitHub via SSH keys
 
+> _Guide written and provided by [@zntheory](https://github.com/zntheory)._
+
+</br>
+
 Before getting into SSH keys, we need to understand what **git** and **GitHub** are and how they are different.
 
 </br>
