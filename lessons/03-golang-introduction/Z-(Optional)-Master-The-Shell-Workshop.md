@@ -219,4 +219,5 @@ generate:
 
 This `Makefile` will print "Generating..." to the terminal then run npm run build inside a folder named src/tailwind then after that run a go program from the main.go file.
 
-
+# Ending notes
+At the end of the day most of this stuff is learned best by doing it and figuring things out as you go. Google is your best friend if things don't work or break for you, more than likely a user on stackoverflow had the same problem 12 years before you. 
