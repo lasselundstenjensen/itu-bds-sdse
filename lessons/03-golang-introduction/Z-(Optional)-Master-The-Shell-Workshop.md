@@ -111,7 +111,7 @@ Note this command will print the full path and thus may look slightly different 
 
 ```bash
 user:current$ pwd
-> /Users/slugboi/current
+> /Users/user/current
 ```
 
 ### man (manual) 
@@ -183,9 +183,9 @@ As seen we get the same output as from the piping example above but in this case
 
 > Note: This exact workflow can be extremely useful when developing programs as we can simply pass a file into the program instead of having to type out examples manually. This is extra useful when developing small programs for say programming contests like lille kat where inputs can be quite long and tedious to type out
 
-
 ### Text editors in your terminal
 I will list 2 of the common editors that are built into most shells that being `nano` and `vim`. The order of these programs listed is in **my opinion** also how hard they are to learn to use. `nano` is a minimal text editor you can easily see how to write and exit to a file at the bottom using the shortcuts (these are done by holding control and pressing the key shown). `vim` is an extremely powerful text editor but also a mouthful to learn, it can be rewarding but could in of itself be a whole course (there's even a book written about how to learn it which is roughly 300 pages called practical vim). 
+
 
 # Bash scripting
 Everything we've learned so far has been in a single line and even with piping and file modifiers this can only get us so far. What if we could write a file with many bash expressions and commands and run that just like we would a python program?
