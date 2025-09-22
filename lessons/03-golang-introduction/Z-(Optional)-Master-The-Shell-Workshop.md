@@ -193,10 +193,30 @@ Everything we've learned so far has been in a single line and even with piping a
 ## Bash scripts
 Bash scripts are in essence just a file containing what we've already written above. This file can be run and thus we save ourselves some time by defining a file we can run multiple times. Bash is actually turing complete (don't worry if you don't know what that means) which means you could code entire projects in it (would not suggest this unless you truly hate yourself).
 
-> We are now working in a mix of files and shell commands. If an example is in a file no starting notation will be shown like below. If we are running a shell command it will be notated as seen in the chapter above.
+As this guide is starting to drag out a few ressources on how to write bash scripts are linked here.
+- Shell scripting [here](https://missing.csail.mit.edu/2020/shell-tools/)
+- Free open source book on bash scripting [here](https://github.com/bobbyiliev/introduction-to-bash-scripting)
 
-## Small example of a bash script
+As much as this is a great tool to learn how to write small scripts to achieve things much of the same functionality can be achieved through python or go programs and as such it really depends on what you are trying to do and how you feel comfortable doing it. 
+
+## Makefiles: A useful usecase for shell commands (and bash scripting)
+`Makefiles` are useful in projects where you end up doing the same things a lot, like compiling with specific flags or running tests before compiling or other such examples. This could even be used in the project you will embark on later in this course! A `Makefile` in essence, is just a list of command names and a list of shell commands to run when given that command name (you can even pass arguments to the `Makefile` command ). A `Makefile` can be made by just creating a file called `Makefile` in your project directory. To run a command defined in your file simply run the below command:
+
 ```bash
-
+user:current$ make <command>
+> 
 ```
+Where `<command>` is a command defined in your `Makefile`. If you wanted to run generate from the below example you could run the command `make generate`. By default `make` will run the first command defined by a name. 
+
+Heres an example of a `Makefile` from a golang project 
+
+```makefile
+generate:
+	echo "Generating..."
+	cd src/tailwind && npm run build
+	go run main.go generate 
+```
+
+This `Makefile` will print "Generating..." to the terminal then run npm run build inside a folder named src/tailwind then after that run a go program from the main.go file.
+
 
