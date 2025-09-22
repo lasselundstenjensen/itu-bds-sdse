@@ -8,7 +8,7 @@ keywords:
 
 # Connecting to GitHub via SSH keys
 
-> _Guide written and provided by [@zntheory](https://github.com/zntheory)._
+> _Guide written and provided by [@zntheory](https://github.com/zntheory) and [@Slug-Boi](https://github.com/slug-boi)._
 
 </br>
 
