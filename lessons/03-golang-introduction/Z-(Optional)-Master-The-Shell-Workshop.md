@@ -30,7 +30,7 @@ We will mostly cover basics and a small amount of shell scripting but feel free 
 
 # Lets stretch our legs
 
-One of the most important skills to learn is how to get get around the shell and interact with files. Without the ability to move, read, move or delete files we can't really do a whole lot :)
+One of the most important skills to learn is how to get get around the shell and interact with files. Without the ability to move, read, write or delete files we can't really do a whole lot :)
 
 Explaining the symbols:
 user:<something>: user is a standin for your own username the : and then some word is our current directory name  
