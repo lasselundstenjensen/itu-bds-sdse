@@ -30,15 +30,15 @@ We will mostly cover basics and a small amount of shell scripting but feel free 
 
 # Lets stretch our legs
 
-One of the most important skills to learn is how to get get around the shell and interact with files. Without the ability to move, read, move or delete files we can't really do a whole lot :)
+One of the most important skills to learn is how to get get around the shell and interact with files. Without the ability to move, read, write or delete files we can't really do a whole lot :)
 
 Explaining the symbols:
-user:<something>: user is a standin for your own username the : and then some word is our current directory name  
-\$: Anytime you see a \$ it purely marks the start of a shell line this might look different in your shell/terminal if you want to run a command feel free to copy it from the code blocks but do not take the \$ with you it will not run if you do. 
+user:<something>: user is a standin for your own username, while the : and then some word is our current directory name.
+\$: Anytime you see a \$, it marks the start of a shell line. This might look different in your shell. If you want to run a command, feel free to copy it from the code blocks, but do not take the \$ with you, as it will not run if you do. 
 \>: The carrot symbol (>) will be used to show the output of a given command
 
 ### cd (change directory)
-One of the most used commands will be `cd` which will change your directory to whatever directory you pass it. If left blank it will move you to (~/$HOME) which is your home directory.
+One of the most used commands will be `cd` which will change your directory to whatever directory you pass it. If left blank, it will move you to `~` or `$HOME`, which is your home directory.
 ```bash
 user:current$ cd 
 > user:~$ 
@@ -107,7 +107,7 @@ Notice the carrot (>) behind `echo hello` this means "output to x" in this case 
 
 ### pwd (print working directory)
 As the name suggests this command will print your current working directory aka. where you are
-Note this command will print the full path and thus may look slightly different on Linux and MacOS as the home folder is stored in different locations. If you are Linux `/User` will be `/home`
+Note this command will print the full path and thus may look slightly different on Linux and MacOS as the home folder is stored in different locations. If you are on Linux, `/Users` will be `/home`.
 
 ```bash
 user:current$ pwd
@@ -217,7 +217,7 @@ generate:
 	go run main.go generate 
 ```
 
-This `Makefile` will print "Generating..." to the terminal then run npm run build inside a folder named src/tailwind then after that run a go program from the main.go file.
+This `Makefile` will print "Generating..." to the terminal, then run `npm run build` inside a folder named `src/tailwind. After that, it will run a go program from the `main.go` file.
 
 # Ending notes
 At the end of the day most of this stuff is learned best by doing it and figuring things out as you go. Google is your best friend if things don't work or break for you, more than likely a user on stackoverflow had the same problem 12 years before you. 
