@@ -38,7 +38,7 @@ user:<something>: user is a standin for your own username, while the : and then 
 \>: The carrot symbol (>) will be used to show the output of a given command
 
 ### cd (change directory)
-One of the most used commands will be `cd` which will change your directory to whatever directory you pass it. If left blank it will move you to (~/$HOME) which is your home directory.
+One of the most used commands will be `cd` which will change your directory to whatever directory you pass it. If left blank, it will move you to `~` or `$HOME`, which is your home directory.
 ```bash
 user:current$ cd 
 > user:~$ 
