@@ -34,7 +34,7 @@ One of the most important skills to learn is how to get get around the shell and
 
 Explaining the symbols:
 user:<something>: user is a standin for your own username, while the : and then some word is our current directory name.
-\$: Anytime you see a \$ it purely marks the start of a shell line this might look different in your shell/terminal if you want to run a command feel free to copy it from the code blocks but do not take the \$ with you it will not run if you do. 
+\$: Anytime you see a \$, it marks the start of a shell line. This might look different in your shell. If you want to run a command, feel free to copy it from the code blocks, but do not take the \$ with you, as it will not run if you do. 
 \>: The carrot symbol (>) will be used to show the output of a given command
 
 ### cd (change directory)
