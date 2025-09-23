@@ -107,7 +107,7 @@ Notice the carrot (>) behind `echo hello` this means "output to x" in this case 
 
 ### pwd (print working directory)
 As the name suggests this command will print your current working directory aka. where you are
-Note this command will print the full path and thus may look slightly different on Linux and MacOS as the home folder is stored in different locations. If you are Linux `/User` will be `/home`
+Note this command will print the full path and thus may look slightly different on Linux and MacOS as the home folder is stored in different locations. If you are on Linux, `/Users` will be `/home`.
 
 ```bash
 user:current$ pwd
