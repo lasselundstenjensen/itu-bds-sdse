@@ -51,7 +51,7 @@ user:current$ cd cool_directory
 ```
 
 ### ls (list) 
-To be able to move around you must know what is around you the ls command is useful here as it lists files and directories.
+To be able to move around you must know what is around you. The `ls` command is useful here, as it lists files and directories within your current directory.
 
 ```bash
 user:current$ ls
