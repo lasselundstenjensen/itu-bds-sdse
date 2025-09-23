@@ -149,7 +149,7 @@ WARNING: This will take control of your shell. If you want out your can always c
 
 ### find 
 This command will let your find or search for files using a pattern. We will not cover what a pattern is here but a simple google search or even the man page may give you a good idea of how to create one that suits your case
-#TODO: FINISH
+
 ```bash
 user:~$ find ./current -name "cool_*"
 > ./current/cool_directory
