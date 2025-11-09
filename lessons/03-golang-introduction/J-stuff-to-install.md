@@ -19,13 +19,13 @@ You may know what Git is about, but Docker and Dagger are probably new to you. D
 
 ## What you need to install
 
-- **Visual Studio Code** (latest version, 1.103.2)
+- **Visual Studio Code** (latest version, 1.105.1)
 - **Go** (latest version, 1.25.0)
-- **Git** (latest version, 2.51.0)
-- **Docker Engine** (latest version, 28.3.2), can be installed with **Docker Desktop** (latest version, 4.44.3)
-- **Dagger** (latest version, 0.18.6)
+- **Git** (latest version, 2.51.2)
+- **Docker Engine** (latest version, 28.5.1), can be installed with **Docker Desktop** (latest version, 4.50.0)
+- **Dagger** (latest version, 0.19.6)
 
-Versions are as of writing this course (August 2025).
+Versions are as of writing this course (November 2025).
 
 > **Note:** Other Visual Studio Code based IDEs, such as **Cursor** or **Windsurf**, can be used as well, but you cannot expect support from TAs if you use them instead. The only caveats are that the IDEs are version wise behind VSCode and extensions are only available in older versions.
 
