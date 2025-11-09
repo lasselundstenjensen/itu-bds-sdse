@@ -129,7 +129,7 @@ Release branches are used to prepare a new release. They are created from the `d
 
 ## Hotfix branches
 
-Feature branches are used to develop new features or bug fixes. They are created from the `develop` branch and merged back into the `develop` branch when the feature is complete.
+Hotfix branches are used to quickly implement bug fixes and patch production. They are similar to release and feature branches, but they are created from the `main` branch and merged back into the `main` branch (and `develop` or current `release` branch) when the hotfix is complete.
 
 </br>
 
@@ -177,6 +177,20 @@ Feature branches are used to develop new features or bug fixes. They are created
 - **Merge conflicts**: Gitflow can lead to more merge conflicts due to the number of branches that need to be merged.
 - **Overkill**: Gitflow is overkill for small projects with a small team of developers.
 - **Release management**: Gitflow can be cumbersome for managing releases.
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+However, despite the complexity, Gitflow is often used when products require large development teams (hundreds of developers, tens of teams) and coordination of releases is required. In these cases you also often have release managers coordinating releases and hotfixes.
 
 </br>
 </br>

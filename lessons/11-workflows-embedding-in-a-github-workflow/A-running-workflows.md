@@ -95,18 +95,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
-          go-version: 1.23.3
+          go-version: 1.25.4
           cache: false
 
       - name: Run Dagger pipeline
-        uses: dagger/dagger-for-github@v6
+        uses: dagger/dagger-for-github@v8.2.0
         with:
           workdir: go
           verb: run
           args: go run pipeline.go
-          version: "0.14.0"
+          version: "0.19.6"
 ```
 
 </br>

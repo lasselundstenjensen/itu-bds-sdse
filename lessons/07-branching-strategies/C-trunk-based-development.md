@@ -118,7 +118,7 @@ Trunk-based development is a branching model where all developers work on a sing
 - **Speed**: Trunk-based development is fast. Developers can commit their changes directly to the main branch.
 - **Feedback**: Trunk-based development provides quick feedback. Developers can see the impact of their changes immediately. Continuous integration and automated testing help catch issues early.
 - **Collaboration**: Trunk-based development encourages collaboration. Developers can work together on the same codebase.
-- **Quality**: Trunk-based development promotes quality. It is an great enabler strategy for Continuous Integration and Continuous Deployment (CI/CD).
+- **Quality**: Trunk-based development promotes quality. It is an great enabler strategy for Continuous Integration and Continuous Delivery (CI/CD).
 - **Release**: Trunk-based development makes releases easier. Developers can release new features with less overhead.
 
 </br>
@@ -173,7 +173,7 @@ This practice leads to faster feedback loops and higher quality code.
 
 </br>
 
-> In short and maybe counter-intuitively—**going faster** and releasing more frequently actually **leads to higher quality** products.
+> In short and maybe counter intuitively—**going faster** and releasing more frequently actually **leads to higher quality** products.
 
 </br>
 

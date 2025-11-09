@@ -47,13 +47,35 @@ Often we learn flavors of YAML or other schemas, but Dagger allows you to write 
 </br>
 </br>
 
+## Agentic workflow automation
+
+Dagger supports encapsuling agents into Dagger workflows, which can be run locally or in the cloud, and made reproducible. This could be agents using tools to perform tasks, or agents using other agents to perform tasks.
+
+We will not cover this in the course as it is a separate topic.
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
 ## Supported languages
 
 Dagger currently offers SDKs for the following languages:
 
 - [Go](https://pkg.go.dev/dagger.io/dagger)
-- [Python](https://dagger-io.readthedocs.io/en/sdk-python-v0.14.0/)
+- [Python](https://dagger-io.readthedocs.io/en/sdk-python-v0.19.6/)
 - [TypeScript](https://docs.dagger.io/reference/typescript/modules)
+- GraphQL
+- PHP
+
+For a list of supported SDKs and latest links, see the [Dagger documentation, API and SDKs](https://docs.dagger.io/reference#api-and-sdks).
 
 </br>
 </br>
