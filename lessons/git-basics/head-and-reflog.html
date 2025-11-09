@@ -1,0 +1,281 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><link rel="apple-touch-icon" sizes="180x180" href="/itu-bds-sdse/images/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/itu-bds-sdse/images/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/x-icon" href="/itu-bds-sdse/images/favicon.ico"/><title>HEAD and reflog – Data Science in Production: MLOps and Software Engineering</title><meta name="description" content="Basics of Git."/><meta name="keywords" content="Software engineering,Git"/><meta name="og:description" content="Basics of Git."/><meta name="og:title" content="HEAD and reflog – Data Science in Production: MLOps and Software Engineering"/><meta name="og:image" content="/itu-bds-sdse/images/social-share-cover.jpg"/><meta name="twitter:card" content="summary_large_image"/><meta name="next-head-count" content="14"/><link data-next-font="size-adjust" rel="preconnect" href="/" crossorigin="anonymous"/><link rel="preload" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" as="style"/><link rel="stylesheet" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/itu-bds-sdse/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"></script><script src="/itu-bds-sdse/_next/static/chunks/webpack-8116fd4d628798fe.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/framework-ecc4130bc7a58a64.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/main-348f16897b94a0d5.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/_app-fa68bd1b4993f298.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/lessons/%5Bsection%5D/%5Bslug%5D-c2cb604784d7e04f.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_buildManifest.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="remix-app"><header class="navbar"><h1 class="navbar-brand"><a href="/itu-bds-sdse">Data Science in Production: MLOps and Software Engineering</a></h1><div class="navbar-info"></div></header><div class="content-container"><div class="main"><div class="lesson-container"><div class="lesson"><div class="lesson-content"><h2>HEAD</h2>
+<p>By now you might have noticed that it says <code>HEAD</code> several places in the logs.</p>
+<p>Can you guess what it means...?</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Exercise: Check out <code>HEAD</code> in the <code>.git</code> directory</h3>
+<p>(not git checkout—just check it out as in: look at it)</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Solution: Check out <code>HEAD</code> in the <code>.git</code> directory</h3>
+<p><code>HEAD</code> is a reference to the current commit you have checked out. It is a pointer to the branch you are currently on.</p>
+<p>We should see something like this.</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cat</span> .git/HEAD
+</code></pre><p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext">ref: refs/heads/main
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>And additionally, we can see the contents of the file <code>refs/heads/main</code>.</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cat</span> .git/refs/heads/main
+</code></pre><p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext">562f95864c377acd831d1027eeba98fa86875d6d
+</code></pre><p>So, literally just a reference to the commit hash you are on.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Reflog</h2>
+<p>This is a bit of a cool command.</p>
+<p>It shows a log of changes to <code>HEAD</code>. So—where <code>HEAD</code> has been pointing to.</p>
+<pre><code class="hljs language-bash">git reflog
+</code></pre></br>
+
+<p>(try it out now)</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext">562f958 (HEAD -&gt; main) HEAD@{0}: checkout: moving from feature to main
+312c2e9 (feature) HEAD@{1}: checkout: moving from feature-rebase-main to feature
+109ad4e (feature-rebase-main) HEAD@{2}: checkout: moving from main to feature-rebase-main
+562f958 (HEAD -&gt; main) HEAD@{3}: checkout: moving from feature-rebase-main to main
+109ad4e (feature-rebase-main) HEAD@{4}: rebase (finish): returning to refs/heads/feature-rebase-main
+109ad4e (feature-rebase-main) HEAD@{5}: rebase (pick): C
+b12a712 HEAD@{6}: rebase (pick): B
+562f958 (HEAD -&gt; main) HEAD@{7}: rebase (start): checkout main
+312c2e9 (feature) HEAD@{8}: checkout: moving from feature to feature-rebase-main
+312c2e9 (feature) HEAD@{9}: checkout: moving from main to feature
+562f958 (HEAD -&gt; main) HEAD@{10}: merge feature-two: Fast-forward
+1fef215 HEAD@{11}: checkout: moving from feature-two to main
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<blockquote>
+<p><strong>Question:</strong> What do you think is stored in the <code>.git/logs</code> directory?</p>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>You can limit search like this.</p>
+<pre><code class="hljs language-bash">git reflog -3  <span class="hljs-comment"># shows the last 3 entries</span>
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Recovering lost commits</h2>
+<p>If you accidentally delete a branch, you can recover it by checking out the commit hash from the reflog.</p>
+<pre><code class="hljs language-bash">git reflog 
+<span class="hljs-comment"># find the commit hash</span>
+git merge &lt;commit-hash&gt;
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Exercise: Recover a lost commit</h3>
+<blockquote>
+<ul>
+<li>Create a new branch <code>feature-delete-test</code> based on <code>main</code>.</li>
+<li>Checkout <code>feature-delete-test</code>.</li>
+<li>Add a new file with some content (important).</li>
+<li>Commit the changes.</li>
+<li>Switch back to <code>main</code>.</li>
+<li>Delete the branch <code>feature-delete-test</code>.</li>
+<li>Try to recover the branch using the reflog and merge.</li>
+</ul>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Solution: Recover a lost commit</h3>
+<p>Create the branch and the change and commit it.</p>
+<pre><code class="hljs language-bash">git checkout main
+git checkout -b feature-delete-test
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;some text&quot;</span> &gt;&gt; tester.md
+git add .
+git commit -m <span class="hljs-string">&quot;some commit message&quot;</span>
+</code></pre><p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext">[feature-delete-test 058f2b5] some commit message
+ 1 file changed, 1 insertion(+)
+ create mode 100644 tester.md
+</code></pre></br>
+
+<p>Delete the branch.</p>
+<pre><code class="hljs language-bash">git checkout main
+git branch -D feature-delete-test
+</code></pre></br>
+
+<p>Recover the lost commit.</p>
+<pre><code class="hljs language-bash">git reflog -3
+</code></pre><p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext">562f958 (HEAD -&gt; main) HEAD@{0}: checkout: moving from feature-delete-test to main
+058f2b5 HEAD@{1}: commit: some commit message
+562f958 (HEAD -&gt; main) HEAD@{2}: checkout: moving from main to feature-delete-test
+</code></pre></br>
+
+<p>Copy the hash of the commit, in this case <code>058f2b5</code>.</p>
+<p>Create a new branch and recover the commit. Creating a new branch is purely for keeping the changes in a branch.</p>
+<pre><code class="hljs language-bash">git checkout -b feature-delete-test
+git merge 058f2b5
+</code></pre><p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext">Updating 562f958..058f2b5
+Fast-forward
+ tester.md | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 tester.md
+</code></pre></br>
+
+<p>Check the log to see that the commit is back.</p>
+<pre><code class="hljs language-bash">git <span class="hljs-built_in">log</span>
+</code></pre><p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext">commit 058f2b5e13773f4e6aca1fa4ebe412ddab64ea5a (HEAD -&gt; feature-delete-test)
+Author: Lasse Lund Sten Jensen &lt;lajl@itu.dk&gt;
+Date:   Tue Sep 24 00:04:13 2024 +0200
+
+    some commit message
+
+commit 562f95864c377acd831d1027eeba98fa86875d6d (main)
+Author: Lasse Lund Sten Jensen &lt;lajl@itu.dk&gt;
+Date:   Mon Sep 23 18:54:56 2024 +0200
+
+    Y
+
+commit 37fb15232e7b8cc90d9f7e7470d95331936956e5
+Author: Lasse Lund Sten Jensen &lt;lajl@itu.dk&gt;
+Date:   Mon Sep 23 18:54:37 2024 +0200
+
+    X
+
+commit 1fef21501625d1cb1ab99318ad0fa8487d6ef5cb
+Author: Lasse Lund Sten Jensen &lt;lajl@itu.dk&gt;
+Date:   Fri Sep 20 22:27:19 2024 +0200
+
+    E
+
+commit 8ae69da5d2938a5fee06207f2c3320a4c5b90a9b
+Author: Lasse Lund Sten Jensen &lt;lajl@itu.dk&gt;
+Date:   Fri Sep 20 22:27:06 2024 +0200
+
+    D
+
+commit 16b8f7f933c4c92b83ebb8602109c84c2d799359
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>This may land us a lot of diffs, which may not be desirable if there are a lot of changes between where we are in the branch and the commit hash we are trying to bring back.</p>
+<p>There is an even better way—cherry-pick the commit hash.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<pre><code class="hljs language-bash">git cherry-pick &lt;commit-hash&gt;
+</code></pre><p>Know that the command exists, but we will not go into it further in this course.</p>
+</br>
+</br>
+</div><div class="lesson-links"><a href="/itu-bds-sdse/lessons/git-basics/merging" class="prev">← Previous</a><a href="/itu-bds-sdse/lessons/git-basics/remote-and-fetch" class="next">Next →</a></div></div><div class="details-bg"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="154" height="154" viewBox="0 0 154 154"><defs><clipPath id="clip-path"><rect id="Rectangle_2238" data-name="Rectangle 2238" width="154" height="154" transform="translate(9467 350)" fill="#fff" stroke="#707070" stroke-width="1"></rect></clipPath><clipPath id="clip-corner-image-active"><rect width="154" height="154"></rect></clipPath></defs><g id="corner-image-active" clip-path="url(#clip-corner-image-active)"><g id="Corner-image-active-2" data-name="Corner-image-active" transform="translate(-9467 -350)" clip-path="url(#clip-path)"><path id="Subtraction_34" data-name="Subtraction 34" d="M-3857.365,1740.766h0l-7.07-7.07,12.89-12.89v14.142l-5.818,5.818Zm-14.142-14.142h0l-7.071-7.07,27.033-27.033v14.143l-19.96,19.96Zm-14.143-14.143h0l-7.07-7.069,41.175-41.175v14.142Zm-14.142-14.142h0l-7.07-7.069,55.317-55.317v14.142Zm-14.142-14.142h0l-7.07-7.069,69.459-69.459v14.142Zm-14.142-14.142h0l-7.07-7.069,76.739-76.739h6.862v7.28Zm-14.143-14.143h0l-7.07-7.069,62.6-62.6h14.142Zm-14.142-14.142h0l-7.07-7.069,48.454-48.454h14.142Zm-14.142-14.142h0l-7.07-7.069,34.312-34.312h14.142Zm-14.142-14.142h0l-7.07-7.069,20.17-20.17h14.142Zm-14.142-14.142h0l-7.071-7.071,6.027-6.027h14.144l-13.1,13.1Zm367.24-56.114v-.909l.455.455-.453.453Z" transform="translate(13472.546 -1236.766)" fill="var(--corner-fill)"></path></g></g></svg></div></div></div></div><footer class="footer"><ul class="socials"><li class="social"><a href="https://github.com/lasselundstenjensen/itu-bds-sdse"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-github-social"><rect width="32" height="32"></rect></clipPath></defs><g id="github-social" clip-path="url(#clip-github-social)"><g id="Group_272" data-name="Group 272" transform="translate(13522.5 -6994)"><path id="Subtraction_33" data-name="Subtraction 33" d="M-24967.5,8041a15.9,15.9,0,0,1-11.312-4.688A15.893,15.893,0,0,1-24983.5,8025a15.893,15.893,0,0,1,4.689-11.315A15.894,15.894,0,0,1-24967.5,8009a15.894,15.894,0,0,1,11.313,4.686A15.893,15.893,0,0,1-24951.5,8025a15.893,15.893,0,0,1-4.689,11.313A15.9,15.9,0,0,1-24967.5,8041Zm-3.781-4.571h0v3.918h7.895v-6.665a1.836,1.836,0,0,0-1.2-1.718c5.1-.617,7.467-2.975,7.467-7.424a7.176,7.176,0,0,0-1.637-4.728,6.74,6.74,0,0,0,.275-1.812,4.34,4.34,0,0,0-.52-2.452.574.574,0,0,0-.359-.1c-1.061,0-3.465,1.411-3.936,1.694a16.644,16.644,0,0,0-4.2-.489,16.379,16.379,0,0,0-3.969.445c-.846-.5-2.91-1.649-3.859-1.649a.566.566,0,0,0-.354.095,4.3,4.3,0,0,0-.521,2.452,6.7,6.7,0,0,0,.244,1.718,7.346,7.346,0,0,0-1.6,4.822,7.263,7.263,0,0,0,1.533,4.985c1.193,1.359,3.115,2.165,5.871,2.464a1.826,1.826,0,0,0-1.129,1.693v.5h0l-.006,0a7.121,7.121,0,0,1-2.033.363,2.608,2.608,0,0,1-.965-.158,4.438,4.438,0,0,1-1.836-1.881,2.361,2.361,0,0,0-1.248-1.091,3.472,3.472,0,0,0-1.217-.3.584.584,0,0,0-.545.224.282.282,0,0,0,.027.367,1.875,1.875,0,0,0,.447.307,4.732,4.732,0,0,1,.561.355,10.726,10.726,0,0,1,1.682,2.755c.043.092.078.163.105.217a3.876,3.876,0,0,0,2.42,1.185,6.036,6.036,0,0,0,.607.025c.875,0,1.988-.124,2-.125Z" transform="translate(11461 -1015)" fill="var(--footer-icons)"></path><g id="Ellipse_670" data-name="Ellipse 670" transform="translate(-13522.5 6994)" fill="none" stroke="var(--footer-icons)" stroke-width="1"><circle cx="16" cy="16" r="16" stroke="none"></circle><circle cx="16" cy="16" r="15.5" fill="none"></circle></g></g></g></svg></a></li><li class="social"><a href="https://linkedin.com/in/lasselundstenjensen"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-linkedin-social"><rect width="32" height="32"></rect></clipPath></defs><g id="linkedin-social" clip-path="url(#clip-linkedin-social)"><g id="Group_270" data-name="Group 270" transform="translate(-86.349 -633.073)"><path id="Path_375" data-name="Path 375" d="M115.789,633.073a2.324,2.324,0,0,1,1.682.676,2.194,2.194,0,0,1,.695,1.627V662.8a2.131,2.131,0,0,1-.695,1.609,2.314,2.314,0,0,1-1.646.659H88.69a2.307,2.307,0,0,1-1.646-.659,2.128,2.128,0,0,1-.695-1.609V635.376a2.19,2.19,0,0,1,.695-1.627,2.322,2.322,0,0,1,1.682-.676h27.063Zm-20.224,9.672a2.561,2.561,0,0,0,0-3.584,2.658,2.658,0,0,0-1.938-.712,2.724,2.724,0,0,0-1.957.712,2.371,2.371,0,0,0-.75,1.792,2.4,2.4,0,0,0,.731,1.792,2.605,2.605,0,0,0,1.9.713h.037A2.7,2.7,0,0,0,95.565,642.745ZM96,645.434H91.213V659.88H96Zm17.3,6.144a7.007,7.007,0,0,0-1.573-4.9,5.68,5.68,0,0,0-6.839-.769,5.663,5.663,0,0,0-1.426,1.573v-2.048H98.674q.036.841,0,7.717v6.728h4.791V651.8a3.592,3.592,0,0,1,.146-1.17,2.913,2.913,0,0,1,.878-1.206,2.429,2.429,0,0,1,1.609-.549,2.108,2.108,0,0,1,1.865.914,4.265,4.265,0,0,1,.549,2.341v7.752H113.3Z" fill="var(--footer-icons)"></path></g></g></svg></a></li><li class="social"><div class="terms"><p>Content Licensed Under CC-BY-NC-4.0</p><p>Code Samples and Excercises Licensed Under Apache 2.0</p><p>Site Designed by<!-- --> <a href="https://www.alexdanielson.com/">Alex Danielson</a></p></div></li></ul></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"attributes":{"description":"Basics of Git.","title":"HEAD and reflog","keywords":["Software engineering","Git"]},"html":"\u003ch2\u003eHEAD\u003c/h2\u003e\n\u003cp\u003eBy now you might have noticed that it says \u003ccode\u003eHEAD\u003c/code\u003e several places in the logs.\u003c/p\u003e\n\u003cp\u003eCan you guess what it means...?\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eExercise: Check out \u003ccode\u003eHEAD\u003c/code\u003e in the \u003ccode\u003e.git\u003c/code\u003e directory\u003c/h3\u003e\n\u003cp\u003e(not git checkout—just check it out as in: look at it)\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eSolution: Check out \u003ccode\u003eHEAD\u003c/code\u003e in the \u003ccode\u003e.git\u003c/code\u003e directory\u003c/h3\u003e\n\u003cp\u003e\u003ccode\u003eHEAD\u003c/code\u003e is a reference to the current commit you have checked out. It is a pointer to the branch you are currently on.\u003c/p\u003e\n\u003cp\u003eWe should see something like this.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003e\u003cspan class=\"hljs-built_in\"\u003ecat\u003c/span\u003e .git/HEAD\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003eref: refs/heads/main\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eAnd additionally, we can see the contents of the file \u003ccode\u003erefs/heads/main\u003c/code\u003e.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003e\u003cspan class=\"hljs-built_in\"\u003ecat\u003c/span\u003e .git/refs/heads/main\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003e562f95864c377acd831d1027eeba98fa86875d6d\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eSo, literally just a reference to the commit hash you are on.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eReflog\u003c/h2\u003e\n\u003cp\u003eThis is a bit of a cool command.\u003c/p\u003e\n\u003cp\u003eIt shows a log of changes to \u003ccode\u003eHEAD\u003c/code\u003e. So—where \u003ccode\u003eHEAD\u003c/code\u003e has been pointing to.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit reflog\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003e(try it out now)\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003e562f958 (HEAD -\u0026gt; main) HEAD@{0}: checkout: moving from feature to main\n312c2e9 (feature) HEAD@{1}: checkout: moving from feature-rebase-main to feature\n109ad4e (feature-rebase-main) HEAD@{2}: checkout: moving from main to feature-rebase-main\n562f958 (HEAD -\u0026gt; main) HEAD@{3}: checkout: moving from feature-rebase-main to main\n109ad4e (feature-rebase-main) HEAD@{4}: rebase (finish): returning to refs/heads/feature-rebase-main\n109ad4e (feature-rebase-main) HEAD@{5}: rebase (pick): C\nb12a712 HEAD@{6}: rebase (pick): B\n562f958 (HEAD -\u0026gt; main) HEAD@{7}: rebase (start): checkout main\n312c2e9 (feature) HEAD@{8}: checkout: moving from feature to feature-rebase-main\n312c2e9 (feature) HEAD@{9}: checkout: moving from main to feature\n562f958 (HEAD -\u0026gt; main) HEAD@{10}: merge feature-two: Fast-forward\n1fef215 HEAD@{11}: checkout: moving from feature-two to main\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003e\u003cstrong\u003eQuestion:\u003c/strong\u003e What do you think is stored in the \u003ccode\u003e.git/logs\u003c/code\u003e directory?\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eYou can limit search like this.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit reflog -3  \u003cspan class=\"hljs-comment\"\u003e# shows the last 3 entries\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eRecovering lost commits\u003c/h2\u003e\n\u003cp\u003eIf you accidentally delete a branch, you can recover it by checking out the commit hash from the reflog.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit reflog \n\u003cspan class=\"hljs-comment\"\u003e# find the commit hash\u003c/span\u003e\ngit merge \u0026lt;commit-hash\u0026gt;\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eExercise: Recover a lost commit\u003c/h3\u003e\n\u003cblockquote\u003e\n\u003cul\u003e\n\u003cli\u003eCreate a new branch \u003ccode\u003efeature-delete-test\u003c/code\u003e based on \u003ccode\u003emain\u003c/code\u003e.\u003c/li\u003e\n\u003cli\u003eCheckout \u003ccode\u003efeature-delete-test\u003c/code\u003e.\u003c/li\u003e\n\u003cli\u003eAdd a new file with some content (important).\u003c/li\u003e\n\u003cli\u003eCommit the changes.\u003c/li\u003e\n\u003cli\u003eSwitch back to \u003ccode\u003emain\u003c/code\u003e.\u003c/li\u003e\n\u003cli\u003eDelete the branch \u003ccode\u003efeature-delete-test\u003c/code\u003e.\u003c/li\u003e\n\u003cli\u003eTry to recover the branch using the reflog and merge.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eSolution: Recover a lost commit\u003c/h3\u003e\n\u003cp\u003eCreate the branch and the change and commit it.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit checkout main\ngit checkout -b feature-delete-test\n\u003cspan class=\"hljs-built_in\"\u003eecho\u003c/span\u003e \u003cspan class=\"hljs-string\"\u003e\u0026quot;some text\u0026quot;\u003c/span\u003e \u0026gt;\u0026gt; tester.md\ngit add .\ngit commit -m \u003cspan class=\"hljs-string\"\u003e\u0026quot;some commit message\u0026quot;\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003e[feature-delete-test 058f2b5] some commit message\n 1 file changed, 1 insertion(+)\n create mode 100644 tester.md\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003eDelete the branch.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit checkout main\ngit branch -D feature-delete-test\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003eRecover the lost commit.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit reflog -3\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003e562f958 (HEAD -\u0026gt; main) HEAD@{0}: checkout: moving from feature-delete-test to main\n058f2b5 HEAD@{1}: commit: some commit message\n562f958 (HEAD -\u0026gt; main) HEAD@{2}: checkout: moving from main to feature-delete-test\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003eCopy the hash of the commit, in this case \u003ccode\u003e058f2b5\u003c/code\u003e.\u003c/p\u003e\n\u003cp\u003eCreate a new branch and recover the commit. Creating a new branch is purely for keeping the changes in a branch.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit checkout -b feature-delete-test\ngit merge 058f2b5\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003eUpdating 562f958..058f2b5\nFast-forward\n tester.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 tester.md\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003eCheck the log to see that the commit is back.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit \u003cspan class=\"hljs-built_in\"\u003elog\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003ecommit 058f2b5e13773f4e6aca1fa4ebe412ddab64ea5a (HEAD -\u0026gt; feature-delete-test)\nAuthor: Lasse Lund Sten Jensen \u0026lt;lajl@itu.dk\u0026gt;\nDate:   Tue Sep 24 00:04:13 2024 +0200\n\n    some commit message\n\ncommit 562f95864c377acd831d1027eeba98fa86875d6d (main)\nAuthor: Lasse Lund Sten Jensen \u0026lt;lajl@itu.dk\u0026gt;\nDate:   Mon Sep 23 18:54:56 2024 +0200\n\n    Y\n\ncommit 37fb15232e7b8cc90d9f7e7470d95331936956e5\nAuthor: Lasse Lund Sten Jensen \u0026lt;lajl@itu.dk\u0026gt;\nDate:   Mon Sep 23 18:54:37 2024 +0200\n\n    X\n\ncommit 1fef21501625d1cb1ab99318ad0fa8487d6ef5cb\nAuthor: Lasse Lund Sten Jensen \u0026lt;lajl@itu.dk\u0026gt;\nDate:   Fri Sep 20 22:27:19 2024 +0200\n\n    E\n\ncommit 8ae69da5d2938a5fee06207f2c3320a4c5b90a9b\nAuthor: Lasse Lund Sten Jensen \u0026lt;lajl@itu.dk\u0026gt;\nDate:   Fri Sep 20 22:27:06 2024 +0200\n\n    D\n\ncommit 16b8f7f933c4c92b83ebb8602109c84c2d799359\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eThis may land us a lot of diffs, which may not be desirable if there are a lot of changes between where we are in the branch and the commit hash we are trying to bring back.\u003c/p\u003e\n\u003cp\u003eThere is an even better way—cherry-pick the commit hash.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit cherry-pick \u0026lt;commit-hash\u0026gt;\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eKnow that the command exists, but we will not go into it further in this course.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n","markdown":"\n## HEAD\n\nBy now you might have noticed that it says `HEAD` several places in the logs.\n\nCan you guess what it means...?\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Exercise: Check out `HEAD` in the `.git` directory\n\n(not git checkout—just check it out as in: look at it)\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Solution: Check out `HEAD` in the `.git` directory\n\n`HEAD` is a reference to the current commit you have checked out. It is a pointer to the branch you are currently on.\n\nWe should see something like this.\n\n```bash\ncat .git/HEAD\n```\n\n**Output:**\n\n```plaintext\nref: refs/heads/main\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nAnd additionally, we can see the contents of the file `refs/heads/main`.\n\n```bash\ncat .git/refs/heads/main\n```\n\n**Output:**\n\n```plaintext\n562f95864c377acd831d1027eeba98fa86875d6d\n```\n\nSo, literally just a reference to the commit hash you are on.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Reflog\n\nThis is a bit of a cool command.\n\nIt shows a log of changes to `HEAD`. So—where `HEAD` has been pointing to.\n\n```bash\ngit reflog\n```\n\n\u003c/br\u003e\n\n(try it out now)\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n**Output:**\n\n```plaintext\n562f958 (HEAD -\u003e main) HEAD@{0}: checkout: moving from feature to main\n312c2e9 (feature) HEAD@{1}: checkout: moving from feature-rebase-main to feature\n109ad4e (feature-rebase-main) HEAD@{2}: checkout: moving from main to feature-rebase-main\n562f958 (HEAD -\u003e main) HEAD@{3}: checkout: moving from feature-rebase-main to main\n109ad4e (feature-rebase-main) HEAD@{4}: rebase (finish): returning to refs/heads/feature-rebase-main\n109ad4e (feature-rebase-main) HEAD@{5}: rebase (pick): C\nb12a712 HEAD@{6}: rebase (pick): B\n562f958 (HEAD -\u003e main) HEAD@{7}: rebase (start): checkout main\n312c2e9 (feature) HEAD@{8}: checkout: moving from feature to feature-rebase-main\n312c2e9 (feature) HEAD@{9}: checkout: moving from main to feature\n562f958 (HEAD -\u003e main) HEAD@{10}: merge feature-two: Fast-forward\n1fef215 HEAD@{11}: checkout: moving from feature-two to main\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003e **Question:** What do you think is stored in the `.git/logs` directory?\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nYou can limit search like this.\n\n```bash\ngit reflog -3  # shows the last 3 entries\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Recovering lost commits\n\nIf you accidentally delete a branch, you can recover it by checking out the commit hash from the reflog.\n\n```bash\ngit reflog \n# find the commit hash\ngit merge \u003ccommit-hash\u003e\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Exercise: Recover a lost commit\n\n\u003e * Create a new branch `feature-delete-test` based on `main`.\n\u003e * Checkout `feature-delete-test`.\n\u003e * Add a new file with some content (important).\n\u003e * Commit the changes.\n\u003e * Switch back to `main`.\n\u003e * Delete the branch `feature-delete-test`.\n\u003e * Try to recover the branch using the reflog and merge.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Solution: Recover a lost commit\n\nCreate the branch and the change and commit it.\n\n```bash\ngit checkout main\ngit checkout -b feature-delete-test\necho \"some text\" \u003e\u003e tester.md\ngit add .\ngit commit -m \"some commit message\"\n```\n\n**Output:**\n\n```plaintext\n[feature-delete-test 058f2b5] some commit message\n 1 file changed, 1 insertion(+)\n create mode 100644 tester.md\n```\n\n\u003c/br\u003e\n\nDelete the branch.\n\n```bash\ngit checkout main\ngit branch -D feature-delete-test\n```\n\n\u003c/br\u003e\n\nRecover the lost commit.\n\n```bash\ngit reflog -3\n```\n\n**Output:**\n\n```plaintext\n562f958 (HEAD -\u003e main) HEAD@{0}: checkout: moving from feature-delete-test to main\n058f2b5 HEAD@{1}: commit: some commit message\n562f958 (HEAD -\u003e main) HEAD@{2}: checkout: moving from main to feature-delete-test\n```\n\n\u003c/br\u003e\n\nCopy the hash of the commit, in this case `058f2b5`.\n\nCreate a new branch and recover the commit. Creating a new branch is purely for keeping the changes in a branch.\n\n```bash\ngit checkout -b feature-delete-test\ngit merge 058f2b5\n```\n\n**Output:**\n\n```plaintext\nUpdating 562f958..058f2b5\nFast-forward\n tester.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 tester.md\n```\n\n\u003c/br\u003e\n\nCheck the log to see that the commit is back.\n\n```bash\ngit log\n```\n\n**Output:**\n\n```plaintext\ncommit 058f2b5e13773f4e6aca1fa4ebe412ddab64ea5a (HEAD -\u003e feature-delete-test)\nAuthor: Lasse Lund Sten Jensen \u003clajl@itu.dk\u003e\nDate:   Tue Sep 24 00:04:13 2024 +0200\n\n    some commit message\n\ncommit 562f95864c377acd831d1027eeba98fa86875d6d (main)\nAuthor: Lasse Lund Sten Jensen \u003clajl@itu.dk\u003e\nDate:   Mon Sep 23 18:54:56 2024 +0200\n\n    Y\n\ncommit 37fb15232e7b8cc90d9f7e7470d95331936956e5\nAuthor: Lasse Lund Sten Jensen \u003clajl@itu.dk\u003e\nDate:   Mon Sep 23 18:54:37 2024 +0200\n\n    X\n\ncommit 1fef21501625d1cb1ab99318ad0fa8487d6ef5cb\nAuthor: Lasse Lund Sten Jensen \u003clajl@itu.dk\u003e\nDate:   Fri Sep 20 22:27:19 2024 +0200\n\n    E\n\ncommit 8ae69da5d2938a5fee06207f2c3320a4c5b90a9b\nAuthor: Lasse Lund Sten Jensen \u003clajl@itu.dk\u003e\nDate:   Fri Sep 20 22:27:06 2024 +0200\n\n    D\n\ncommit 16b8f7f933c4c92b83ebb8602109c84c2d799359\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nThis may land us a lot of diffs, which may not be desirable if there are a lot of changes between where we are in the branch and the commit hash we are trying to bring back.\n\nThere is an even better way—cherry-pick the commit hash.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n```bash\ngit cherry-pick \u003ccommit-hash\u003e\n```\n\nKnow that the command exists, but we will not go into it further in this course.\n\n\u003c/br\u003e\n\u003c/br\u003e\n","slug":"head-and-reflog","title":"HEAD and reflog","section":"Git basics","icon":"code","filePath":"/home/runner/work/itu-bds-sdse/itu-bds-sdse/lessons/06-git-basics/G-head-and-reflog.md","nextSlug":"/itu-bds-sdse/lessons/git-basics/remote-and-fetch","prevSlug":"/itu-bds-sdse/lessons/git-basics/merging"}},"__N_SSG":true},"page":"/lessons/[section]/[slug]","query":{"section":"git-basics","slug":"head-and-reflog"},"buildId":"aGU_TgP1G33XsxgAaS_TT","assetPrefix":"/itu-bds-sdse","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

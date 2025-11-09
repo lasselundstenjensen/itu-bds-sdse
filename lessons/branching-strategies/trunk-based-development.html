@@ -1,0 +1,180 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><link rel="apple-touch-icon" sizes="180x180" href="/itu-bds-sdse/images/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/itu-bds-sdse/images/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/x-icon" href="/itu-bds-sdse/images/favicon.ico"/><title>Trunk-based development – Data Science in Production: MLOps and Software Engineering</title><meta name="description" content="Branching strategies."/><meta name="keywords" content="Software engineering,Git"/><meta name="og:description" content="Branching strategies."/><meta name="og:title" content="Trunk-based development – Data Science in Production: MLOps and Software Engineering"/><meta name="og:image" content="/itu-bds-sdse/images/social-share-cover.jpg"/><meta name="twitter:card" content="summary_large_image"/><meta name="next-head-count" content="14"/><link data-next-font="size-adjust" rel="preconnect" href="/" crossorigin="anonymous"/><link rel="preload" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" as="style"/><link rel="stylesheet" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/itu-bds-sdse/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"></script><script src="/itu-bds-sdse/_next/static/chunks/webpack-8116fd4d628798fe.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/framework-ecc4130bc7a58a64.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/main-348f16897b94a0d5.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/_app-fa68bd1b4993f298.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/lessons/%5Bsection%5D/%5Bslug%5D-c2cb604784d7e04f.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_buildManifest.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="remix-app"><header class="navbar"><h1 class="navbar-brand"><a href="/itu-bds-sdse">Data Science in Production: MLOps and Software Engineering</a></h1><div class="navbar-info"></div></header><div class="content-container"><div class="main"><div class="lesson-container"><div class="lesson"><div class="lesson-content"><h2>Trunk-based development</h2>
+<p><img src="../../images/lessons/git/trunk-based-one-line-summary.png" alt="Trunk-based development summary"></p>
+</br>
+
+<p><em>Source: <a href="https://trunkbaseddevelopment.com">https://trunkbaseddevelopment.com</a></em></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>Trunk-based development is a branching model where all developers work on a single branch. This branch is often called <code>main</code> or <code>trunk</code>. The main branch is the source of truth for the project. Developers commit their changes directly to the main branch.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Shared branches off mainline/main/trunk are bad at any release cadence:</h3>
+</br>
+
+<div style="background-color: white;">
+<img src="../../images/lessons/git/trunk1a.png" />
+</div>
+
+</br>
+
+<p><em>Source: <a href="https://trunkbaseddevelopment.com">https://trunkbaseddevelopment.com</a></em></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Trunk-Based Development For Smaller Teams:</h3>
+</br>
+
+<div style="background-color: white;">
+<img src="../../images/lessons/git/trunk1b.png" />
+</div>
+
+</br>
+
+<p><em>Source: <a href="https://trunkbaseddevelopment.com">https://trunkbaseddevelopment.com</a></em></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Scaled Trunk-Based Development:</h3>
+</br>
+
+<div style="background-color: white;">
+<img src="../../images/lessons/git/trunk1c.png" />
+</div>
+
+</br>
+
+<p><em>Source: <a href="https://trunkbaseddevelopment.com">https://trunkbaseddevelopment.com</a></em></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Why trunk-based development?</h2>
+<ul>
+<li><strong>Simplicity</strong>: Trunk-based development is simple. There is only one branch to worry about.</li>
+<li><strong>Speed</strong>: Trunk-based development is fast. Developers can commit their changes directly to the main branch.</li>
+<li><strong>Feedback</strong>: Trunk-based development provides quick feedback. Developers can see the impact of their changes immediately. Continuous integration and automated testing help catch issues early.</li>
+<li><strong>Collaboration</strong>: Trunk-based development encourages collaboration. Developers can work together on the same codebase.</li>
+<li><strong>Quality</strong>: Trunk-based development promotes quality. It is an great enabler strategy for Continuous Integration and Continuous Delivery (CI/CD).</li>
+<li><strong>Release</strong>: Trunk-based development makes releases easier. Developers can release new features with less overhead.</li>
+</ul>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Why is this important?</h2>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<img src="https://media1.tenor.com/m/KsLzwY-GHCYAAAAd/jeremy-clarkson-speed.gif" alt="Speed"  width="100%"/>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Speed</h3>
+<p>Empirical evidence shows that high performing teams commit to the main branch more frequently, release more frequently, and have shorter lead times. They also have lower change failure rates and faster mean time to recovery.</p>
+<p>This practice leads to faster feedback loops and higher quality code.</p>
+</br>
+
+<blockquote>
+<p>In short and maybe counter intuitively—<strong>going faster</strong> and releasing more frequently actually <strong>leads to higher quality</strong> products.</p>
+</blockquote>
+</br>
+
+<p><img src="../../images/lessons/git/accelerate-book.png" alt="Accelerate, Nicole Forsgren"></p>
+</br>
+
+<p><em>Source: <a href="https://itrevolution.com/product/accelerate/">https://itrevolution.com/product/accelerate/</a></em></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<blockquote>
+<p><strong>Advice:</strong> Use this branching strategy as the default option whenever possible. It is simple, fast, and promotes collaboration and quality.</p>
+</blockquote>
+</br>
+</br>
+</div><div class="lesson-links"><a href="/itu-bds-sdse/lessons/branching-strategies/gitflow" class="prev">← Previous</a><a href="/itu-bds-sdse/lessons/developer-behavior/good-developer-habits" class="next">Next →</a></div></div><div class="details-bg"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="154" height="154" viewBox="0 0 154 154"><defs><clipPath id="clip-path"><rect id="Rectangle_2238" data-name="Rectangle 2238" width="154" height="154" transform="translate(9467 350)" fill="#fff" stroke="#707070" stroke-width="1"></rect></clipPath><clipPath id="clip-corner-image-active"><rect width="154" height="154"></rect></clipPath></defs><g id="corner-image-active" clip-path="url(#clip-corner-image-active)"><g id="Corner-image-active-2" data-name="Corner-image-active" transform="translate(-9467 -350)" clip-path="url(#clip-path)"><path id="Subtraction_34" data-name="Subtraction 34" d="M-3857.365,1740.766h0l-7.07-7.07,12.89-12.89v14.142l-5.818,5.818Zm-14.142-14.142h0l-7.071-7.07,27.033-27.033v14.143l-19.96,19.96Zm-14.143-14.143h0l-7.07-7.069,41.175-41.175v14.142Zm-14.142-14.142h0l-7.07-7.069,55.317-55.317v14.142Zm-14.142-14.142h0l-7.07-7.069,69.459-69.459v14.142Zm-14.142-14.142h0l-7.07-7.069,76.739-76.739h6.862v7.28Zm-14.143-14.143h0l-7.07-7.069,62.6-62.6h14.142Zm-14.142-14.142h0l-7.07-7.069,48.454-48.454h14.142Zm-14.142-14.142h0l-7.07-7.069,34.312-34.312h14.142Zm-14.142-14.142h0l-7.07-7.069,20.17-20.17h14.142Zm-14.142-14.142h0l-7.071-7.071,6.027-6.027h14.144l-13.1,13.1Zm367.24-56.114v-.909l.455.455-.453.453Z" transform="translate(13472.546 -1236.766)" fill="var(--corner-fill)"></path></g></g></svg></div></div></div></div><footer class="footer"><ul class="socials"><li class="social"><a href="https://github.com/lasselundstenjensen/itu-bds-sdse"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-github-social"><rect width="32" height="32"></rect></clipPath></defs><g id="github-social" clip-path="url(#clip-github-social)"><g id="Group_272" data-name="Group 272" transform="translate(13522.5 -6994)"><path id="Subtraction_33" data-name="Subtraction 33" d="M-24967.5,8041a15.9,15.9,0,0,1-11.312-4.688A15.893,15.893,0,0,1-24983.5,8025a15.893,15.893,0,0,1,4.689-11.315A15.894,15.894,0,0,1-24967.5,8009a15.894,15.894,0,0,1,11.313,4.686A15.893,15.893,0,0,1-24951.5,8025a15.893,15.893,0,0,1-4.689,11.313A15.9,15.9,0,0,1-24967.5,8041Zm-3.781-4.571h0v3.918h7.895v-6.665a1.836,1.836,0,0,0-1.2-1.718c5.1-.617,7.467-2.975,7.467-7.424a7.176,7.176,0,0,0-1.637-4.728,6.74,6.74,0,0,0,.275-1.812,4.34,4.34,0,0,0-.52-2.452.574.574,0,0,0-.359-.1c-1.061,0-3.465,1.411-3.936,1.694a16.644,16.644,0,0,0-4.2-.489,16.379,16.379,0,0,0-3.969.445c-.846-.5-2.91-1.649-3.859-1.649a.566.566,0,0,0-.354.095,4.3,4.3,0,0,0-.521,2.452,6.7,6.7,0,0,0,.244,1.718,7.346,7.346,0,0,0-1.6,4.822,7.263,7.263,0,0,0,1.533,4.985c1.193,1.359,3.115,2.165,5.871,2.464a1.826,1.826,0,0,0-1.129,1.693v.5h0l-.006,0a7.121,7.121,0,0,1-2.033.363,2.608,2.608,0,0,1-.965-.158,4.438,4.438,0,0,1-1.836-1.881,2.361,2.361,0,0,0-1.248-1.091,3.472,3.472,0,0,0-1.217-.3.584.584,0,0,0-.545.224.282.282,0,0,0,.027.367,1.875,1.875,0,0,0,.447.307,4.732,4.732,0,0,1,.561.355,10.726,10.726,0,0,1,1.682,2.755c.043.092.078.163.105.217a3.876,3.876,0,0,0,2.42,1.185,6.036,6.036,0,0,0,.607.025c.875,0,1.988-.124,2-.125Z" transform="translate(11461 -1015)" fill="var(--footer-icons)"></path><g id="Ellipse_670" data-name="Ellipse 670" transform="translate(-13522.5 6994)" fill="none" stroke="var(--footer-icons)" stroke-width="1"><circle cx="16" cy="16" r="16" stroke="none"></circle><circle cx="16" cy="16" r="15.5" fill="none"></circle></g></g></g></svg></a></li><li class="social"><a href="https://linkedin.com/in/lasselundstenjensen"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-linkedin-social"><rect width="32" height="32"></rect></clipPath></defs><g id="linkedin-social" clip-path="url(#clip-linkedin-social)"><g id="Group_270" data-name="Group 270" transform="translate(-86.349 -633.073)"><path id="Path_375" data-name="Path 375" d="M115.789,633.073a2.324,2.324,0,0,1,1.682.676,2.194,2.194,0,0,1,.695,1.627V662.8a2.131,2.131,0,0,1-.695,1.609,2.314,2.314,0,0,1-1.646.659H88.69a2.307,2.307,0,0,1-1.646-.659,2.128,2.128,0,0,1-.695-1.609V635.376a2.19,2.19,0,0,1,.695-1.627,2.322,2.322,0,0,1,1.682-.676h27.063Zm-20.224,9.672a2.561,2.561,0,0,0,0-3.584,2.658,2.658,0,0,0-1.938-.712,2.724,2.724,0,0,0-1.957.712,2.371,2.371,0,0,0-.75,1.792,2.4,2.4,0,0,0,.731,1.792,2.605,2.605,0,0,0,1.9.713h.037A2.7,2.7,0,0,0,95.565,642.745ZM96,645.434H91.213V659.88H96Zm17.3,6.144a7.007,7.007,0,0,0-1.573-4.9,5.68,5.68,0,0,0-6.839-.769,5.663,5.663,0,0,0-1.426,1.573v-2.048H98.674q.036.841,0,7.717v6.728h4.791V651.8a3.592,3.592,0,0,1,.146-1.17,2.913,2.913,0,0,1,.878-1.206,2.429,2.429,0,0,1,1.609-.549,2.108,2.108,0,0,1,1.865.914,4.265,4.265,0,0,1,.549,2.341v7.752H113.3Z" fill="var(--footer-icons)"></path></g></g></svg></a></li><li class="social"><div class="terms"><p>Content Licensed Under CC-BY-NC-4.0</p><p>Code Samples and Excercises Licensed Under Apache 2.0</p><p>Site Designed by<!-- --> <a href="https://www.alexdanielson.com/">Alex Danielson</a></p></div></li></ul></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"attributes":{"description":"Branching strategies.","title":"Trunk-based development","keywords":["Software engineering","Git"]},"html":"\u003ch2\u003eTrunk-based development\u003c/h2\u003e\n\u003cp\u003e\u003cimg src=\"../../images/lessons/git/trunk-based-one-line-summary.png\" alt=\"Trunk-based development summary\"\u003e\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cem\u003eSource: \u003ca href=\"https://trunkbaseddevelopment.com\"\u003ehttps://trunkbaseddevelopment.com\u003c/a\u003e\u003c/em\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eTrunk-based development is a branching model where all developers work on a single branch. This branch is often called \u003ccode\u003emain\u003c/code\u003e or \u003ccode\u003etrunk\u003c/code\u003e. The main branch is the source of truth for the project. Developers commit their changes directly to the main branch.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eShared branches off mainline/main/trunk are bad at any release cadence:\u003c/h3\u003e\n\u003c/br\u003e\n\n\u003cdiv style=\"background-color: white;\"\u003e\n\u003cimg src=\"../../images/lessons/git/trunk1a.png\" /\u003e\n\u003c/div\u003e\n\n\u003c/br\u003e\n\n\u003cp\u003e\u003cem\u003eSource: \u003ca href=\"https://trunkbaseddevelopment.com\"\u003ehttps://trunkbaseddevelopment.com\u003c/a\u003e\u003c/em\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eTrunk-Based Development For Smaller Teams:\u003c/h3\u003e\n\u003c/br\u003e\n\n\u003cdiv style=\"background-color: white;\"\u003e\n\u003cimg src=\"../../images/lessons/git/trunk1b.png\" /\u003e\n\u003c/div\u003e\n\n\u003c/br\u003e\n\n\u003cp\u003e\u003cem\u003eSource: \u003ca href=\"https://trunkbaseddevelopment.com\"\u003ehttps://trunkbaseddevelopment.com\u003c/a\u003e\u003c/em\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eScaled Trunk-Based Development:\u003c/h3\u003e\n\u003c/br\u003e\n\n\u003cdiv style=\"background-color: white;\"\u003e\n\u003cimg src=\"../../images/lessons/git/trunk1c.png\" /\u003e\n\u003c/div\u003e\n\n\u003c/br\u003e\n\n\u003cp\u003e\u003cem\u003eSource: \u003ca href=\"https://trunkbaseddevelopment.com\"\u003ehttps://trunkbaseddevelopment.com\u003c/a\u003e\u003c/em\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eWhy trunk-based development?\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003eSimplicity\u003c/strong\u003e: Trunk-based development is simple. There is only one branch to worry about.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eSpeed\u003c/strong\u003e: Trunk-based development is fast. Developers can commit their changes directly to the main branch.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eFeedback\u003c/strong\u003e: Trunk-based development provides quick feedback. Developers can see the impact of their changes immediately. Continuous integration and automated testing help catch issues early.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eCollaboration\u003c/strong\u003e: Trunk-based development encourages collaboration. Developers can work together on the same codebase.\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eQuality\u003c/strong\u003e: Trunk-based development promotes quality. It is an great enabler strategy for Continuous Integration and Continuous Delivery (CI/CD).\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eRelease\u003c/strong\u003e: Trunk-based development makes releases easier. Developers can release new features with less overhead.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eWhy is this important?\u003c/h2\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cimg src=\"https://media1.tenor.com/m/KsLzwY-GHCYAAAAd/jeremy-clarkson-speed.gif\" alt=\"Speed\"  width=\"100%\"/\u003e\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eSpeed\u003c/h3\u003e\n\u003cp\u003eEmpirical evidence shows that high performing teams commit to the main branch more frequently, release more frequently, and have shorter lead times. They also have lower change failure rates and faster mean time to recovery.\u003c/p\u003e\n\u003cp\u003eThis practice leads to faster feedback loops and higher quality code.\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003eIn short and maybe counter intuitively—\u003cstrong\u003egoing faster\u003c/strong\u003e and releasing more frequently actually \u003cstrong\u003eleads to higher quality\u003c/strong\u003e products.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cimg src=\"../../images/lessons/git/accelerate-book.png\" alt=\"Accelerate, Nicole Forsgren\"\u003e\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cem\u003eSource: \u003ca href=\"https://itrevolution.com/product/accelerate/\"\u003ehttps://itrevolution.com/product/accelerate/\u003c/a\u003e\u003c/em\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003e\u003cstrong\u003eAdvice:\u003c/strong\u003e Use this branching strategy as the default option whenever possible. It is simple, fast, and promotes collaboration and quality.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n","markdown":"\n## Trunk-based development\n\n![Trunk-based development summary](../../images/lessons/git/trunk-based-one-line-summary.png)\n\n\u003c/br\u003e\n\n*Source: https://trunkbaseddevelopment.com*\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nTrunk-based development is a branching model where all developers work on a single branch. This branch is often called `main` or `trunk`. The main branch is the source of truth for the project. Developers commit their changes directly to the main branch.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Shared branches off mainline/main/trunk are bad at any release cadence:\n\n\u003c/br\u003e\n\n\u003cdiv style=\"background-color: white;\"\u003e\n\u003cimg src=\"../../images/lessons/git/trunk1a.png\" /\u003e\n\u003c/div\u003e\n\n\u003c/br\u003e\n\n*Source: https://trunkbaseddevelopment.com*\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Trunk-Based Development For Smaller Teams:\n\n\u003c/br\u003e\n\n\u003cdiv style=\"background-color: white;\"\u003e\n\u003cimg src=\"../../images/lessons/git/trunk1b.png\" /\u003e\n\u003c/div\u003e\n\n\u003c/br\u003e\n\n*Source: https://trunkbaseddevelopment.com*\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Scaled Trunk-Based Development:\n\n\u003c/br\u003e\n\n\u003cdiv style=\"background-color: white;\"\u003e\n\u003cimg src=\"../../images/lessons/git/trunk1c.png\" /\u003e\n\u003c/div\u003e\n\n\u003c/br\u003e\n\n*Source: https://trunkbaseddevelopment.com*\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Why trunk-based development?\n\n- **Simplicity**: Trunk-based development is simple. There is only one branch to worry about.\n- **Speed**: Trunk-based development is fast. Developers can commit their changes directly to the main branch.\n- **Feedback**: Trunk-based development provides quick feedback. Developers can see the impact of their changes immediately. Continuous integration and automated testing help catch issues early.\n- **Collaboration**: Trunk-based development encourages collaboration. Developers can work together on the same codebase.\n- **Quality**: Trunk-based development promotes quality. It is an great enabler strategy for Continuous Integration and Continuous Delivery (CI/CD).\n- **Release**: Trunk-based development makes releases easier. Developers can release new features with less overhead.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Why is this important?\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cimg src=\"https://media1.tenor.com/m/KsLzwY-GHCYAAAAd/jeremy-clarkson-speed.gif\" alt=\"Speed\"  width=\"100%\"/\u003e\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Speed\n\nEmpirical evidence shows that high performing teams commit to the main branch more frequently, release more frequently, and have shorter lead times. They also have lower change failure rates and faster mean time to recovery.\n\nThis practice leads to faster feedback loops and higher quality code.\n\n\u003c/br\u003e\n\n\u003e In short and maybe counter intuitively—**going faster** and releasing more frequently actually **leads to higher quality** products.\n\n\u003c/br\u003e\n\n![Accelerate, Nicole Forsgren](../../images/lessons/git/accelerate-book.png)\n\n\u003c/br\u003e\n\n*Source: https://itrevolution.com/product/accelerate/*\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003e **Advice:** Use this branching strategy as the default option whenever possible. It is simple, fast, and promotes collaboration and quality.\n\n\u003c/br\u003e\n\u003c/br\u003e\n","slug":"trunk-based-development","title":"Trunk-based development","section":"Branching strategies","icon":"info-circle","filePath":"/home/runner/work/itu-bds-sdse/itu-bds-sdse/lessons/07-branching-strategies/C-trunk-based-development.md","nextSlug":"/itu-bds-sdse/lessons/developer-behavior/good-developer-habits","prevSlug":"/itu-bds-sdse/lessons/branching-strategies/gitflow"}},"__N_SSG":true},"page":"/lessons/[section]/[slug]","query":{"section":"branching-strategies","slug":"trunk-based-development"},"buildId":"aGU_TgP1G33XsxgAaS_TT","assetPrefix":"/itu-bds-sdse","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

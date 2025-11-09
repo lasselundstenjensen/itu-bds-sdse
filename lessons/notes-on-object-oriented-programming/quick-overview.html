@@ -1,0 +1,273 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><link rel="apple-touch-icon" sizes="180x180" href="/itu-bds-sdse/images/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/itu-bds-sdse/images/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/x-icon" href="/itu-bds-sdse/images/favicon.ico"/><title>Quick overview of Object Oriented Programming – Data Science in Production: MLOps and Software Engineering</title><meta name="description" content="We look at inheritance vs composition"/><meta name="keywords" content="Software engineering,Data science,Go,Lasse Lund Sten Jensen"/><meta name="og:description" content="We look at inheritance vs composition"/><meta name="og:title" content="Quick overview of Object Oriented Programming – Data Science in Production: MLOps and Software Engineering"/><meta name="og:image" content="/itu-bds-sdse/images/social-share-cover.jpg"/><meta name="twitter:card" content="summary_large_image"/><meta name="next-head-count" content="14"/><link data-next-font="size-adjust" rel="preconnect" href="/" crossorigin="anonymous"/><link rel="preload" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" as="style"/><link rel="stylesheet" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/itu-bds-sdse/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"></script><script src="/itu-bds-sdse/_next/static/chunks/webpack-8116fd4d628798fe.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/framework-ecc4130bc7a58a64.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/main-348f16897b94a0d5.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/_app-fa68bd1b4993f298.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/lessons/%5Bsection%5D/%5Bslug%5D-c2cb604784d7e04f.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_buildManifest.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="remix-app"><header class="navbar"><h1 class="navbar-brand"><a href="/itu-bds-sdse">Data Science in Production: MLOps and Software Engineering</a></h1><div class="navbar-info"></div></header><div class="content-container"><div class="main"><div class="lesson-container"><div class="lesson"><div class="lesson-content"><h1>What is Object Oriented Programming?</h1>
+<p>Object Oriented Programming (OOP) is a programming paradigm that uses objects to design applications and computer programs.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>The four pillars of object-oriented programming</h2>
+<ol>
+<li>Abstraction</li>
+<li>Encapsulation</li>
+<li>Inheritance</li>
+<li>Polymorphism</li>
+</ol>
+</br>
+</br>
+
+<p>Let&#39;s look at each of these in more detail.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Abstraction</h2>
+<p>To abstract something away means to hide away the implementation details inside something.</p>
+<p>Sometimes a <strong>class</strong>, sometimes a <strong>function</strong>, sometimes a <strong>library</strong>.</p>
+</br>
+</br>
+
+<h3>Example: Making coffee</h3>
+<p><strong>With abstraction:</strong></p>
+<ul>
+<li>&quot;Make coffee&quot;</li>
+</ul>
+<p><strong>Without abstraction:</strong></p>
+<ul>
+<li>&quot;Turn on the coffee machine&quot;</li>
+<li>&quot;Grind the coffee beans&quot;</li>
+<li>&quot;Pour water into the coffee machine&quot;</li>
+<li>&quot;Wait for the coffee to be ready&quot;</li>
+<li>&quot;Pour the coffee into a cup&quot;</li>
+<li>&quot;Add sugar&quot;</li>
+<li>&quot;Add milk&quot;</li>
+<li>&quot;Stir the coffee&quot;</li>
+</ul>
+</br>
+</br>
+
+<h3>Example: Haircut</h3>
+<pre><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_price_of_haircut</span>(<span class="hljs-params">haircut</span>):
+    <span class="hljs-keyword">if</span> haircut == <span class="hljs-string">&quot;short&quot;</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">100</span>
+    <span class="hljs-keyword">elif</span> haircut == <span class="hljs-string">&quot;medium&quot;</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">200</span>
+    <span class="hljs-keyword">elif</span> haircut == <span class="hljs-string">&quot;long&quot;</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">300</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+get_price_of_haircut(<span class="hljs-string">&quot;short&quot;</span>)
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Encapsulation</h2>
+<p>Encapsulation is &quot;the action of enclosing something in or as if in a capsule.&quot;</p>
+<p>Typically, access to parts of the code is restricted. Encapsulation means each object <em>should</em> control its own state.</p>
+<p>Also referred to as &quot;information hiding&quot;.</p>
+</br>
+</br>
+
+<p><img src="../../images/lessons/notes-on-object-oriented-programming/encapsulation-public-private.svg" alt="Encapsulation"></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Inheritance</h2>
+<p>Inheritance is a mechanism in which one class acquires the properties and behavior of another class.</p>
+<p>Reusability is the main benefit here.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p><strong>High cohesion, low coupling</strong></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p><strong>High cohesion:</strong> &quot;The degree to which the elements inside a module belong together.&quot;</p>
+<p>Low cohesion = undesirable—we have functionality made up of code that is spread across the code-base.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p><strong>Low coupling:</strong> &quot;The degree to which one module relies on another module.&quot;</p>
+<p>High coupling = undesirable—we know too much about the other modules and their inner workings.</p>
+</br>
+</br>
+
+<p><strong>Example:</strong> Does the <code>Car</code> class know about the <code>Engine</code> class?</p>
+<p><strong>Example:</strong> Does the <code>Bird</code> class know about the <code>Wing</code> class?</p>
+<p><strong>Example:</strong> Does the <code>Billing</code> module know how the <code>VisaPayment</code> library&#39;s <code>pay</code> function works?</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<pre><code class="hljs language-text">&quot;We want to design components that are self-contained: independent, and with
+a single, well-defined purpose.&quot;
+
+—— The Pragmatic Programmer
+</code></pre><p>More about <a href="https://medium.com/clarityhub/low-coupling-high-cohesion-3610e35ac4a6">coupling and cohesion</a>.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Polymorphism</h2>
+<p>Refers to the ability of a variable, function, or object to take on multiple forms.</p>
+<p>When two types share an inheritance chain, they can be used interchangeably with no errors or assertions in the code.</p>
+<p>It allows for the same method to do different things based on the object it is called on. The real power of polymophism is sharing behaviors and allowing custom overrides.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>A simple class diagram</h2>
+<p><img src="../../images/lessons/notes-on-object-oriented-programming/simple-class-diagram.png" alt="Simple class diagram">
+Source: <a href="https://www.researchgate.net/figure/A-simple-class-diagram-for-a-commercial-software-application-in-UML-notation-The_fig3_225686440">https://www.researchgate.net/figure/A-simple-class-diagram-for-a-commercial-software-application-in-UML-notation-The_fig3_225686440</a></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Can also be complex</h2>
+<p><img src="../../images/lessons/notes-on-object-oriented-programming/complex-class-diagram.png" alt="Complex class diagram">
+Source: <a href="https://v5.scaledagileframework.com/domain-modeling/">https://v5.scaledagileframework.com/domain-modeling/</a></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>&quot;Big ball of mud&quot;</h2>
+<p>Unfortunately, <strong>a very popular design pattern</strong> in the industry is the &quot;big ball of mud&quot; design pattern. This is when the code is not well organized and is difficult to maintain.</p>
+</br>
+</br>
+
+<blockquote>
+<p>It is <em>not</em> a design pattern—it is an anti-pattern.</p>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p><img src="../../images/lessons/notes-on-object-oriented-programming/big-ball-of-mud.png" alt="Big ball of mud">
+Source: <a href="https://medium.com/@e0310443/the-big-ball-of-mud-amplifying-the-importance-of-software-engineering-principles-6e2eac5979cb">https://medium.com/@e0310443/the-big-ball-of-mud-amplifying-the-importance-of-software-engineering-principles-6e2eac5979cb</a>
+<img src="../../images/lessons/notes-on-object-oriented-programming/big-ball-of-mud-2.png" alt="Big ball of mud">
+Source: <a href="https://nrkbeta.no/2017/04/29/undoing-the-harm-of-layers/">https://nrkbeta.no/2017/04/29/undoing-the-harm-of-layers/</a></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<blockquote>
+<p>What is a class?</p>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<blockquote>
+<p>What is an object?</p>
+</blockquote>
+</br>
+</br>
+</div><div class="lesson-links"><a href="/itu-bds-sdse/lessons/learning-goals/workflow-automation" class="prev">← Previous</a><a href="/itu-bds-sdse/lessons/notes-on-object-oriented-programming/inheritance" class="next">Next →</a></div></div><div class="details-bg"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="154" height="154" viewBox="0 0 154 154"><defs><clipPath id="clip-path"><rect id="Rectangle_2238" data-name="Rectangle 2238" width="154" height="154" transform="translate(9467 350)" fill="#fff" stroke="#707070" stroke-width="1"></rect></clipPath><clipPath id="clip-corner-image-active"><rect width="154" height="154"></rect></clipPath></defs><g id="corner-image-active" clip-path="url(#clip-corner-image-active)"><g id="Corner-image-active-2" data-name="Corner-image-active" transform="translate(-9467 -350)" clip-path="url(#clip-path)"><path id="Subtraction_34" data-name="Subtraction 34" d="M-3857.365,1740.766h0l-7.07-7.07,12.89-12.89v14.142l-5.818,5.818Zm-14.142-14.142h0l-7.071-7.07,27.033-27.033v14.143l-19.96,19.96Zm-14.143-14.143h0l-7.07-7.069,41.175-41.175v14.142Zm-14.142-14.142h0l-7.07-7.069,55.317-55.317v14.142Zm-14.142-14.142h0l-7.07-7.069,69.459-69.459v14.142Zm-14.142-14.142h0l-7.07-7.069,76.739-76.739h6.862v7.28Zm-14.143-14.143h0l-7.07-7.069,62.6-62.6h14.142Zm-14.142-14.142h0l-7.07-7.069,48.454-48.454h14.142Zm-14.142-14.142h0l-7.07-7.069,34.312-34.312h14.142Zm-14.142-14.142h0l-7.07-7.069,20.17-20.17h14.142Zm-14.142-14.142h0l-7.071-7.071,6.027-6.027h14.144l-13.1,13.1Zm367.24-56.114v-.909l.455.455-.453.453Z" transform="translate(13472.546 -1236.766)" fill="var(--corner-fill)"></path></g></g></svg></div></div></div></div><footer class="footer"><ul class="socials"><li class="social"><a href="https://github.com/lasselundstenjensen/itu-bds-sdse"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-github-social"><rect width="32" height="32"></rect></clipPath></defs><g id="github-social" clip-path="url(#clip-github-social)"><g id="Group_272" data-name="Group 272" transform="translate(13522.5 -6994)"><path id="Subtraction_33" data-name="Subtraction 33" d="M-24967.5,8041a15.9,15.9,0,0,1-11.312-4.688A15.893,15.893,0,0,1-24983.5,8025a15.893,15.893,0,0,1,4.689-11.315A15.894,15.894,0,0,1-24967.5,8009a15.894,15.894,0,0,1,11.313,4.686A15.893,15.893,0,0,1-24951.5,8025a15.893,15.893,0,0,1-4.689,11.313A15.9,15.9,0,0,1-24967.5,8041Zm-3.781-4.571h0v3.918h7.895v-6.665a1.836,1.836,0,0,0-1.2-1.718c5.1-.617,7.467-2.975,7.467-7.424a7.176,7.176,0,0,0-1.637-4.728,6.74,6.74,0,0,0,.275-1.812,4.34,4.34,0,0,0-.52-2.452.574.574,0,0,0-.359-.1c-1.061,0-3.465,1.411-3.936,1.694a16.644,16.644,0,0,0-4.2-.489,16.379,16.379,0,0,0-3.969.445c-.846-.5-2.91-1.649-3.859-1.649a.566.566,0,0,0-.354.095,4.3,4.3,0,0,0-.521,2.452,6.7,6.7,0,0,0,.244,1.718,7.346,7.346,0,0,0-1.6,4.822,7.263,7.263,0,0,0,1.533,4.985c1.193,1.359,3.115,2.165,5.871,2.464a1.826,1.826,0,0,0-1.129,1.693v.5h0l-.006,0a7.121,7.121,0,0,1-2.033.363,2.608,2.608,0,0,1-.965-.158,4.438,4.438,0,0,1-1.836-1.881,2.361,2.361,0,0,0-1.248-1.091,3.472,3.472,0,0,0-1.217-.3.584.584,0,0,0-.545.224.282.282,0,0,0,.027.367,1.875,1.875,0,0,0,.447.307,4.732,4.732,0,0,1,.561.355,10.726,10.726,0,0,1,1.682,2.755c.043.092.078.163.105.217a3.876,3.876,0,0,0,2.42,1.185,6.036,6.036,0,0,0,.607.025c.875,0,1.988-.124,2-.125Z" transform="translate(11461 -1015)" fill="var(--footer-icons)"></path><g id="Ellipse_670" data-name="Ellipse 670" transform="translate(-13522.5 6994)" fill="none" stroke="var(--footer-icons)" stroke-width="1"><circle cx="16" cy="16" r="16" stroke="none"></circle><circle cx="16" cy="16" r="15.5" fill="none"></circle></g></g></g></svg></a></li><li class="social"><a href="https://linkedin.com/in/lasselundstenjensen"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-linkedin-social"><rect width="32" height="32"></rect></clipPath></defs><g id="linkedin-social" clip-path="url(#clip-linkedin-social)"><g id="Group_270" data-name="Group 270" transform="translate(-86.349 -633.073)"><path id="Path_375" data-name="Path 375" d="M115.789,633.073a2.324,2.324,0,0,1,1.682.676,2.194,2.194,0,0,1,.695,1.627V662.8a2.131,2.131,0,0,1-.695,1.609,2.314,2.314,0,0,1-1.646.659H88.69a2.307,2.307,0,0,1-1.646-.659,2.128,2.128,0,0,1-.695-1.609V635.376a2.19,2.19,0,0,1,.695-1.627,2.322,2.322,0,0,1,1.682-.676h27.063Zm-20.224,9.672a2.561,2.561,0,0,0,0-3.584,2.658,2.658,0,0,0-1.938-.712,2.724,2.724,0,0,0-1.957.712,2.371,2.371,0,0,0-.75,1.792,2.4,2.4,0,0,0,.731,1.792,2.605,2.605,0,0,0,1.9.713h.037A2.7,2.7,0,0,0,95.565,642.745ZM96,645.434H91.213V659.88H96Zm17.3,6.144a7.007,7.007,0,0,0-1.573-4.9,5.68,5.68,0,0,0-6.839-.769,5.663,5.663,0,0,0-1.426,1.573v-2.048H98.674q.036.841,0,7.717v6.728h4.791V651.8a3.592,3.592,0,0,1,.146-1.17,2.913,2.913,0,0,1,.878-1.206,2.429,2.429,0,0,1,1.609-.549,2.108,2.108,0,0,1,1.865.914,4.265,4.265,0,0,1,.549,2.341v7.752H113.3Z" fill="var(--footer-icons)"></path></g></g></svg></a></li><li class="social"><div class="terms"><p>Content Licensed Under CC-BY-NC-4.0</p><p>Code Samples and Excercises Licensed Under Apache 2.0</p><p>Site Designed by<!-- --> <a href="https://www.alexdanielson.com/">Alex Danielson</a></p></div></li></ul></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"attributes":{"title":"Quick overview of Object Oriented Programming","description":"We look at inheritance vs composition","keywords":["Software engineering","Data science","Go","Lasse Lund Sten Jensen"]},"html":"\u003ch1\u003eWhat is Object Oriented Programming?\u003c/h1\u003e\n\u003cp\u003eObject Oriented Programming (OOP) is a programming paradigm that uses objects to design applications and computer programs.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eThe four pillars of object-oriented programming\u003c/h2\u003e\n\u003col\u003e\n\u003cli\u003eAbstraction\u003c/li\u003e\n\u003cli\u003eEncapsulation\u003c/li\u003e\n\u003cli\u003eInheritance\u003c/li\u003e\n\u003cli\u003ePolymorphism\u003c/li\u003e\n\u003c/ol\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eLet\u0026#39;s look at each of these in more detail.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eAbstraction\u003c/h2\u003e\n\u003cp\u003eTo abstract something away means to hide away the implementation details inside something.\u003c/p\u003e\n\u003cp\u003eSometimes a \u003cstrong\u003eclass\u003c/strong\u003e, sometimes a \u003cstrong\u003efunction\u003c/strong\u003e, sometimes a \u003cstrong\u003elibrary\u003c/strong\u003e.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eExample: Making coffee\u003c/h3\u003e\n\u003cp\u003e\u003cstrong\u003eWith abstraction:\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u0026quot;Make coffee\u0026quot;\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003eWithout abstraction:\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u0026quot;Turn on the coffee machine\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;Grind the coffee beans\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;Pour water into the coffee machine\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;Wait for the coffee to be ready\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;Pour the coffee into a cup\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;Add sugar\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;Add milk\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;Stir the coffee\u0026quot;\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eExample: Haircut\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-python\"\u003e\u003cspan class=\"hljs-keyword\"\u003edef\u003c/span\u003e \u003cspan class=\"hljs-title function_\"\u003eget_price_of_haircut\u003c/span\u003e(\u003cspan class=\"hljs-params\"\u003ehaircut\u003c/span\u003e):\n    \u003cspan class=\"hljs-keyword\"\u003eif\u003c/span\u003e haircut == \u003cspan class=\"hljs-string\"\u003e\u0026quot;short\u0026quot;\u003c/span\u003e:\n        \u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e \u003cspan class=\"hljs-number\"\u003e100\u003c/span\u003e\n    \u003cspan class=\"hljs-keyword\"\u003eelif\u003c/span\u003e haircut == \u003cspan class=\"hljs-string\"\u003e\u0026quot;medium\u0026quot;\u003c/span\u003e:\n        \u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e \u003cspan class=\"hljs-number\"\u003e200\u003c/span\u003e\n    \u003cspan class=\"hljs-keyword\"\u003eelif\u003c/span\u003e haircut == \u003cspan class=\"hljs-string\"\u003e\u0026quot;long\u0026quot;\u003c/span\u003e:\n        \u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e \u003cspan class=\"hljs-number\"\u003e300\u003c/span\u003e\n    \u003cspan class=\"hljs-keyword\"\u003eelse\u003c/span\u003e:\n        \u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e \u003cspan class=\"hljs-number\"\u003e0\u003c/span\u003e\n\nget_price_of_haircut(\u003cspan class=\"hljs-string\"\u003e\u0026quot;short\u0026quot;\u003c/span\u003e)\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eEncapsulation\u003c/h2\u003e\n\u003cp\u003eEncapsulation is \u0026quot;the action of enclosing something in or as if in a capsule.\u0026quot;\u003c/p\u003e\n\u003cp\u003eTypically, access to parts of the code is restricted. Encapsulation means each object \u003cem\u003eshould\u003c/em\u003e control its own state.\u003c/p\u003e\n\u003cp\u003eAlso referred to as \u0026quot;information hiding\u0026quot;.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cimg src=\"../../images/lessons/notes-on-object-oriented-programming/encapsulation-public-private.svg\" alt=\"Encapsulation\"\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eInheritance\u003c/h2\u003e\n\u003cp\u003eInheritance is a mechanism in which one class acquires the properties and behavior of another class.\u003c/p\u003e\n\u003cp\u003eReusability is the main benefit here.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eHigh cohesion, low coupling\u003c/strong\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eHigh cohesion:\u003c/strong\u003e \u0026quot;The degree to which the elements inside a module belong together.\u0026quot;\u003c/p\u003e\n\u003cp\u003eLow cohesion = undesirable—we have functionality made up of code that is spread across the code-base.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eLow coupling:\u003c/strong\u003e \u0026quot;The degree to which one module relies on another module.\u0026quot;\u003c/p\u003e\n\u003cp\u003eHigh coupling = undesirable—we know too much about the other modules and their inner workings.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eExample:\u003c/strong\u003e Does the \u003ccode\u003eCar\u003c/code\u003e class know about the \u003ccode\u003eEngine\u003c/code\u003e class?\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eExample:\u003c/strong\u003e Does the \u003ccode\u003eBird\u003c/code\u003e class know about the \u003ccode\u003eWing\u003c/code\u003e class?\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eExample:\u003c/strong\u003e Does the \u003ccode\u003eBilling\u003c/code\u003e module know how the \u003ccode\u003eVisaPayment\u003c/code\u003e library\u0026#39;s \u003ccode\u003epay\u003c/code\u003e function works?\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cpre\u003e\u003ccode class=\"hljs language-text\"\u003e\u0026quot;We want to design components that are self-contained: independent, and with\na single, well-defined purpose.\u0026quot;\n\n—— The Pragmatic Programmer\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eMore about \u003ca href=\"https://medium.com/clarityhub/low-coupling-high-cohesion-3610e35ac4a6\"\u003ecoupling and cohesion\u003c/a\u003e.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003ePolymorphism\u003c/h2\u003e\n\u003cp\u003eRefers to the ability of a variable, function, or object to take on multiple forms.\u003c/p\u003e\n\u003cp\u003eWhen two types share an inheritance chain, they can be used interchangeably with no errors or assertions in the code.\u003c/p\u003e\n\u003cp\u003eIt allows for the same method to do different things based on the object it is called on. The real power of polymophism is sharing behaviors and allowing custom overrides.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eA simple class diagram\u003c/h2\u003e\n\u003cp\u003e\u003cimg src=\"../../images/lessons/notes-on-object-oriented-programming/simple-class-diagram.png\" alt=\"Simple class diagram\"\u003e\nSource: \u003ca href=\"https://www.researchgate.net/figure/A-simple-class-diagram-for-a-commercial-software-application-in-UML-notation-The_fig3_225686440\"\u003ehttps://www.researchgate.net/figure/A-simple-class-diagram-for-a-commercial-software-application-in-UML-notation-The_fig3_225686440\u003c/a\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eCan also be complex\u003c/h2\u003e\n\u003cp\u003e\u003cimg src=\"../../images/lessons/notes-on-object-oriented-programming/complex-class-diagram.png\" alt=\"Complex class diagram\"\u003e\nSource: \u003ca href=\"https://v5.scaledagileframework.com/domain-modeling/\"\u003ehttps://v5.scaledagileframework.com/domain-modeling/\u003c/a\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003e\u0026quot;Big ball of mud\u0026quot;\u003c/h2\u003e\n\u003cp\u003eUnfortunately, \u003cstrong\u003ea very popular design pattern\u003c/strong\u003e in the industry is the \u0026quot;big ball of mud\u0026quot; design pattern. This is when the code is not well organized and is difficult to maintain.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003eIt is \u003cem\u003enot\u003c/em\u003e a design pattern—it is an anti-pattern.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cimg src=\"../../images/lessons/notes-on-object-oriented-programming/big-ball-of-mud.png\" alt=\"Big ball of mud\"\u003e\nSource: \u003ca href=\"https://medium.com/@e0310443/the-big-ball-of-mud-amplifying-the-importance-of-software-engineering-principles-6e2eac5979cb\"\u003ehttps://medium.com/@e0310443/the-big-ball-of-mud-amplifying-the-importance-of-software-engineering-principles-6e2eac5979cb\u003c/a\u003e\n\u003cimg src=\"../../images/lessons/notes-on-object-oriented-programming/big-ball-of-mud-2.png\" alt=\"Big ball of mud\"\u003e\nSource: \u003ca href=\"https://nrkbeta.no/2017/04/29/undoing-the-harm-of-layers/\"\u003ehttps://nrkbeta.no/2017/04/29/undoing-the-harm-of-layers/\u003c/a\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003eWhat is a class?\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003eWhat is an object?\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n","markdown":"\n# What is Object Oriented Programming?\n\nObject Oriented Programming (OOP) is a programming paradigm that uses objects to design applications and computer programs.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## The four pillars of object-oriented programming\n\n1. Abstraction\n2. Encapsulation\n3. Inheritance\n4. Polymorphism\n\n\u003c/br\u003e\n\u003c/br\u003e\n\nLet's look at each of these in more detail.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Abstraction\n\nTo abstract something away means to hide away the implementation details inside something.\n\nSometimes a **class**, sometimes a **function**, sometimes a **library**.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Example: Making coffee\n\n**With abstraction:**\n\n- \"Make coffee\"\n\n**Without abstraction:**\n\n- \"Turn on the coffee machine\"\n- \"Grind the coffee beans\"\n- \"Pour water into the coffee machine\"\n- \"Wait for the coffee to be ready\"\n- \"Pour the coffee into a cup\"\n- \"Add sugar\"\n- \"Add milk\"\n- \"Stir the coffee\"\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Example: Haircut\n\n```python\ndef get_price_of_haircut(haircut):\n    if haircut == \"short\":\n        return 100\n    elif haircut == \"medium\":\n        return 200\n    elif haircut == \"long\":\n        return 300\n    else:\n        return 0\n\nget_price_of_haircut(\"short\")\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Encapsulation\n\nEncapsulation is \"the action of enclosing something in or as if in a capsule.\"\n\nTypically, access to parts of the code is restricted. Encapsulation means each object _should_ control its own state.\n\nAlso referred to as \"information hiding\".\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n![Encapsulation](../../images/lessons/notes-on-object-oriented-programming/encapsulation-public-private.svg)\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Inheritance\n\nInheritance is a mechanism in which one class acquires the properties and behavior of another class.\n\nReusability is the main benefit here.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n**High cohesion, low coupling**\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n**High cohesion:** \"The degree to which the elements inside a module belong together.\"\n\nLow cohesion = undesirable—we have functionality made up of code that is spread across the code-base.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n**Low coupling:** \"The degree to which one module relies on another module.\"\n\nHigh coupling = undesirable—we know too much about the other modules and their inner workings.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n**Example:** Does the `Car` class know about the `Engine` class?\n\n**Example:** Does the `Bird` class know about the `Wing` class?\n\n**Example:** Does the `Billing` module know how the `VisaPayment` library's `pay` function works?\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n```text\n\"We want to design components that are self-contained: independent, and with\na single, well-defined purpose.\"\n\n—— The Pragmatic Programmer\n```\n\nMore about [coupling and cohesion](https://medium.com/clarityhub/low-coupling-high-cohesion-3610e35ac4a6).\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Polymorphism\n\nRefers to the ability of a variable, function, or object to take on multiple forms.\n\nWhen two types share an inheritance chain, they can be used interchangeably with no errors or assertions in the code.\n\nIt allows for the same method to do different things based on the object it is called on. The real power of polymophism is sharing behaviors and allowing custom overrides.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## A simple class diagram\n\n![Simple class diagram](../../images/lessons/notes-on-object-oriented-programming/simple-class-diagram.png)\nSource: https://www.researchgate.net/figure/A-simple-class-diagram-for-a-commercial-software-application-in-UML-notation-The_fig3_225686440\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Can also be complex\n\n![Complex class diagram](../../images/lessons/notes-on-object-oriented-programming/complex-class-diagram.png)\nSource: https://v5.scaledagileframework.com/domain-modeling/\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## \"Big ball of mud\"\n\nUnfortunately, **a very popular design pattern** in the industry is the \"big ball of mud\" design pattern. This is when the code is not well organized and is difficult to maintain.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003e It is _not_ a design pattern—it is an anti-pattern.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n![Big ball of mud](../../images/lessons/notes-on-object-oriented-programming/big-ball-of-mud.png)\nSource: https://medium.com/@e0310443/the-big-ball-of-mud-amplifying-the-importance-of-software-engineering-principles-6e2eac5979cb\n![Big ball of mud](../../images/lessons/notes-on-object-oriented-programming/big-ball-of-mud-2.png)\nSource: https://nrkbeta.no/2017/04/29/undoing-the-harm-of-layers/\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003e What is a class?\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003e What is an object?\n\n\u003c/br\u003e\n\u003c/br\u003e\n","slug":"quick-overview","title":"Quick overview of Object Oriented Programming","section":"Object Oriented Programming","icon":"info-circle","filePath":"/home/runner/work/itu-bds-sdse/itu-bds-sdse/lessons/02-notes-on-object-oriented-programming/A-quick-overview.md","nextSlug":"/itu-bds-sdse/lessons/notes-on-object-oriented-programming/inheritance","prevSlug":"/itu-bds-sdse/lessons/learning-goals/workflow-automation"}},"__N_SSG":true},"page":"/lessons/[section]/[slug]","query":{"section":"notes-on-object-oriented-programming","slug":"quick-overview"},"buildId":"aGU_TgP1G33XsxgAaS_TT","assetPrefix":"/itu-bds-sdse","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

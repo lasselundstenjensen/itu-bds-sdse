@@ -1,0 +1,297 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><link rel="apple-touch-icon" sizes="180x180" href="/itu-bds-sdse/images/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/itu-bds-sdse/images/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/x-icon" href="/itu-bds-sdse/images/favicon.ico"/><title>Interactive rebasing and squashing – Data Science in Production: MLOps and Software Engineering</title><meta name="description" content="Basics of Git."/><meta name="keywords" content="Software engineering,Git"/><meta name="og:description" content="Basics of Git."/><meta name="og:title" content="Interactive rebasing and squashing – Data Science in Production: MLOps and Software Engineering"/><meta name="og:image" content="/itu-bds-sdse/images/social-share-cover.jpg"/><meta name="twitter:card" content="summary_large_image"/><meta name="next-head-count" content="14"/><link data-next-font="size-adjust" rel="preconnect" href="/" crossorigin="anonymous"/><link rel="preload" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" as="style"/><link rel="stylesheet" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/itu-bds-sdse/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"></script><script src="/itu-bds-sdse/_next/static/chunks/webpack-8116fd4d628798fe.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/framework-ecc4130bc7a58a64.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/main-348f16897b94a0d5.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/_app-fa68bd1b4993f298.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/lessons/%5Bsection%5D/%5Bslug%5D-c2cb604784d7e04f.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_buildManifest.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="remix-app"><header class="navbar"><h1 class="navbar-brand"><a href="/itu-bds-sdse">Data Science in Production: MLOps and Software Engineering</a></h1><div class="navbar-info"></div></header><div class="content-container"><div class="main"><div class="lesson-container"><div class="lesson"><div class="lesson-content"><h2>Interactive rebasing and squashing</h2>
+<p>Sometimes we want to <em><strong>squash</strong></em> multiple commits into one. </p>
+<p>Maybe we did a lot of small commits with poor messages while working on a feature. Maybe we want to push a single commit containing all the changes for the feature—making it easy to revert later on, if needed.</p>
+<p>In practice this is done with interactive rebasing.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>Essentially squashing takes this.</p>
+</br>
+
+<p><img src="../../images/lessons/git/squash-before.svg" alt="Squashing before"></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>And turns it into this.</p>
+<p><img src="../../images/lessons/git/squash-after.svg" alt="Squashing after"></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>Interactive rebasing allows squashing commits but also allows us to edit commit messages, reorder commits, and even remove commits.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Exercise: Squashing commits - set the stage</h3>
+<p>We need to set the stage first by creating some commits.</p>
+<blockquote>
+<ul>
+<li>Navigate to the <code>remote-git</code> repository.</li>
+<li>Checkout the <code>feature</code> branch.</li>
+<li>Append <strong>3 changes</strong> to the <code>README.md</code> file and commit each change with a unique message.</li>
+</ul>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Solution: Squashing commits - set the stage</h3>
+<p>Navigate to the <code>remote-git</code> repository.</p>
+<pre><code class="hljs language-bash">git checkout feature
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Change 1&quot;</span> &gt;&gt; README.md
+git add README.md
+git commit -m <span class="hljs-string">&quot;Change 1&quot;</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Change 2&quot;</span> &gt;&gt; README.md
+git add README.md
+git commit -m <span class="hljs-string">&quot;Change 2&quot;</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Change 3&quot;</span> &gt;&gt; README.md
+git add README.md
+git commit -m <span class="hljs-string">&quot;Change 3&quot;</span>
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Interactive rebase steps</h2>
+<p>To begin, we need to provide a point in time to rebase with. The simplest way to do this is typically with <code>HEAD~n</code>, where <code>n</code> is the number of commits back we want to go. This format is also called a <em><strong>commit-ish</strong></em>.</p>
+<p>So, <code>HEAD~1</code> means one commit back from <code>HEAD</code>.</p>
+</br>
+</br>
+
+<p>The command for interactive rebase is:</p>
+<pre><code class="hljs language-bash">git rebase -i &lt;commit-ish&gt;
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Exercise: Squashing commits - interactive rebase</h3>
+<p>Now we will squash the commits.</p>
+<p>We want all the 3 latest changes to be a single commit and update the commit message.</p>
+<blockquote>
+<ul>
+<li>Start an interactive rebase with the last 3 commits.</li>
+</ul>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h3>Solution: Squashing commits - interactive rebase</h3>
+<pre><code class="hljs language-bash">git rebase -i HEAD~3
+</code></pre></br>
+
+<p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext">pick a4ebcc2 Change 1
+pick 04b43c8 Change 2
+pick 8406816 Change 3
+
+# Rebase 7142285..8406816 onto 7142285 (3 commands)
+#
+# Commands:
+# p, pick &lt;commit&gt; = use commit
+# r, reword &lt;commit&gt; = use commit, but edit the commit message
+# e, edit &lt;commit&gt; = use commit, but stop for amending
+# s, squash &lt;commit&gt; = use commit, but meld into previous commit
+# f, fixup [-C | -c] &lt;commit&gt; = like &quot;squash&quot; but keep only the previous
+#                    commit&#x27;s log message, unless -C is used, in which case
+#                    keep only this commit&#x27;s message; -c is same as -C but
+#                    opens the editor
+# x, exec &lt;command&gt; = run command (the rest of the line) using shell
+# b, break = stop here (continue rebase later with &#x27;git rebase --continue&#x27;)
+# d, drop &lt;commit&gt; = remove commit
+# l, label &lt;label&gt; = label current HEAD with a name
+# t, reset &lt;label&gt; = reset HEAD to a label
+# m, merge [-C &lt;commit&gt; | -c &lt;commit&gt;] &lt;label&gt; [# &lt;oneline&gt;]
+#         create a merge commit using the original merge commit&#x27;s
+#         message (or the oneline, if no original merge commit was
+#         specified); use -c &lt;commit&gt; to reword the commit message
+# u, update-ref &lt;ref&gt; = track a placeholder for the &lt;ref&gt; to be updated
+#                       to this position in the new commits. The &lt;ref&gt; is
+#                       updated at the end of the rebase
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+</code></pre></br>
+
+<p>To squash the commits, we need to change the <code>pick</code> command to <code>squash</code> or <code>s</code> for the commits we want to squash.</p>
+</br>
+
+<pre><code class="hljs language-plaintext">pick a4ebcc2 Change 1
+s 04b43c8 Change 2
+s 8406816 Change 3
+</code></pre><p>And we save with <code>:wq</code> and <code>Enter</code>.</p>
+</br>
+</br>
+
+<p>This brings up the editor to edit the commit message.</p>
+<p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext"># This is a combination of 3 commits.
+# This is the 1st commit message:
+
+Change 1
+
+# This is the commit message #2:
+
+Change 2
+
+# This is the commit message #3:
+
+Change 3
+
+# Please enter the commit message for your changes. Lines starting
+# with &#x27;#&#x27; will be ignored, and an empty message aborts the commit.
+#
+# Date:      Wed Sep 25 00:24:11 2024 +0200
+#
+# interactive rebase in progress; onto 7142285
+# Last commands done (3 commands done):
+#    squash 04b43c8 Change 2
+#    squash 8406816 Change 3
+# No commands remaining.
+# You are currently rebasing branch &#x27;main&#x27; on &#x27;7142285&#x27;.
+#
+# Changes to be committed:
+#       modified:   README.md
+#
+~
+~
+~
+</code></pre></br>
+</br>
+
+<p>We edit the commit message to something like <code>Feature X</code>.</p>
+<p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext"># This is a combination of 3 commits.
+# This is the 1st commit message:
+
+Feature X
+
+# Please enter the commit message for your changes. Lines starting
+# with &#x27;#&#x27; will be ignored, and an empty message aborts the commit.
+#
+# Date:      Wed Sep 25 00:24:11 2024 +0200
+#
+# interactive rebase in progress; onto 7142285
+# Last commands done (3 commands done):
+#    squash 04b43c8 Change 2
+#    squash 8406816 Change 3
+# No commands remaining.
+# You are currently rebasing branch &#x27;main&#x27; on &#x27;7142285&#x27;.
+#
+# Changes to be committed:
+#       modified:   README.md
+#
+~
+~
+~
+</code></pre><p>And again we save with <code>:wq</code> and <code>Enter</code>.</p>
+</br>
+
+<p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext">[detached HEAD e3f045e] Feature X
+ Date: Wed Sep 25 00:24:11 2024 +0200
+ 1 file changed, 3 insertions(+)
+Successfully rebased and updated refs/heads/main.
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>Check the log to see the changes.</p>
+<pre><code class="hljs language-bash">git <span class="hljs-built_in">log</span> --oneline --graph
+</code></pre></br>
+
+<p>We will see that the 3 commits have been squashed into one with the message <code>Feature X</code>.</p>
+<p><strong>Output:</strong></p>
+<pre><code class="hljs language-plaintext">* e3f045e (HEAD -&gt; main) Feature X
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>When we push to the remote respository, and in some cases you may need to do <code>git push --force</code> to overwrite the remote branch.</p>
+<p>Know that it exists. Use <code>--force</code> with caution.</p>
+</br>
+</br>
+</div><div class="lesson-links"><a href="/itu-bds-sdse/lessons/git-basics/stashing-changes" class="prev">← Previous</a><a href="/itu-bds-sdse/lessons/git-basics/searching-logs" class="next">Next →</a></div></div><div class="details-bg"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="154" height="154" viewBox="0 0 154 154"><defs><clipPath id="clip-path"><rect id="Rectangle_2238" data-name="Rectangle 2238" width="154" height="154" transform="translate(9467 350)" fill="#fff" stroke="#707070" stroke-width="1"></rect></clipPath><clipPath id="clip-corner-image-active"><rect width="154" height="154"></rect></clipPath></defs><g id="corner-image-active" clip-path="url(#clip-corner-image-active)"><g id="Corner-image-active-2" data-name="Corner-image-active" transform="translate(-9467 -350)" clip-path="url(#clip-path)"><path id="Subtraction_34" data-name="Subtraction 34" d="M-3857.365,1740.766h0l-7.07-7.07,12.89-12.89v14.142l-5.818,5.818Zm-14.142-14.142h0l-7.071-7.07,27.033-27.033v14.143l-19.96,19.96Zm-14.143-14.143h0l-7.07-7.069,41.175-41.175v14.142Zm-14.142-14.142h0l-7.07-7.069,55.317-55.317v14.142Zm-14.142-14.142h0l-7.07-7.069,69.459-69.459v14.142Zm-14.142-14.142h0l-7.07-7.069,76.739-76.739h6.862v7.28Zm-14.143-14.143h0l-7.07-7.069,62.6-62.6h14.142Zm-14.142-14.142h0l-7.07-7.069,48.454-48.454h14.142Zm-14.142-14.142h0l-7.07-7.069,34.312-34.312h14.142Zm-14.142-14.142h0l-7.07-7.069,20.17-20.17h14.142Zm-14.142-14.142h0l-7.071-7.071,6.027-6.027h14.144l-13.1,13.1Zm367.24-56.114v-.909l.455.455-.453.453Z" transform="translate(13472.546 -1236.766)" fill="var(--corner-fill)"></path></g></g></svg></div></div></div></div><footer class="footer"><ul class="socials"><li class="social"><a href="https://github.com/lasselundstenjensen/itu-bds-sdse"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-github-social"><rect width="32" height="32"></rect></clipPath></defs><g id="github-social" clip-path="url(#clip-github-social)"><g id="Group_272" data-name="Group 272" transform="translate(13522.5 -6994)"><path id="Subtraction_33" data-name="Subtraction 33" d="M-24967.5,8041a15.9,15.9,0,0,1-11.312-4.688A15.893,15.893,0,0,1-24983.5,8025a15.893,15.893,0,0,1,4.689-11.315A15.894,15.894,0,0,1-24967.5,8009a15.894,15.894,0,0,1,11.313,4.686A15.893,15.893,0,0,1-24951.5,8025a15.893,15.893,0,0,1-4.689,11.313A15.9,15.9,0,0,1-24967.5,8041Zm-3.781-4.571h0v3.918h7.895v-6.665a1.836,1.836,0,0,0-1.2-1.718c5.1-.617,7.467-2.975,7.467-7.424a7.176,7.176,0,0,0-1.637-4.728,6.74,6.74,0,0,0,.275-1.812,4.34,4.34,0,0,0-.52-2.452.574.574,0,0,0-.359-.1c-1.061,0-3.465,1.411-3.936,1.694a16.644,16.644,0,0,0-4.2-.489,16.379,16.379,0,0,0-3.969.445c-.846-.5-2.91-1.649-3.859-1.649a.566.566,0,0,0-.354.095,4.3,4.3,0,0,0-.521,2.452,6.7,6.7,0,0,0,.244,1.718,7.346,7.346,0,0,0-1.6,4.822,7.263,7.263,0,0,0,1.533,4.985c1.193,1.359,3.115,2.165,5.871,2.464a1.826,1.826,0,0,0-1.129,1.693v.5h0l-.006,0a7.121,7.121,0,0,1-2.033.363,2.608,2.608,0,0,1-.965-.158,4.438,4.438,0,0,1-1.836-1.881,2.361,2.361,0,0,0-1.248-1.091,3.472,3.472,0,0,0-1.217-.3.584.584,0,0,0-.545.224.282.282,0,0,0,.027.367,1.875,1.875,0,0,0,.447.307,4.732,4.732,0,0,1,.561.355,10.726,10.726,0,0,1,1.682,2.755c.043.092.078.163.105.217a3.876,3.876,0,0,0,2.42,1.185,6.036,6.036,0,0,0,.607.025c.875,0,1.988-.124,2-.125Z" transform="translate(11461 -1015)" fill="var(--footer-icons)"></path><g id="Ellipse_670" data-name="Ellipse 670" transform="translate(-13522.5 6994)" fill="none" stroke="var(--footer-icons)" stroke-width="1"><circle cx="16" cy="16" r="16" stroke="none"></circle><circle cx="16" cy="16" r="15.5" fill="none"></circle></g></g></g></svg></a></li><li class="social"><a href="https://linkedin.com/in/lasselundstenjensen"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-linkedin-social"><rect width="32" height="32"></rect></clipPath></defs><g id="linkedin-social" clip-path="url(#clip-linkedin-social)"><g id="Group_270" data-name="Group 270" transform="translate(-86.349 -633.073)"><path id="Path_375" data-name="Path 375" d="M115.789,633.073a2.324,2.324,0,0,1,1.682.676,2.194,2.194,0,0,1,.695,1.627V662.8a2.131,2.131,0,0,1-.695,1.609,2.314,2.314,0,0,1-1.646.659H88.69a2.307,2.307,0,0,1-1.646-.659,2.128,2.128,0,0,1-.695-1.609V635.376a2.19,2.19,0,0,1,.695-1.627,2.322,2.322,0,0,1,1.682-.676h27.063Zm-20.224,9.672a2.561,2.561,0,0,0,0-3.584,2.658,2.658,0,0,0-1.938-.712,2.724,2.724,0,0,0-1.957.712,2.371,2.371,0,0,0-.75,1.792,2.4,2.4,0,0,0,.731,1.792,2.605,2.605,0,0,0,1.9.713h.037A2.7,2.7,0,0,0,95.565,642.745ZM96,645.434H91.213V659.88H96Zm17.3,6.144a7.007,7.007,0,0,0-1.573-4.9,5.68,5.68,0,0,0-6.839-.769,5.663,5.663,0,0,0-1.426,1.573v-2.048H98.674q.036.841,0,7.717v6.728h4.791V651.8a3.592,3.592,0,0,1,.146-1.17,2.913,2.913,0,0,1,.878-1.206,2.429,2.429,0,0,1,1.609-.549,2.108,2.108,0,0,1,1.865.914,4.265,4.265,0,0,1,.549,2.341v7.752H113.3Z" fill="var(--footer-icons)"></path></g></g></svg></a></li><li class="social"><div class="terms"><p>Content Licensed Under CC-BY-NC-4.0</p><p>Code Samples and Excercises Licensed Under Apache 2.0</p><p>Site Designed by<!-- --> <a href="https://www.alexdanielson.com/">Alex Danielson</a></p></div></li></ul></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"attributes":{"description":"Basics of Git.","title":"Interactive rebasing and squashing","keywords":["Software engineering","Git"]},"html":"\u003ch2\u003eInteractive rebasing and squashing\u003c/h2\u003e\n\u003cp\u003eSometimes we want to \u003cem\u003e\u003cstrong\u003esquash\u003c/strong\u003e\u003c/em\u003e multiple commits into one. \u003c/p\u003e\n\u003cp\u003eMaybe we did a lot of small commits with poor messages while working on a feature. Maybe we want to push a single commit containing all the changes for the feature—making it easy to revert later on, if needed.\u003c/p\u003e\n\u003cp\u003eIn practice this is done with interactive rebasing.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eEssentially squashing takes this.\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cimg src=\"../../images/lessons/git/squash-before.svg\" alt=\"Squashing before\"\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eAnd turns it into this.\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"../../images/lessons/git/squash-after.svg\" alt=\"Squashing after\"\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eInteractive rebasing allows squashing commits but also allows us to edit commit messages, reorder commits, and even remove commits.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eExercise: Squashing commits - set the stage\u003c/h3\u003e\n\u003cp\u003eWe need to set the stage first by creating some commits.\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cul\u003e\n\u003cli\u003eNavigate to the \u003ccode\u003eremote-git\u003c/code\u003e repository.\u003c/li\u003e\n\u003cli\u003eCheckout the \u003ccode\u003efeature\u003c/code\u003e branch.\u003c/li\u003e\n\u003cli\u003eAppend \u003cstrong\u003e3 changes\u003c/strong\u003e to the \u003ccode\u003eREADME.md\u003c/code\u003e file and commit each change with a unique message.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eSolution: Squashing commits - set the stage\u003c/h3\u003e\n\u003cp\u003eNavigate to the \u003ccode\u003eremote-git\u003c/code\u003e repository.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit checkout feature\n\u003cspan class=\"hljs-built_in\"\u003eecho\u003c/span\u003e \u003cspan class=\"hljs-string\"\u003e\u0026quot;Change 1\u0026quot;\u003c/span\u003e \u0026gt;\u0026gt; README.md\ngit add README.md\ngit commit -m \u003cspan class=\"hljs-string\"\u003e\u0026quot;Change 1\u0026quot;\u003c/span\u003e\n\u003cspan class=\"hljs-built_in\"\u003eecho\u003c/span\u003e \u003cspan class=\"hljs-string\"\u003e\u0026quot;Change 2\u0026quot;\u003c/span\u003e \u0026gt;\u0026gt; README.md\ngit add README.md\ngit commit -m \u003cspan class=\"hljs-string\"\u003e\u0026quot;Change 2\u0026quot;\u003c/span\u003e\n\u003cspan class=\"hljs-built_in\"\u003eecho\u003c/span\u003e \u003cspan class=\"hljs-string\"\u003e\u0026quot;Change 3\u0026quot;\u003c/span\u003e \u0026gt;\u0026gt; README.md\ngit add README.md\ngit commit -m \u003cspan class=\"hljs-string\"\u003e\u0026quot;Change 3\u0026quot;\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eInteractive rebase steps\u003c/h2\u003e\n\u003cp\u003eTo begin, we need to provide a point in time to rebase with. The simplest way to do this is typically with \u003ccode\u003eHEAD~n\u003c/code\u003e, where \u003ccode\u003en\u003c/code\u003e is the number of commits back we want to go. This format is also called a \u003cem\u003e\u003cstrong\u003ecommit-ish\u003c/strong\u003e\u003c/em\u003e.\u003c/p\u003e\n\u003cp\u003eSo, \u003ccode\u003eHEAD~1\u003c/code\u003e means one commit back from \u003ccode\u003eHEAD\u003c/code\u003e.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eThe command for interactive rebase is:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit rebase -i \u0026lt;commit-ish\u0026gt;\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eExercise: Squashing commits - interactive rebase\u003c/h3\u003e\n\u003cp\u003eNow we will squash the commits.\u003c/p\u003e\n\u003cp\u003eWe want all the 3 latest changes to be a single commit and update the commit message.\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cul\u003e\n\u003cli\u003eStart an interactive rebase with the last 3 commits.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch3\u003eSolution: Squashing commits - interactive rebase\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit rebase -i HEAD~3\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003epick a4ebcc2 Change 1\npick 04b43c8 Change 2\npick 8406816 Change 3\n\n# Rebase 7142285..8406816 onto 7142285 (3 commands)\n#\n# Commands:\n# p, pick \u0026lt;commit\u0026gt; = use commit\n# r, reword \u0026lt;commit\u0026gt; = use commit, but edit the commit message\n# e, edit \u0026lt;commit\u0026gt; = use commit, but stop for amending\n# s, squash \u0026lt;commit\u0026gt; = use commit, but meld into previous commit\n# f, fixup [-C | -c] \u0026lt;commit\u0026gt; = like \u0026quot;squash\u0026quot; but keep only the previous\n#                    commit\u0026#x27;s log message, unless -C is used, in which case\n#                    keep only this commit\u0026#x27;s message; -c is same as -C but\n#                    opens the editor\n# x, exec \u0026lt;command\u0026gt; = run command (the rest of the line) using shell\n# b, break = stop here (continue rebase later with \u0026#x27;git rebase --continue\u0026#x27;)\n# d, drop \u0026lt;commit\u0026gt; = remove commit\n# l, label \u0026lt;label\u0026gt; = label current HEAD with a name\n# t, reset \u0026lt;label\u0026gt; = reset HEAD to a label\n# m, merge [-C \u0026lt;commit\u0026gt; | -c \u0026lt;commit\u0026gt;] \u0026lt;label\u0026gt; [# \u0026lt;oneline\u0026gt;]\n#         create a merge commit using the original merge commit\u0026#x27;s\n#         message (or the oneline, if no original merge commit was\n#         specified); use -c \u0026lt;commit\u0026gt; to reword the commit message\n# u, update-ref \u0026lt;ref\u0026gt; = track a placeholder for the \u0026lt;ref\u0026gt; to be updated\n#                       to this position in the new commits. The \u0026lt;ref\u0026gt; is\n#                       updated at the end of the rebase\n#\n# These lines can be re-ordered; they are executed from top to bottom.\n#\n# If you remove a line here THAT COMMIT WILL BE LOST.\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003eTo squash the commits, we need to change the \u003ccode\u003epick\u003c/code\u003e command to \u003ccode\u003esquash\u003c/code\u003e or \u003ccode\u003es\u003c/code\u003e for the commits we want to squash.\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003epick a4ebcc2 Change 1\ns 04b43c8 Change 2\ns 8406816 Change 3\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eAnd we save with \u003ccode\u003e:wq\u003c/code\u003e and \u003ccode\u003eEnter\u003c/code\u003e.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eThis brings up the editor to edit the commit message.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003e# This is a combination of 3 commits.\n# This is the 1st commit message:\n\nChange 1\n\n# This is the commit message #2:\n\nChange 2\n\n# This is the commit message #3:\n\nChange 3\n\n# Please enter the commit message for your changes. Lines starting\n# with \u0026#x27;#\u0026#x27; will be ignored, and an empty message aborts the commit.\n#\n# Date:      Wed Sep 25 00:24:11 2024 +0200\n#\n# interactive rebase in progress; onto 7142285\n# Last commands done (3 commands done):\n#    squash 04b43c8 Change 2\n#    squash 8406816 Change 3\n# No commands remaining.\n# You are currently rebasing branch \u0026#x27;main\u0026#x27; on \u0026#x27;7142285\u0026#x27;.\n#\n# Changes to be committed:\n#       modified:   README.md\n#\n~\n~\n~\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eWe edit the commit message to something like \u003ccode\u003eFeature X\u003c/code\u003e.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003e# This is a combination of 3 commits.\n# This is the 1st commit message:\n\nFeature X\n\n# Please enter the commit message for your changes. Lines starting\n# with \u0026#x27;#\u0026#x27; will be ignored, and an empty message aborts the commit.\n#\n# Date:      Wed Sep 25 00:24:11 2024 +0200\n#\n# interactive rebase in progress; onto 7142285\n# Last commands done (3 commands done):\n#    squash 04b43c8 Change 2\n#    squash 8406816 Change 3\n# No commands remaining.\n# You are currently rebasing branch \u0026#x27;main\u0026#x27; on \u0026#x27;7142285\u0026#x27;.\n#\n# Changes to be committed:\n#       modified:   README.md\n#\n~\n~\n~\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eAnd again we save with \u003ccode\u003e:wq\u003c/code\u003e and \u003ccode\u003eEnter\u003c/code\u003e.\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003e[detached HEAD e3f045e] Feature X\n Date: Wed Sep 25 00:24:11 2024 +0200\n 1 file changed, 3 insertions(+)\nSuccessfully rebased and updated refs/heads/main.\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eCheck the log to see the changes.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit \u003cspan class=\"hljs-built_in\"\u003elog\u003c/span\u003e --oneline --graph\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003eWe will see that the 3 commits have been squashed into one with the message \u003ccode\u003eFeature X\u003c/code\u003e.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-plaintext\"\u003e* e3f045e (HEAD -\u0026gt; main) Feature X\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eWhen we push to the remote respository, and in some cases you may need to do \u003ccode\u003egit push --force\u003c/code\u003e to overwrite the remote branch.\u003c/p\u003e\n\u003cp\u003eKnow that it exists. Use \u003ccode\u003e--force\u003c/code\u003e with caution.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n","markdown":"\n## Interactive rebasing and squashing\n\nSometimes we want to ***squash*** multiple commits into one. \n\nMaybe we did a lot of small commits with poor messages while working on a feature. Maybe we want to push a single commit containing all the changes for the feature—making it easy to revert later on, if needed.\n\nIn practice this is done with interactive rebasing.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nEssentially squashing takes this.\n\n\u003c/br\u003e\n\n![Squashing before](../../images/lessons/git/squash-before.svg)\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nAnd turns it into this.\n\n![Squashing after](../../images/lessons/git/squash-after.svg)\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nInteractive rebasing allows squashing commits but also allows us to edit commit messages, reorder commits, and even remove commits.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Exercise: Squashing commits - set the stage\n\nWe need to set the stage first by creating some commits.\n\n\u003e * Navigate to the `remote-git` repository.\n\u003e * Checkout the `feature` branch.\n\u003e * Append **3 changes** to the `README.md` file and commit each change with a unique message.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Solution: Squashing commits - set the stage\n\nNavigate to the `remote-git` repository.\n\n```bash\ngit checkout feature\necho \"Change 1\" \u003e\u003e README.md\ngit add README.md\ngit commit -m \"Change 1\"\necho \"Change 2\" \u003e\u003e README.md\ngit add README.md\ngit commit -m \"Change 2\"\necho \"Change 3\" \u003e\u003e README.md\ngit add README.md\ngit commit -m \"Change 3\"\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Interactive rebase steps\n\nTo begin, we need to provide a point in time to rebase with. The simplest way to do this is typically with `HEAD~n`, where `n` is the number of commits back we want to go. This format is also called a ***commit-ish***.\n\nSo, `HEAD~1` means one commit back from `HEAD`.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\nThe command for interactive rebase is:\n\n```bash\ngit rebase -i \u003ccommit-ish\u003e\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Exercise: Squashing commits - interactive rebase\n\nNow we will squash the commits.\n\nWe want all the 3 latest changes to be a single commit and update the commit message.\n\n\u003e * Start an interactive rebase with the last 3 commits.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n### Solution: Squashing commits - interactive rebase\n\n```bash\ngit rebase -i HEAD~3\n```\n\n\u003c/br\u003e\n\n**Output:**\n\n```plaintext\npick a4ebcc2 Change 1\npick 04b43c8 Change 2\npick 8406816 Change 3\n\n# Rebase 7142285..8406816 onto 7142285 (3 commands)\n#\n# Commands:\n# p, pick \u003ccommit\u003e = use commit\n# r, reword \u003ccommit\u003e = use commit, but edit the commit message\n# e, edit \u003ccommit\u003e = use commit, but stop for amending\n# s, squash \u003ccommit\u003e = use commit, but meld into previous commit\n# f, fixup [-C | -c] \u003ccommit\u003e = like \"squash\" but keep only the previous\n#                    commit's log message, unless -C is used, in which case\n#                    keep only this commit's message; -c is same as -C but\n#                    opens the editor\n# x, exec \u003ccommand\u003e = run command (the rest of the line) using shell\n# b, break = stop here (continue rebase later with 'git rebase --continue')\n# d, drop \u003ccommit\u003e = remove commit\n# l, label \u003clabel\u003e = label current HEAD with a name\n# t, reset \u003clabel\u003e = reset HEAD to a label\n# m, merge [-C \u003ccommit\u003e | -c \u003ccommit\u003e] \u003clabel\u003e [# \u003coneline\u003e]\n#         create a merge commit using the original merge commit's\n#         message (or the oneline, if no original merge commit was\n#         specified); use -c \u003ccommit\u003e to reword the commit message\n# u, update-ref \u003cref\u003e = track a placeholder for the \u003cref\u003e to be updated\n#                       to this position in the new commits. The \u003cref\u003e is\n#                       updated at the end of the rebase\n#\n# These lines can be re-ordered; they are executed from top to bottom.\n#\n# If you remove a line here THAT COMMIT WILL BE LOST.\n```\n\n\u003c/br\u003e\n\nTo squash the commits, we need to change the `pick` command to `squash` or `s` for the commits we want to squash.\n\n\u003c/br\u003e\n\n```plaintext\npick a4ebcc2 Change 1\ns 04b43c8 Change 2\ns 8406816 Change 3\n```\n\nAnd we save with `:wq` and `Enter`.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\nThis brings up the editor to edit the commit message.\n\n**Output:**\n\n```plaintext\n# This is a combination of 3 commits.\n# This is the 1st commit message:\n\nChange 1\n\n# This is the commit message #2:\n\nChange 2\n\n# This is the commit message #3:\n\nChange 3\n\n# Please enter the commit message for your changes. Lines starting\n# with '#' will be ignored, and an empty message aborts the commit.\n#\n# Date:      Wed Sep 25 00:24:11 2024 +0200\n#\n# interactive rebase in progress; onto 7142285\n# Last commands done (3 commands done):\n#    squash 04b43c8 Change 2\n#    squash 8406816 Change 3\n# No commands remaining.\n# You are currently rebasing branch 'main' on '7142285'.\n#\n# Changes to be committed:\n#       modified:   README.md\n#\n~\n~\n~\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\nWe edit the commit message to something like `Feature X`.\n\n**Output:**\n\n```plaintext\n# This is a combination of 3 commits.\n# This is the 1st commit message:\n\nFeature X\n\n# Please enter the commit message for your changes. Lines starting\n# with '#' will be ignored, and an empty message aborts the commit.\n#\n# Date:      Wed Sep 25 00:24:11 2024 +0200\n#\n# interactive rebase in progress; onto 7142285\n# Last commands done (3 commands done):\n#    squash 04b43c8 Change 2\n#    squash 8406816 Change 3\n# No commands remaining.\n# You are currently rebasing branch 'main' on '7142285'.\n#\n# Changes to be committed:\n#       modified:   README.md\n#\n~\n~\n~\n```\n\nAnd again we save with `:wq` and `Enter`.\n\n\u003c/br\u003e\n\n**Output:**\n\n```plaintext\n[detached HEAD e3f045e] Feature X\n Date: Wed Sep 25 00:24:11 2024 +0200\n 1 file changed, 3 insertions(+)\nSuccessfully rebased and updated refs/heads/main.\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nCheck the log to see the changes.\n\n```bash\ngit log --oneline --graph\n```\n\n\u003c/br\u003e\n\nWe will see that the 3 commits have been squashed into one with the message `Feature X`.\n\n**Output:**\n\n```plaintext\n* e3f045e (HEAD -\u003e main) Feature X\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nWhen we push to the remote respository, and in some cases you may need to do `git push --force` to overwrite the remote branch.\n\nKnow that it exists. Use `--force` with caution.\n\n\u003c/br\u003e\n\u003c/br\u003e\n","slug":"interactive-rebase-and-squashing","title":"Interactive rebasing and squashing","section":"Git basics","icon":"code","filePath":"/home/runner/work/itu-bds-sdse/itu-bds-sdse/lessons/06-git-basics/L-interactive-rebase-and-squashing.md","nextSlug":"/itu-bds-sdse/lessons/git-basics/searching-logs","prevSlug":"/itu-bds-sdse/lessons/git-basics/stashing-changes"}},"__N_SSG":true},"page":"/lessons/[section]/[slug]","query":{"section":"git-basics","slug":"interactive-rebase-and-squashing"},"buildId":"aGU_TgP1G33XsxgAaS_TT","assetPrefix":"/itu-bds-sdse","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

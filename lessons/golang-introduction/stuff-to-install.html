@@ -1,0 +1,172 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><link rel="apple-touch-icon" sizes="180x180" href="/itu-bds-sdse/images/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/itu-bds-sdse/images/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/x-icon" href="/itu-bds-sdse/images/favicon.ico"/><title>Stuff to install – Data Science in Production: MLOps and Software Engineering</title><meta name="description" content="Data Science in Production: MLOps and Software Engineering"/><meta name="keywords" content="your,Google,keywords,here"/><meta name="og:description" content="Data Science in Production: MLOps and Software Engineering"/><meta name="og:title" content="Stuff to install – Data Science in Production: MLOps and Software Engineering"/><meta name="og:image" content="/itu-bds-sdse/images/social-share-cover.jpg"/><meta name="twitter:card" content="summary_large_image"/><meta name="next-head-count" content="14"/><link data-next-font="size-adjust" rel="preconnect" href="/" crossorigin="anonymous"/><link rel="preload" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" as="style"/><link rel="stylesheet" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/itu-bds-sdse/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"></script><script src="/itu-bds-sdse/_next/static/chunks/webpack-8116fd4d628798fe.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/framework-ecc4130bc7a58a64.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/main-348f16897b94a0d5.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/_app-fa68bd1b4993f298.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/lessons/%5Bsection%5D/%5Bslug%5D-c2cb604784d7e04f.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_buildManifest.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="remix-app"><header class="navbar"><h1 class="navbar-brand"><a href="/itu-bds-sdse">Data Science in Production: MLOps and Software Engineering</a></h1><div class="navbar-info"></div></header><div class="content-container"><div class="main"><div class="lesson-container"><div class="lesson"><div class="lesson-content"><h1>Stuff to install</h1>
+<p>We will be using <strong>Visual Studio Code</strong> (VSCode) as our editor, and we will be <strong>using the terminal to run our code</strong>. We also need <strong>Go</strong> (obviously—it is part of the course) and extensions for VSCode to make our lives easier.</p>
+<p>Later on we will be using <strong>Git</strong>, <strong>Docker</strong> and <strong>Dagger</strong>, but install instructions for those follow in later sections and are not necessary for now.</p>
+<p>You may know what Git is about, but Docker and Dagger are probably new to you. Don&#39;t worry, we will cover them in later lessons.</p>
+<blockquote>
+<p><strong>Important:</strong> If you are running Windows, you <em>will</em> need to install WSL2. The development stack has certain requirements and a *nix environment (MacOS/Linux) is one of them.</p>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+
+<h2>What you need to install</h2>
+<ul>
+<li><strong>Visual Studio Code</strong> (latest version, 1.105.1)</li>
+<li><strong>Go</strong> (latest version, 1.25.0)</li>
+<li><strong>Git</strong> (latest version, 2.51.2)</li>
+<li><strong>Docker Engine</strong> (latest version, 28.5.1), can be installed with <strong>Docker Desktop</strong> (latest version, 4.50.0)</li>
+<li><strong>Dagger</strong> (latest version, 0.19.6)</li>
+</ul>
+<p>Versions are as of writing this course (November 2025).</p>
+<blockquote>
+<p><strong>Note:</strong> Other Visual Studio Code based IDEs, such as <strong>Cursor</strong> or <strong>Windsurf</strong>, can be used as well, but you cannot expect support from TAs if you use them instead. The only caveats are that the IDEs are version wise behind VSCode and extensions are only available in older versions.</p>
+</blockquote>
+<p>Using Homebrew for package management is recommended. You can install Homebrew by following the instructions <a href="https://brew.sh/">here</a>. Homebrew only works on MacOS and most Linux distributions.</p>
+<blockquote>
+<p><strong>Note:</strong> If you are running on Windows, using <strong>WSL2</strong> is recommended. You can install it by following the instructions <a href="https://docs.microsoft.com/en-us/windows/wsl/install">here</a>. Ubuntu is recommended as the Linux distribution.</p>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Visual Studio Code</h2>
+<ul>
+<li>Install VSCode from <a href="https://code.visualstudio.com/download">here</a>.</li>
+</ul>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Go</h2>
+<ol>
+<li><p>Install Go from <a href="https://golang.org/dl/">here</a> or if you are using Homebrew, run <code>brew install go</code>.</p>
+</li>
+<li><p>Install the following <a href="https://marketplace.visualstudio.com/items?itemName=golang.go">Go extension</a> in VSCode:
+<img src="../../images/lessons/golang-introduction/vscode-go-extension.png" alt="Extensions">
+This will install several tool integrations in VSCode and most importantly the Go LSP.</br></br>
+Install the most recent version. Currently it is <strong>v0.48.0</strong>.</p>
+</li>
+</ol>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Git</h2>
+<ul>
+<li>Install Git from <a href="https://git-scm.com/downloads">here</a> or if you are using Homebrew, run <code>brew install git</code>.</li>
+</ul>
+</br>
+</br>
+</br>
+</br>
+
+<blockquote>
+<p>WSL = Windows Subsystem for Linux</br>
+LSP = Language Server Protocol</p>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2><i class="fa-solid fa-rocket"></i> Let&#39;s see if it works <i class="fa-solid fa-rocket"></i></h2>
+</br>
+</br>
+
+<p><strong>Go Test</strong></p>
+<p>Hello World in Go!</p>
+<p>Don&#39;t worry about the code for now. You will get to understand it when we go through the fundamentals.</p>
+<p>Create a new file called <code>main.go</code>:</p>
+<pre><code class="hljs language-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    fmt.Println(<span class="hljs-string">&quot;Hello, World!&quot;</span>)
+}
+</code></pre></br>
+</br>
+
+<p>Run:</p>
+<pre><code class="hljs language-bash">go run main.go
+</code></pre></br>
+</br>
+
+<p>You should see something that is not an error &gt;D</p>
+</br>
+</br>
+
+<hr>
+</br>
+</br>
+
+<p><strong>Git Test</strong></p>
+<p>Let&#39;s verify Git is working properly:</p>
+<pre><code class="hljs language-bash">git version
+</code></pre><p>You should see the Git version number displayed.</p>
+</br>
+</br>
+
+<hr>
+</br>
+</br>
+
+<p><strong>Docker Test</strong></p>
+<p>Let&#39;s check if Docker Engine is running:</p>
+<pre><code class="hljs language-bash">docker --version
+</code></pre><p>You should see the Docker version information.</p>
+<blockquote>
+<p><strong>Note:</strong> If it says Docker is not running, you may need to start Docker Desktop.</p>
+</blockquote>
+</br>
+</br>
+
+<p>Run a simple container:</p>
+<pre><code class="hljs language-bash">docker run hello-world
+</code></pre><p>You should see a &quot;Hello from Docker!&quot; message confirming Docker is working correctly—like this:</p>
+<pre><code class="hljs language-text">Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.
+    (arm64v8)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+</code></pre></br>
+</br>
+
+<hr>
+</br>
+</br>
+
+<p><strong>Dagger Test</strong></p>
+<p>Verify Dagger installation:</p>
+<pre><code class="hljs language-bash">dagger version
+</code></pre><p>You should see the Dagger version number.</p>
+</br>
+</br>
+
+<blockquote>
+<p><strong>Note:</strong> If any of these tests fail, double-check your installation steps and ensure all tools are properly installed and configured. Ask the TAs for help.</p>
+</blockquote>
+</div><div class="lesson-links"><a href="/itu-bds-sdse/lessons/golang-introduction/philosophy-and-tools" class="prev">← Previous</a><a href="/itu-bds-sdse/lessons/golang-introduction/multi-platform-and-common-use-cases" class="next">Next →</a></div></div><div class="details-bg"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="154" height="154" viewBox="0 0 154 154"><defs><clipPath id="clip-path"><rect id="Rectangle_2238" data-name="Rectangle 2238" width="154" height="154" transform="translate(9467 350)" fill="#fff" stroke="#707070" stroke-width="1"></rect></clipPath><clipPath id="clip-corner-image-active"><rect width="154" height="154"></rect></clipPath></defs><g id="corner-image-active" clip-path="url(#clip-corner-image-active)"><g id="Corner-image-active-2" data-name="Corner-image-active" transform="translate(-9467 -350)" clip-path="url(#clip-path)"><path id="Subtraction_34" data-name="Subtraction 34" d="M-3857.365,1740.766h0l-7.07-7.07,12.89-12.89v14.142l-5.818,5.818Zm-14.142-14.142h0l-7.071-7.07,27.033-27.033v14.143l-19.96,19.96Zm-14.143-14.143h0l-7.07-7.069,41.175-41.175v14.142Zm-14.142-14.142h0l-7.07-7.069,55.317-55.317v14.142Zm-14.142-14.142h0l-7.07-7.069,69.459-69.459v14.142Zm-14.142-14.142h0l-7.07-7.069,76.739-76.739h6.862v7.28Zm-14.143-14.143h0l-7.07-7.069,62.6-62.6h14.142Zm-14.142-14.142h0l-7.07-7.069,48.454-48.454h14.142Zm-14.142-14.142h0l-7.07-7.069,34.312-34.312h14.142Zm-14.142-14.142h0l-7.07-7.069,20.17-20.17h14.142Zm-14.142-14.142h0l-7.071-7.071,6.027-6.027h14.144l-13.1,13.1Zm367.24-56.114v-.909l.455.455-.453.453Z" transform="translate(13472.546 -1236.766)" fill="var(--corner-fill)"></path></g></g></svg></div></div></div></div><footer class="footer"><ul class="socials"><li class="social"><a href="https://github.com/lasselundstenjensen/itu-bds-sdse"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-github-social"><rect width="32" height="32"></rect></clipPath></defs><g id="github-social" clip-path="url(#clip-github-social)"><g id="Group_272" data-name="Group 272" transform="translate(13522.5 -6994)"><path id="Subtraction_33" data-name="Subtraction 33" d="M-24967.5,8041a15.9,15.9,0,0,1-11.312-4.688A15.893,15.893,0,0,1-24983.5,8025a15.893,15.893,0,0,1,4.689-11.315A15.894,15.894,0,0,1-24967.5,8009a15.894,15.894,0,0,1,11.313,4.686A15.893,15.893,0,0,1-24951.5,8025a15.893,15.893,0,0,1-4.689,11.313A15.9,15.9,0,0,1-24967.5,8041Zm-3.781-4.571h0v3.918h7.895v-6.665a1.836,1.836,0,0,0-1.2-1.718c5.1-.617,7.467-2.975,7.467-7.424a7.176,7.176,0,0,0-1.637-4.728,6.74,6.74,0,0,0,.275-1.812,4.34,4.34,0,0,0-.52-2.452.574.574,0,0,0-.359-.1c-1.061,0-3.465,1.411-3.936,1.694a16.644,16.644,0,0,0-4.2-.489,16.379,16.379,0,0,0-3.969.445c-.846-.5-2.91-1.649-3.859-1.649a.566.566,0,0,0-.354.095,4.3,4.3,0,0,0-.521,2.452,6.7,6.7,0,0,0,.244,1.718,7.346,7.346,0,0,0-1.6,4.822,7.263,7.263,0,0,0,1.533,4.985c1.193,1.359,3.115,2.165,5.871,2.464a1.826,1.826,0,0,0-1.129,1.693v.5h0l-.006,0a7.121,7.121,0,0,1-2.033.363,2.608,2.608,0,0,1-.965-.158,4.438,4.438,0,0,1-1.836-1.881,2.361,2.361,0,0,0-1.248-1.091,3.472,3.472,0,0,0-1.217-.3.584.584,0,0,0-.545.224.282.282,0,0,0,.027.367,1.875,1.875,0,0,0,.447.307,4.732,4.732,0,0,1,.561.355,10.726,10.726,0,0,1,1.682,2.755c.043.092.078.163.105.217a3.876,3.876,0,0,0,2.42,1.185,6.036,6.036,0,0,0,.607.025c.875,0,1.988-.124,2-.125Z" transform="translate(11461 -1015)" fill="var(--footer-icons)"></path><g id="Ellipse_670" data-name="Ellipse 670" transform="translate(-13522.5 6994)" fill="none" stroke="var(--footer-icons)" stroke-width="1"><circle cx="16" cy="16" r="16" stroke="none"></circle><circle cx="16" cy="16" r="15.5" fill="none"></circle></g></g></g></svg></a></li><li class="social"><a href="https://linkedin.com/in/lasselundstenjensen"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-linkedin-social"><rect width="32" height="32"></rect></clipPath></defs><g id="linkedin-social" clip-path="url(#clip-linkedin-social)"><g id="Group_270" data-name="Group 270" transform="translate(-86.349 -633.073)"><path id="Path_375" data-name="Path 375" d="M115.789,633.073a2.324,2.324,0,0,1,1.682.676,2.194,2.194,0,0,1,.695,1.627V662.8a2.131,2.131,0,0,1-.695,1.609,2.314,2.314,0,0,1-1.646.659H88.69a2.307,2.307,0,0,1-1.646-.659,2.128,2.128,0,0,1-.695-1.609V635.376a2.19,2.19,0,0,1,.695-1.627,2.322,2.322,0,0,1,1.682-.676h27.063Zm-20.224,9.672a2.561,2.561,0,0,0,0-3.584,2.658,2.658,0,0,0-1.938-.712,2.724,2.724,0,0,0-1.957.712,2.371,2.371,0,0,0-.75,1.792,2.4,2.4,0,0,0,.731,1.792,2.605,2.605,0,0,0,1.9.713h.037A2.7,2.7,0,0,0,95.565,642.745ZM96,645.434H91.213V659.88H96Zm17.3,6.144a7.007,7.007,0,0,0-1.573-4.9,5.68,5.68,0,0,0-6.839-.769,5.663,5.663,0,0,0-1.426,1.573v-2.048H98.674q.036.841,0,7.717v6.728h4.791V651.8a3.592,3.592,0,0,1,.146-1.17,2.913,2.913,0,0,1,.878-1.206,2.429,2.429,0,0,1,1.609-.549,2.108,2.108,0,0,1,1.865.914,4.265,4.265,0,0,1,.549,2.341v7.752H113.3Z" fill="var(--footer-icons)"></path></g></g></svg></a></li><li class="social"><div class="terms"><p>Content Licensed Under CC-BY-NC-4.0</p><p>Code Samples and Excercises Licensed Under Apache 2.0</p><p>Site Designed by<!-- --> <a href="https://www.alexdanielson.com/">Alex Danielson</a></p></div></li></ul></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"attributes":{"title":"Stuff to install"},"html":"\u003ch1\u003eStuff to install\u003c/h1\u003e\n\u003cp\u003eWe will be using \u003cstrong\u003eVisual Studio Code\u003c/strong\u003e (VSCode) as our editor, and we will be \u003cstrong\u003eusing the terminal to run our code\u003c/strong\u003e. We also need \u003cstrong\u003eGo\u003c/strong\u003e (obviously—it is part of the course) and extensions for VSCode to make our lives easier.\u003c/p\u003e\n\u003cp\u003eLater on we will be using \u003cstrong\u003eGit\u003c/strong\u003e, \u003cstrong\u003eDocker\u003c/strong\u003e and \u003cstrong\u003eDagger\u003c/strong\u003e, but install instructions for those follow in later sections and are not necessary for now.\u003c/p\u003e\n\u003cp\u003eYou may know what Git is about, but Docker and Dagger are probably new to you. Don\u0026#39;t worry, we will cover them in later lessons.\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e\u003cstrong\u003eImportant:\u003c/strong\u003e If you are running Windows, you \u003cem\u003ewill\u003c/em\u003e need to install WSL2. The development stack has certain requirements and a *nix environment (MacOS/Linux) is one of them.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eWhat you need to install\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003eVisual Studio Code\u003c/strong\u003e (latest version, 1.105.1)\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eGo\u003c/strong\u003e (latest version, 1.25.0)\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eGit\u003c/strong\u003e (latest version, 2.51.2)\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eDocker Engine\u003c/strong\u003e (latest version, 28.5.1), can be installed with \u003cstrong\u003eDocker Desktop\u003c/strong\u003e (latest version, 4.50.0)\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eDagger\u003c/strong\u003e (latest version, 0.19.6)\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eVersions are as of writing this course (November 2025).\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e\u003cstrong\u003eNote:\u003c/strong\u003e Other Visual Studio Code based IDEs, such as \u003cstrong\u003eCursor\u003c/strong\u003e or \u003cstrong\u003eWindsurf\u003c/strong\u003e, can be used as well, but you cannot expect support from TAs if you use them instead. The only caveats are that the IDEs are version wise behind VSCode and extensions are only available in older versions.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003eUsing Homebrew for package management is recommended. You can install Homebrew by following the instructions \u003ca href=\"https://brew.sh/\"\u003ehere\u003c/a\u003e. Homebrew only works on MacOS and most Linux distributions.\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e\u003cstrong\u003eNote:\u003c/strong\u003e If you are running on Windows, using \u003cstrong\u003eWSL2\u003c/strong\u003e is recommended. You can install it by following the instructions \u003ca href=\"https://docs.microsoft.com/en-us/windows/wsl/install\"\u003ehere\u003c/a\u003e. Ubuntu is recommended as the Linux distribution.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eVisual Studio Code\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003eInstall VSCode from \u003ca href=\"https://code.visualstudio.com/download\"\u003ehere\u003c/a\u003e.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eGo\u003c/h2\u003e\n\u003col\u003e\n\u003cli\u003e\u003cp\u003eInstall Go from \u003ca href=\"https://golang.org/dl/\"\u003ehere\u003c/a\u003e or if you are using Homebrew, run \u003ccode\u003ebrew install go\u003c/code\u003e.\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003eInstall the following \u003ca href=\"https://marketplace.visualstudio.com/items?itemName=golang.go\"\u003eGo extension\u003c/a\u003e in VSCode:\n\u003cimg src=\"../../images/lessons/golang-introduction/vscode-go-extension.png\" alt=\"Extensions\"\u003e\nThis will install several tool integrations in VSCode and most importantly the Go LSP.\u003c/br\u003e\u003c/br\u003e\nInstall the most recent version. Currently it is \u003cstrong\u003ev0.48.0\u003c/strong\u003e.\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eGit\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003eInstall Git from \u003ca href=\"https://git-scm.com/downloads\"\u003ehere\u003c/a\u003e or if you are using Homebrew, run \u003ccode\u003ebrew install git\u003c/code\u003e.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003eWSL = Windows Subsystem for Linux\u003c/br\u003e\nLSP = Language Server Protocol\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003e\u003ci class=\"fa-solid fa-rocket\"\u003e\u003c/i\u003e Let\u0026#39;s see if it works \u003ci class=\"fa-solid fa-rocket\"\u003e\u003c/i\u003e\u003c/h2\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eGo Test\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eHello World in Go!\u003c/p\u003e\n\u003cp\u003eDon\u0026#39;t worry about the code for now. You will get to understand it when we go through the fundamentals.\u003c/p\u003e\n\u003cp\u003eCreate a new file called \u003ccode\u003emain.go\u003c/code\u003e:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-keyword\"\u003epackage\u003c/span\u003e main\n\n\u003cspan class=\"hljs-keyword\"\u003eimport\u003c/span\u003e \u003cspan class=\"hljs-string\"\u003e\u0026quot;fmt\u0026quot;\u003c/span\u003e\n\n\u003cspan class=\"hljs-function\"\u003e\u003cspan class=\"hljs-keyword\"\u003efunc\u003c/span\u003e \u003cspan class=\"hljs-title\"\u003emain\u003c/span\u003e\u003cspan class=\"hljs-params\"\u003e()\u003c/span\u003e\u003c/span\u003e {\n    fmt.Println(\u003cspan class=\"hljs-string\"\u003e\u0026quot;Hello, World!\u0026quot;\u003c/span\u003e)\n}\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eRun:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003ego run main.go\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eYou should see something that is not an error \u0026gt;D\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003chr\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eGit Test\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eLet\u0026#39;s verify Git is working properly:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit version\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eYou should see the Git version number displayed.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003chr\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eDocker Test\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eLet\u0026#39;s check if Docker Engine is running:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003edocker --version\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eYou should see the Docker version information.\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e\u003cstrong\u003eNote:\u003c/strong\u003e If it says Docker is not running, you may need to start Docker Desktop.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eRun a simple container:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003edocker run hello-world\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eYou should see a \u0026quot;Hello from Docker!\u0026quot; message confirming Docker is working correctly—like this:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-text\"\u003eHello from Docker!\nThis message shows that your installation appears to be working correctly.\n\nTo generate this message, Docker took the following steps:\n 1. The Docker client contacted the Docker daemon.\n 2. The Docker daemon pulled the \u0026quot;hello-world\u0026quot; image from the Docker Hub.\n    (arm64v8)\n 3. The Docker daemon created a new container from that image which runs the\n    executable that produces the output you are currently reading.\n 4. The Docker daemon streamed that output to the Docker client, which sent it\n    to your terminal.\n\nTo try something more ambitious, you can run an Ubuntu container with:\n $ docker run -it ubuntu bash\n\nShare images, automate workflows, and more with a free Docker ID:\n https://hub.docker.com/\n\nFor more examples and ideas, visit:\n https://docs.docker.com/get-started/\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\n\u003chr\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eDagger Test\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eVerify Dagger installation:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003edagger version\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eYou should see the Dagger version number.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003e\u003cstrong\u003eNote:\u003c/strong\u003e If any of these tests fail, double-check your installation steps and ensure all tools are properly installed and configured. Ask the TAs for help.\u003c/p\u003e\n\u003c/blockquote\u003e\n","markdown":"\n# Stuff to install\n\nWe will be using **Visual Studio Code** (VSCode) as our editor, and we will be **using the terminal to run our code**. We also need **Go** (obviously—it is part of the course) and extensions for VSCode to make our lives easier.\n\nLater on we will be using **Git**, **Docker** and **Dagger**, but install instructions for those follow in later sections and are not necessary for now.\n\nYou may know what Git is about, but Docker and Dagger are probably new to you. Don't worry, we will cover them in later lessons.\n\n\u003e **Important:** If you are running Windows, you _will_ need to install WSL2. The development stack has certain requirements and a *nix environment (MacOS/Linux) is one of them.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## What you need to install\n\n- **Visual Studio Code** (latest version, 1.105.1)\n- **Go** (latest version, 1.25.0)\n- **Git** (latest version, 2.51.2)\n- **Docker Engine** (latest version, 28.5.1), can be installed with **Docker Desktop** (latest version, 4.50.0)\n- **Dagger** (latest version, 0.19.6)\n\nVersions are as of writing this course (November 2025).\n\n\u003e **Note:** Other Visual Studio Code based IDEs, such as **Cursor** or **Windsurf**, can be used as well, but you cannot expect support from TAs if you use them instead. The only caveats are that the IDEs are version wise behind VSCode and extensions are only available in older versions.\n\nUsing Homebrew for package management is recommended. You can install Homebrew by following the instructions [here](https://brew.sh/). Homebrew only works on MacOS and most Linux distributions.\n\n\u003e **Note:** If you are running on Windows, using **WSL2** is recommended. You can install it by following the instructions [here](https://docs.microsoft.com/en-us/windows/wsl/install). Ubuntu is recommended as the Linux distribution.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Visual Studio Code\n\n- Install VSCode from [here](https://code.visualstudio.com/download).\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Go\n\n1. Install Go from [here](https://golang.org/dl/) or if you are using Homebrew, run `brew install go`.\n\n2. Install the following [Go extension](https://marketplace.visualstudio.com/items?itemName=golang.go) in VSCode:\n![Extensions](../../images/lessons/golang-introduction/vscode-go-extension.png)\nThis will install several tool integrations in VSCode and most importantly the Go LSP.\u003c/br\u003e\u003c/br\u003e\nInstall the most recent version. Currently it is **v0.48.0**.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Git\n\n- Install Git from [here](https://git-scm.com/downloads) or if you are using Homebrew, run `brew install git`.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003e WSL = Windows Subsystem for Linux\u003c/br\u003e\n\u003e LSP = Language Server Protocol\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## \u003ci class=\"fa-solid fa-rocket\"\u003e\u003c/i\u003e Let's see if it works \u003ci class=\"fa-solid fa-rocket\"\u003e\u003c/i\u003e\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n**Go Test**\n\nHello World in Go!\n\nDon't worry about the code for now. You will get to understand it when we go through the fundamentals.\n\nCreate a new file called `main.go`:\n\n```go\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\")\n}\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\nRun:\n\n```bash\ngo run main.go\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\nYou should see something that is not an error \u003eD\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n---\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n**Git Test**\n\nLet's verify Git is working properly:\n\n```bash\ngit version\n```\n\nYou should see the Git version number displayed.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n---\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n**Docker Test**\n\nLet's check if Docker Engine is running:\n\n```bash\ndocker --version\n```\n\nYou should see the Docker version information.\n\n\u003e **Note:** If it says Docker is not running, you may need to start Docker Desktop.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\nRun a simple container:\n\n```bash\ndocker run hello-world\n```\n\nYou should see a \"Hello from Docker!\" message confirming Docker is working correctly—like this:\n\n```text\nHello from Docker!\nThis message shows that your installation appears to be working correctly.\n\nTo generate this message, Docker took the following steps:\n 1. The Docker client contacted the Docker daemon.\n 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub.\n    (arm64v8)\n 3. The Docker daemon created a new container from that image which runs the\n    executable that produces the output you are currently reading.\n 4. The Docker daemon streamed that output to the Docker client, which sent it\n    to your terminal.\n\nTo try something more ambitious, you can run an Ubuntu container with:\n $ docker run -it ubuntu bash\n\nShare images, automate workflows, and more with a free Docker ID:\n https://hub.docker.com/\n\nFor more examples and ideas, visit:\n https://docs.docker.com/get-started/\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n---\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n**Dagger Test**\n\nVerify Dagger installation:\n\n```bash\ndagger version\n```\n\nYou should see the Dagger version number.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003e **Note:** If any of these tests fail, double-check your installation steps and ensure all tools are properly installed and configured. Ask the TAs for help.\n","slug":"stuff-to-install","title":"Stuff to install","section":"The Go Programming Language","icon":"code","filePath":"/home/runner/work/itu-bds-sdse/itu-bds-sdse/lessons/03-golang-introduction/J-stuff-to-install.md","nextSlug":"/itu-bds-sdse/lessons/golang-introduction/multi-platform-and-common-use-cases","prevSlug":"/itu-bds-sdse/lessons/golang-introduction/philosophy-and-tools"}},"__N_SSG":true},"page":"/lessons/[section]/[slug]","query":{"section":"golang-introduction","slug":"stuff-to-install"},"buildId":"aGU_TgP1G33XsxgAaS_TT","assetPrefix":"/itu-bds-sdse","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

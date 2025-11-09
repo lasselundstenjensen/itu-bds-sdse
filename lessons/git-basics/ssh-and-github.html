@@ -1,0 +1,237 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><link rel="apple-touch-icon" sizes="180x180" href="/itu-bds-sdse/images/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/itu-bds-sdse/images/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/x-icon" href="/itu-bds-sdse/images/favicon.ico"/><title>Connecting to GitHub via SSH keys – Data Science in Production: MLOps and Software Engineering</title><meta name="description" content="SSH and GitHub"/><meta name="keywords" content="Software engineering,Git"/><meta name="og:description" content="SSH and GitHub"/><meta name="og:title" content="Connecting to GitHub via SSH keys – Data Science in Production: MLOps and Software Engineering"/><meta name="og:image" content="/itu-bds-sdse/images/social-share-cover.jpg"/><meta name="twitter:card" content="summary_large_image"/><meta name="next-head-count" content="14"/><link data-next-font="size-adjust" rel="preconnect" href="/" crossorigin="anonymous"/><link rel="preload" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" as="style"/><link rel="stylesheet" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/itu-bds-sdse/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"></script><script src="/itu-bds-sdse/_next/static/chunks/webpack-8116fd4d628798fe.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/framework-ecc4130bc7a58a64.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/main-348f16897b94a0d5.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/_app-fa68bd1b4993f298.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/lessons/%5Bsection%5D/%5Bslug%5D-c2cb604784d7e04f.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_buildManifest.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="remix-app"><header class="navbar"><h1 class="navbar-brand"><a href="/itu-bds-sdse">Data Science in Production: MLOps and Software Engineering</a></h1><div class="navbar-info"></div></header><div class="content-container"><div class="main"><div class="lesson-container"><div class="lesson"><div class="lesson-content"><h1>Connecting to GitHub via SSH keys</h1>
+<blockquote>
+<p><em>Guide written and provided by <a href="https://github.com/zntheory">@zntheory</a> and <a href="https://github.com/slug-boi">@Slug-Boi</a>.</em></p>
+</blockquote>
+</br>
+
+<p>Before getting into SSH keys, we need to understand what <strong>git</strong> and <strong>GitHub</strong> are and how they are different.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Git vs. GitHub</h2>
+<p><strong>Git</strong> is a piece of software that you can install and run locally. It is a version control system (VCS) for tracking changes in, primarily, code files that are within the same directory, which then constitutes a repository.</p>
+<p><strong>GitHub</strong> is an online website that functions as a storage and collaboration platform for <strong>git</strong> repositories. It essentially hosts your code on their servers, and provides a graphical user interface as well as features for easing code collaboration, e.g. pull requests.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Why SSH keys for GitHub?</h2>
+<p>In short, it&#39;s a secure way to identify yourself (so people know it&#39;s really you who sent a pull request with 10,000+ changed lines in one commit), and it saves you from having to log in each time you want to store files on GitHub.</p>
+<p>In GitHub&#39;s own words:</p>
+<blockquote>
+<p>Using the SSH protocol, you can connect and authenticate to remote servers and services. With SSH keys, you can connect to GitHub without supplying your username and personal access token at each visit. You can also use an SSH key to sign commits.</p>
+</blockquote>
+<p><strong>But for it to be secure, you should <em>never</em> give out your <em>private</em> key to anyone</strong>, though the public key is fine to give out.</p>
+<p>See the private key as your ID card, and the public key as your full name. It&#39;s generally fine to give out your name to other people, and in this case, GitHub will ask for your ID to confirm you are whom you claim to be, that you are allowed to work in this repository, etc.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h1>How to generate and add SSH keys for GitHub</h1>
+<p>This is specifically for generating SSH keys using the terminal.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Step 0 - Check for existing SSH keys</h2>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">ls</span> -al ~/.ssh
+</code></pre><p>You might already have a key pair or two, or maybe even none. Either way is fine. Just know that the rest of the guide will use <code>~/.ssh/id_rsa_github</code> as the new key file&#39;s location.</p>
+<p>If that file already exists on your computer, remember to replace the string for the rest of the guide, e.g. <code>~/.ssh/id_rsa_datascience</code>.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Step 1 - Generate SSH key pair</h2>
+<p><strong>Option 1:</strong> With your e-mail as a comment (Optional)</p>
+<p>Replace <code>&lt;your_email@example.com&gt;</code> below with your actual e-mail address.  See it as metadata to help you (or a future organisation administrator in charge of your team) to differentiate between multiple key pairs.</p>
+<pre><code class="hljs language-bash">ssh-keygen -t rsa -b 4096 -C <span class="hljs-string">&quot;&lt;your_email@example.com&gt;&quot;</span>
+</code></pre><p><strong>Option 2:</strong> Without your e-mail as a comment</p>
+<pre><code class="hljs language-bash">ssh-keygen -t rsa -b 4096
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Step 1.5 - Specify location</h2>
+<p>The agent will prompt you for which file to write the secret key to. Don&#39;t worry about the public key here.</p>
+<p>If the secret key file doesn&#39;t exist, it will create one. The same is true for the public key file.</p>
+</br>
+
+<p>Replace <code>&lt;user&gt;</code> below with the username you&#39;re using on the machine.</p>
+<pre><code>/home/&lt;user&gt;/.ssh/id_rsa_github
+</code></pre><p>This will write the generated secret key to the specified file, and the public key to a new file <code>~/.ssh/id_rsa_github.pub</code>.
+</br>
+</br></p>
+<p>Know that <code>~</code> is a shell expansion (do not worry about this term), which expands to <code>/home/&lt;user&gt;/</code>, but the SSH agent might complain about such a directory not existing due to it being interpreted as the literal character rather than being expanded. Writing it out explicitly should avoid that. A possible alternative could also be to use the environment expansion <code>$HOME</code> instead as this may be more widely supported than <code>~</code>.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>FYI</h2>
+<p>If you had just pressed &#39;ENTER&#39; (agreed to default behaviour), it will write the generated keys to the following files:</p>
+<ul>
+<li><code>~/.ssh/id_rsa</code> (secret key)</li>
+<li><code>~/.ssh/id_rsa.pub</code> (public key)</li>
+</ul>
+<p>So, if you save your SSH keys in that same folder (<code>~/.ssh/</code>), you can easily find all of your SSH key in there.</p>
+</br>
+
+<blockquote>
+<p><strong>Question:</strong> Say you did just press &#39;ENTER&#39; here and go about your day. Later, you generate a new key pair, e.g. for your new GitHub account used specifically for work. You follow all the steps, except again, when prompted on where to write the generated keys, you merely press &#39;ENTER&#39;. What would happen then?</p>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Step 2: Add a passphrase (Optional but HIGHLY recommended)</h2>
+<p>Imagine having a student ID without a pincode, or even a phone without a pincode...</p>
+<p>Please take the recommendation to heart.</p>
+</br>
+
+<p><strong>[ No, thanks? ]</strong> Press &#39;ENTER&#39;, and continue to the next step.</p>
+<p><strong>[ Yes, please? ]</strong> Ensure that you will remember it: Once lost, it cannot be recovered, and you&#39;ll just have to replace your SSH key pair with new ones.</p>
+<p>When typing in your passphrase, you will not see any characters being typed --- that&#39;s just security by obscurity. It will still take your input.</p>
+<p>Afterward, it will prompt you to type in the same passphrase again...</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Step 3: Start the SSH agent</h2>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(ssh-agent -s)</span>&quot;</span>
+</code></pre><p><strong>Curious about what&#39;s happening?</strong></p>
+<p>Running <code>ssh-agent -s</code> prints shell commands meant to configure the shell environment. These commands would be run in a shell sub-process rather than the current shell process, so the commands are unable to do the necessary environment changes to the current shell process. You can see this as if a child is babbling on about how to redecorate the house. Without the parent listening and decorating, nothing would change.</p>
+<p>So, <code>eval</code> takes the shell commands as arguments, and <strong>eval</strong>uates each command, essentially executing them within the current shell process. Thus, the current shell environment has been configured by the agent. Continuing with the house decoration allegory, the parent can now hear the child, evaluates their wishes, and redecorates accordingly.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Step 4: Add SSH key to SSH agent</h2>
+<pre><code class="hljs language-bash">ssh-add ~/.ssh/id_rsa_github
+</code></pre><p>It will prompt you for the key&#39;s passphrase if one was set.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Step 5: Display the contents of your public key</h2>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cat</span> ~/.ssh/id_rsa_github.pub
+</code></pre><p>... which outputs a string with the content: <code>ssh-rsa &lt;long gibberish&gt;= &lt;computer_name&gt;</code>, or something similar to that.</p>
+</br>
+
+<p><strong>Fun fact:</strong> The command <code>cat</code> is used to read a file, or multiple files, sequentially and print it to the standard output. Shorthand for con<strong>cat</strong>enate files.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Step 6: Add SSH key to GitHub</h2>
+<ol>
+<li>Copy the contents of the SSH <strong>public key</strong> file (.pub)</li>
+<li>Access your GitHub account settings.</li>
+<li>Navigate to <strong>SSH and GPG keys</strong>.</li>
+<li>Click on <strong>New SSH key</strong>.</li>
+<li>Give it a title, and ensure that <strong>Key type</strong> is set to &#39;Authentication Key&#39;.</li>
+<li>Paste your SSH public key into the provided <strong>Key</strong> field.</li>
+<li>Click <strong>Add SSH key</strong>.</li>
+</ol>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Step 7: Start cloning repositories via SSH, not HTTPS links</h2>
+<p>You might have tried cloning git repositories from GitHub using HTTPS links like so:</p>
+<pre><code class="hljs language-bash">git <span class="hljs-built_in">clone</span> https://github.com/&lt;repo_owner&gt;/&lt;repo_name&gt;
+</code></pre></br>
+
+<p>But to use the new SSH key pair to clone and skip manually logging into GitHub, we run:</p>
+<pre><code class="hljs language-bash">git <span class="hljs-built_in">clone</span> git@github.com:&lt;repo_owner&gt;/&lt;repo_name&gt;.git
+</code></pre></br>
+</br>
+
+<p><strong>To find this string...</strong></p>
+<ol>
+<li>Go to the repository you want to clone from GitHub.</li>
+<li>Click on the green <strong>&lt;&gt; Code</strong> button.</li>
+<li>Clicon on the <strong>SSH</strong> tab.</li>
+<li>Copy the SSH URL to the clipboard.</li>
+<li>Paste it as an argument to the <code>git clone</code> command.</li>
+</ol>
+</br>
+</br>
+</div><div class="lesson-links"><a href="/itu-bds-sdse/lessons/git-basics/gitignore" class="prev">← Previous</a><a href="/itu-bds-sdse/lessons/branching-strategies/working-with-branches" class="next">Next →</a></div></div><div class="details-bg"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="154" height="154" viewBox="0 0 154 154"><defs><clipPath id="clip-path"><rect id="Rectangle_2238" data-name="Rectangle 2238" width="154" height="154" transform="translate(9467 350)" fill="#fff" stroke="#707070" stroke-width="1"></rect></clipPath><clipPath id="clip-corner-image-active"><rect width="154" height="154"></rect></clipPath></defs><g id="corner-image-active" clip-path="url(#clip-corner-image-active)"><g id="Corner-image-active-2" data-name="Corner-image-active" transform="translate(-9467 -350)" clip-path="url(#clip-path)"><path id="Subtraction_34" data-name="Subtraction 34" d="M-3857.365,1740.766h0l-7.07-7.07,12.89-12.89v14.142l-5.818,5.818Zm-14.142-14.142h0l-7.071-7.07,27.033-27.033v14.143l-19.96,19.96Zm-14.143-14.143h0l-7.07-7.069,41.175-41.175v14.142Zm-14.142-14.142h0l-7.07-7.069,55.317-55.317v14.142Zm-14.142-14.142h0l-7.07-7.069,69.459-69.459v14.142Zm-14.142-14.142h0l-7.07-7.069,76.739-76.739h6.862v7.28Zm-14.143-14.143h0l-7.07-7.069,62.6-62.6h14.142Zm-14.142-14.142h0l-7.07-7.069,48.454-48.454h14.142Zm-14.142-14.142h0l-7.07-7.069,34.312-34.312h14.142Zm-14.142-14.142h0l-7.07-7.069,20.17-20.17h14.142Zm-14.142-14.142h0l-7.071-7.071,6.027-6.027h14.144l-13.1,13.1Zm367.24-56.114v-.909l.455.455-.453.453Z" transform="translate(13472.546 -1236.766)" fill="var(--corner-fill)"></path></g></g></svg></div></div></div></div><footer class="footer"><ul class="socials"><li class="social"><a href="https://github.com/lasselundstenjensen/itu-bds-sdse"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-github-social"><rect width="32" height="32"></rect></clipPath></defs><g id="github-social" clip-path="url(#clip-github-social)"><g id="Group_272" data-name="Group 272" transform="translate(13522.5 -6994)"><path id="Subtraction_33" data-name="Subtraction 33" d="M-24967.5,8041a15.9,15.9,0,0,1-11.312-4.688A15.893,15.893,0,0,1-24983.5,8025a15.893,15.893,0,0,1,4.689-11.315A15.894,15.894,0,0,1-24967.5,8009a15.894,15.894,0,0,1,11.313,4.686A15.893,15.893,0,0,1-24951.5,8025a15.893,15.893,0,0,1-4.689,11.313A15.9,15.9,0,0,1-24967.5,8041Zm-3.781-4.571h0v3.918h7.895v-6.665a1.836,1.836,0,0,0-1.2-1.718c5.1-.617,7.467-2.975,7.467-7.424a7.176,7.176,0,0,0-1.637-4.728,6.74,6.74,0,0,0,.275-1.812,4.34,4.34,0,0,0-.52-2.452.574.574,0,0,0-.359-.1c-1.061,0-3.465,1.411-3.936,1.694a16.644,16.644,0,0,0-4.2-.489,16.379,16.379,0,0,0-3.969.445c-.846-.5-2.91-1.649-3.859-1.649a.566.566,0,0,0-.354.095,4.3,4.3,0,0,0-.521,2.452,6.7,6.7,0,0,0,.244,1.718,7.346,7.346,0,0,0-1.6,4.822,7.263,7.263,0,0,0,1.533,4.985c1.193,1.359,3.115,2.165,5.871,2.464a1.826,1.826,0,0,0-1.129,1.693v.5h0l-.006,0a7.121,7.121,0,0,1-2.033.363,2.608,2.608,0,0,1-.965-.158,4.438,4.438,0,0,1-1.836-1.881,2.361,2.361,0,0,0-1.248-1.091,3.472,3.472,0,0,0-1.217-.3.584.584,0,0,0-.545.224.282.282,0,0,0,.027.367,1.875,1.875,0,0,0,.447.307,4.732,4.732,0,0,1,.561.355,10.726,10.726,0,0,1,1.682,2.755c.043.092.078.163.105.217a3.876,3.876,0,0,0,2.42,1.185,6.036,6.036,0,0,0,.607.025c.875,0,1.988-.124,2-.125Z" transform="translate(11461 -1015)" fill="var(--footer-icons)"></path><g id="Ellipse_670" data-name="Ellipse 670" transform="translate(-13522.5 6994)" fill="none" stroke="var(--footer-icons)" stroke-width="1"><circle cx="16" cy="16" r="16" stroke="none"></circle><circle cx="16" cy="16" r="15.5" fill="none"></circle></g></g></g></svg></a></li><li class="social"><a href="https://linkedin.com/in/lasselundstenjensen"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-linkedin-social"><rect width="32" height="32"></rect></clipPath></defs><g id="linkedin-social" clip-path="url(#clip-linkedin-social)"><g id="Group_270" data-name="Group 270" transform="translate(-86.349 -633.073)"><path id="Path_375" data-name="Path 375" d="M115.789,633.073a2.324,2.324,0,0,1,1.682.676,2.194,2.194,0,0,1,.695,1.627V662.8a2.131,2.131,0,0,1-.695,1.609,2.314,2.314,0,0,1-1.646.659H88.69a2.307,2.307,0,0,1-1.646-.659,2.128,2.128,0,0,1-.695-1.609V635.376a2.19,2.19,0,0,1,.695-1.627,2.322,2.322,0,0,1,1.682-.676h27.063Zm-20.224,9.672a2.561,2.561,0,0,0,0-3.584,2.658,2.658,0,0,0-1.938-.712,2.724,2.724,0,0,0-1.957.712,2.371,2.371,0,0,0-.75,1.792,2.4,2.4,0,0,0,.731,1.792,2.605,2.605,0,0,0,1.9.713h.037A2.7,2.7,0,0,0,95.565,642.745ZM96,645.434H91.213V659.88H96Zm17.3,6.144a7.007,7.007,0,0,0-1.573-4.9,5.68,5.68,0,0,0-6.839-.769,5.663,5.663,0,0,0-1.426,1.573v-2.048H98.674q.036.841,0,7.717v6.728h4.791V651.8a3.592,3.592,0,0,1,.146-1.17,2.913,2.913,0,0,1,.878-1.206,2.429,2.429,0,0,1,1.609-.549,2.108,2.108,0,0,1,1.865.914,4.265,4.265,0,0,1,.549,2.341v7.752H113.3Z" fill="var(--footer-icons)"></path></g></g></svg></a></li><li class="social"><div class="terms"><p>Content Licensed Under CC-BY-NC-4.0</p><p>Code Samples and Excercises Licensed Under Apache 2.0</p><p>Site Designed by<!-- --> <a href="https://www.alexdanielson.com/">Alex Danielson</a></p></div></li></ul></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"attributes":{"description":"SSH and GitHub","title":"Connecting to GitHub via SSH keys","keywords":["Software engineering","Git"]},"html":"\u003ch1\u003eConnecting to GitHub via SSH keys\u003c/h1\u003e\n\u003cblockquote\u003e\n\u003cp\u003e\u003cem\u003eGuide written and provided by \u003ca href=\"https://github.com/zntheory\"\u003e@zntheory\u003c/a\u003e and \u003ca href=\"https://github.com/slug-boi\"\u003e@Slug-Boi\u003c/a\u003e.\u003c/em\u003e\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\n\u003cp\u003eBefore getting into SSH keys, we need to understand what \u003cstrong\u003egit\u003c/strong\u003e and \u003cstrong\u003eGitHub\u003c/strong\u003e are and how they are different.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eGit vs. GitHub\u003c/h2\u003e\n\u003cp\u003e\u003cstrong\u003eGit\u003c/strong\u003e is a piece of software that you can install and run locally. It is a version control system (VCS) for tracking changes in, primarily, code files that are within the same directory, which then constitutes a repository.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eGitHub\u003c/strong\u003e is an online website that functions as a storage and collaboration platform for \u003cstrong\u003egit\u003c/strong\u003e repositories. It essentially hosts your code on their servers, and provides a graphical user interface as well as features for easing code collaboration, e.g. pull requests.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eWhy SSH keys for GitHub?\u003c/h2\u003e\n\u003cp\u003eIn short, it\u0026#39;s a secure way to identify yourself (so people know it\u0026#39;s really you who sent a pull request with 10,000+ changed lines in one commit), and it saves you from having to log in each time you want to store files on GitHub.\u003c/p\u003e\n\u003cp\u003eIn GitHub\u0026#39;s own words:\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003eUsing the SSH protocol, you can connect and authenticate to remote servers and services. With SSH keys, you can connect to GitHub without supplying your username and personal access token at each visit. You can also use an SSH key to sign commits.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003e\u003cstrong\u003eBut for it to be secure, you should \u003cem\u003enever\u003c/em\u003e give out your \u003cem\u003eprivate\u003c/em\u003e key to anyone\u003c/strong\u003e, though the public key is fine to give out.\u003c/p\u003e\n\u003cp\u003eSee the private key as your ID card, and the public key as your full name. It\u0026#39;s generally fine to give out your name to other people, and in this case, GitHub will ask for your ID to confirm you are whom you claim to be, that you are allowed to work in this repository, etc.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch1\u003eHow to generate and add SSH keys for GitHub\u003c/h1\u003e\n\u003cp\u003eThis is specifically for generating SSH keys using the terminal.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eStep 0 - Check for existing SSH keys\u003c/h2\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003e\u003cspan class=\"hljs-built_in\"\u003els\u003c/span\u003e -al ~/.ssh\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eYou might already have a key pair or two, or maybe even none. Either way is fine. Just know that the rest of the guide will use \u003ccode\u003e~/.ssh/id_rsa_github\u003c/code\u003e as the new key file\u0026#39;s location.\u003c/p\u003e\n\u003cp\u003eIf that file already exists on your computer, remember to replace the string for the rest of the guide, e.g. \u003ccode\u003e~/.ssh/id_rsa_datascience\u003c/code\u003e.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eStep 1 - Generate SSH key pair\u003c/h2\u003e\n\u003cp\u003e\u003cstrong\u003eOption 1:\u003c/strong\u003e With your e-mail as a comment (Optional)\u003c/p\u003e\n\u003cp\u003eReplace \u003ccode\u003e\u0026lt;your_email@example.com\u0026gt;\u003c/code\u003e below with your actual e-mail address.  See it as metadata to help you (or a future organisation administrator in charge of your team) to differentiate between multiple key pairs.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003essh-keygen -t rsa -b 4096 -C \u003cspan class=\"hljs-string\"\u003e\u0026quot;\u0026lt;your_email@example.com\u0026gt;\u0026quot;\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e\u003cstrong\u003eOption 2:\u003c/strong\u003e Without your e-mail as a comment\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003essh-keygen -t rsa -b 4096\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eStep 1.5 - Specify location\u003c/h2\u003e\n\u003cp\u003eThe agent will prompt you for which file to write the secret key to. Don\u0026#39;t worry about the public key here.\u003c/p\u003e\n\u003cp\u003eIf the secret key file doesn\u0026#39;t exist, it will create one. The same is true for the public key file.\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cp\u003eReplace \u003ccode\u003e\u0026lt;user\u0026gt;\u003c/code\u003e below with the username you\u0026#39;re using on the machine.\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e/home/\u0026lt;user\u0026gt;/.ssh/id_rsa_github\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eThis will write the generated secret key to the specified file, and the public key to a new file \u003ccode\u003e~/.ssh/id_rsa_github.pub\u003c/code\u003e.\n\u003c/br\u003e\n\u003c/br\u003e\u003c/p\u003e\n\u003cp\u003eKnow that \u003ccode\u003e~\u003c/code\u003e is a shell expansion (do not worry about this term), which expands to \u003ccode\u003e/home/\u0026lt;user\u0026gt;/\u003c/code\u003e, but the SSH agent might complain about such a directory not existing due to it being interpreted as the literal character rather than being expanded. Writing it out explicitly should avoid that. A possible alternative could also be to use the environment expansion \u003ccode\u003e$HOME\u003c/code\u003e instead as this may be more widely supported than \u003ccode\u003e~\u003c/code\u003e.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eFYI\u003c/h2\u003e\n\u003cp\u003eIf you had just pressed \u0026#39;ENTER\u0026#39; (agreed to default behaviour), it will write the generated keys to the following files:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ccode\u003e~/.ssh/id_rsa\u003c/code\u003e (secret key)\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e~/.ssh/id_rsa.pub\u003c/code\u003e (public key)\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eSo, if you save your SSH keys in that same folder (\u003ccode\u003e~/.ssh/\u003c/code\u003e), you can easily find all of your SSH key in there.\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003e\u003cstrong\u003eQuestion:\u003c/strong\u003e Say you did just press \u0026#39;ENTER\u0026#39; here and go about your day. Later, you generate a new key pair, e.g. for your new GitHub account used specifically for work. You follow all the steps, except again, when prompted on where to write the generated keys, you merely press \u0026#39;ENTER\u0026#39;. What would happen then?\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eStep 2: Add a passphrase (Optional but HIGHLY recommended)\u003c/h2\u003e\n\u003cp\u003eImagine having a student ID without a pincode, or even a phone without a pincode...\u003c/p\u003e\n\u003cp\u003ePlease take the recommendation to heart.\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003e[ No, thanks? ]\u003c/strong\u003e Press \u0026#39;ENTER\u0026#39;, and continue to the next step.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e[ Yes, please? ]\u003c/strong\u003e Ensure that you will remember it: Once lost, it cannot be recovered, and you\u0026#39;ll just have to replace your SSH key pair with new ones.\u003c/p\u003e\n\u003cp\u003eWhen typing in your passphrase, you will not see any characters being typed --- that\u0026#39;s just security by obscurity. It will still take your input.\u003c/p\u003e\n\u003cp\u003eAfterward, it will prompt you to type in the same passphrase again...\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eStep 3: Start the SSH agent\u003c/h2\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003e\u003cspan class=\"hljs-built_in\"\u003eeval\u003c/span\u003e \u003cspan class=\"hljs-string\"\u003e\u0026quot;\u003cspan class=\"hljs-subst\"\u003e$(ssh-agent -s)\u003c/span\u003e\u0026quot;\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e\u003cstrong\u003eCurious about what\u0026#39;s happening?\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eRunning \u003ccode\u003essh-agent -s\u003c/code\u003e prints shell commands meant to configure the shell environment. These commands would be run in a shell sub-process rather than the current shell process, so the commands are unable to do the necessary environment changes to the current shell process. You can see this as if a child is babbling on about how to redecorate the house. Without the parent listening and decorating, nothing would change.\u003c/p\u003e\n\u003cp\u003eSo, \u003ccode\u003eeval\u003c/code\u003e takes the shell commands as arguments, and \u003cstrong\u003eeval\u003c/strong\u003euates each command, essentially executing them within the current shell process. Thus, the current shell environment has been configured by the agent. Continuing with the house decoration allegory, the parent can now hear the child, evaluates their wishes, and redecorates accordingly.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eStep 4: Add SSH key to SSH agent\u003c/h2\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003essh-add ~/.ssh/id_rsa_github\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eIt will prompt you for the key\u0026#39;s passphrase if one was set.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eStep 5: Display the contents of your public key\u003c/h2\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003e\u003cspan class=\"hljs-built_in\"\u003ecat\u003c/span\u003e ~/.ssh/id_rsa_github.pub\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e... which outputs a string with the content: \u003ccode\u003essh-rsa \u0026lt;long gibberish\u0026gt;= \u0026lt;computer_name\u0026gt;\u003c/code\u003e, or something similar to that.\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eFun fact:\u003c/strong\u003e The command \u003ccode\u003ecat\u003c/code\u003e is used to read a file, or multiple files, sequentially and print it to the standard output. Shorthand for con\u003cstrong\u003ecat\u003c/strong\u003eenate files.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eStep 6: Add SSH key to GitHub\u003c/h2\u003e\n\u003col\u003e\n\u003cli\u003eCopy the contents of the SSH \u003cstrong\u003epublic key\u003c/strong\u003e file (.pub)\u003c/li\u003e\n\u003cli\u003eAccess your GitHub account settings.\u003c/li\u003e\n\u003cli\u003eNavigate to \u003cstrong\u003eSSH and GPG keys\u003c/strong\u003e.\u003c/li\u003e\n\u003cli\u003eClick on \u003cstrong\u003eNew SSH key\u003c/strong\u003e.\u003c/li\u003e\n\u003cli\u003eGive it a title, and ensure that \u003cstrong\u003eKey type\u003c/strong\u003e is set to \u0026#39;Authentication Key\u0026#39;.\u003c/li\u003e\n\u003cli\u003ePaste your SSH public key into the provided \u003cstrong\u003eKey\u003c/strong\u003e field.\u003c/li\u003e\n\u003cli\u003eClick \u003cstrong\u003eAdd SSH key\u003c/strong\u003e.\u003c/li\u003e\n\u003c/ol\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eStep 7: Start cloning repositories via SSH, not HTTPS links\u003c/h2\u003e\n\u003cp\u003eYou might have tried cloning git repositories from GitHub using HTTPS links like so:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit \u003cspan class=\"hljs-built_in\"\u003eclone\u003c/span\u003e https://github.com/\u0026lt;repo_owner\u0026gt;/\u0026lt;repo_name\u0026gt;\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003eBut to use the new SSH key pair to clone and skip manually logging into GitHub, we run:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003egit \u003cspan class=\"hljs-built_in\"\u003eclone\u003c/span\u003e git@github.com:\u0026lt;repo_owner\u0026gt;/\u0026lt;repo_name\u0026gt;.git\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cstrong\u003eTo find this string...\u003c/strong\u003e\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eGo to the repository you want to clone from GitHub.\u003c/li\u003e\n\u003cli\u003eClick on the green \u003cstrong\u003e\u0026lt;\u0026gt; Code\u003c/strong\u003e button.\u003c/li\u003e\n\u003cli\u003eClicon on the \u003cstrong\u003eSSH\u003c/strong\u003e tab.\u003c/li\u003e\n\u003cli\u003eCopy the SSH URL to the clipboard.\u003c/li\u003e\n\u003cli\u003ePaste it as an argument to the \u003ccode\u003egit clone\u003c/code\u003e command.\u003c/li\u003e\n\u003c/ol\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n","markdown":"\n# Connecting to GitHub via SSH keys\n\n\u003e _Guide written and provided by [@zntheory](https://github.com/zntheory) and [@Slug-Boi](https://github.com/slug-boi)._\n\n\u003c/br\u003e\n\nBefore getting into SSH keys, we need to understand what **git** and **GitHub** are and how they are different.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Git vs. GitHub\n\n**Git** is a piece of software that you can install and run locally. It is a version control system (VCS) for tracking changes in, primarily, code files that are within the same directory, which then constitutes a repository.\n\n**GitHub** is an online website that functions as a storage and collaboration platform for **git** repositories. It essentially hosts your code on their servers, and provides a graphical user interface as well as features for easing code collaboration, e.g. pull requests.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Why SSH keys for GitHub?\n\nIn short, it's a secure way to identify yourself (so people know it's really you who sent a pull request with 10,000+ changed lines in one commit), and it saves you from having to log in each time you want to store files on GitHub.\n\nIn GitHub's own words:\n\u003e Using the SSH protocol, you can connect and authenticate to remote servers and services. With SSH keys, you can connect to GitHub without supplying your username and personal access token at each visit. You can also use an SSH key to sign commits.\n\n**But for it to be secure, you should *never* give out your *private* key to anyone**, though the public key is fine to give out.\n\nSee the private key as your ID card, and the public key as your full name. It's generally fine to give out your name to other people, and in this case, GitHub will ask for your ID to confirm you are whom you claim to be, that you are allowed to work in this repository, etc.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n# How to generate and add SSH keys for GitHub\n\nThis is specifically for generating SSH keys using the terminal.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Step 0 - Check for existing SSH keys\n```bash\nls -al ~/.ssh\n```\n\nYou might already have a key pair or two, or maybe even none. Either way is fine. Just know that the rest of the guide will use `~/.ssh/id_rsa_github` as the new key file's location.\n\nIf that file already exists on your computer, remember to replace the string for the rest of the guide, e.g. `~/.ssh/id_rsa_datascience`.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Step 1 - Generate SSH key pair\n\n**Option 1:** With your e-mail as a comment (Optional)\n\nReplace `\u003cyour_email@example.com\u003e` below with your actual e-mail address.  See it as metadata to help you (or a future organisation administrator in charge of your team) to differentiate between multiple key pairs.\n\n``` bash\nssh-keygen -t rsa -b 4096 -C \"\u003cyour_email@example.com\u003e\"\n```\n\n**Option 2:** Without your e-mail as a comment\n\n``` bash\nssh-keygen -t rsa -b 4096\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Step 1.5 - Specify location\n\nThe agent will prompt you for which file to write the secret key to. Don't worry about the public key here.\n\nIf the secret key file doesn't exist, it will create one. The same is true for the public key file.\n\n\u003c/br\u003e\n\nReplace `\u003cuser\u003e` below with the username you're using on the machine.\n\n```\n/home/\u003cuser\u003e/.ssh/id_rsa_github\n```\n\nThis will write the generated secret key to the specified file, and the public key to a new file `~/.ssh/id_rsa_github.pub`.\n\u003c/br\u003e\n\u003c/br\u003e\n\nKnow that `~` is a shell expansion (do not worry about this term), which expands to `/home/\u003cuser\u003e/`, but the SSH agent might complain about such a directory not existing due to it being interpreted as the literal character rather than being expanded. Writing it out explicitly should avoid that. A possible alternative could also be to use the environment expansion `$HOME` instead as this may be more widely supported than `~`.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## FYI\nIf you had just pressed 'ENTER' (agreed to default behaviour), it will write the generated keys to the following files:\n- `~/.ssh/id_rsa` (secret key)\n- `~/.ssh/id_rsa.pub` (public key)\n\nSo, if you save your SSH keys in that same folder (`~/.ssh/`), you can easily find all of your SSH key in there.\n\n\u003c/br\u003e\n\n\u003e **Question:** Say you did just press 'ENTER' here and go about your day. Later, you generate a new key pair, e.g. for your new GitHub account used specifically for work. You follow all the steps, except again, when prompted on where to write the generated keys, you merely press 'ENTER'. What would happen then?\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Step 2: Add a passphrase (Optional but HIGHLY recommended)\n\nImagine having a student ID without a pincode, or even a phone without a pincode...\n\nPlease take the recommendation to heart.\n\n\u003c/br\u003e\n\n**[ No, thanks? ]** Press 'ENTER', and continue to the next step.\n\n**[ Yes, please? ]** Ensure that you will remember it: Once lost, it cannot be recovered, and you'll just have to replace your SSH key pair with new ones.\n\nWhen typing in your passphrase, you will not see any characters being typed --- that's just security by obscurity. It will still take your input.\n\nAfterward, it will prompt you to type in the same passphrase again...\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Step 3: Start the SSH agent\n\n```bash\neval \"$(ssh-agent -s)\"\n```\n\n**Curious about what's happening?**\n\nRunning `ssh-agent -s` prints shell commands meant to configure the shell environment. These commands would be run in a shell sub-process rather than the current shell process, so the commands are unable to do the necessary environment changes to the current shell process. You can see this as if a child is babbling on about how to redecorate the house. Without the parent listening and decorating, nothing would change.\n\nSo, `eval` takes the shell commands as arguments, and **eval**uates each command, essentially executing them within the current shell process. Thus, the current shell environment has been configured by the agent. Continuing with the house decoration allegory, the parent can now hear the child, evaluates their wishes, and redecorates accordingly.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Step 4: Add SSH key to SSH agent\n\n```bash\nssh-add ~/.ssh/id_rsa_github\n```\n\nIt will prompt you for the key's passphrase if one was set.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Step 5: Display the contents of your public key\n\n```bash\ncat ~/.ssh/id_rsa_github.pub\n```\n\n... which outputs a string with the content: `ssh-rsa \u003clong gibberish\u003e= \u003ccomputer_name\u003e`, or something similar to that.\n\n\u003c/br\u003e\n\n**Fun fact:** The command `cat` is used to read a file, or multiple files, sequentially and print it to the standard output. Shorthand for con**cat**enate files.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Step 6: Add SSH key to GitHub\n1. Copy the contents of the SSH **public key** file (.pub)\n2. Access your GitHub account settings.\n3. Navigate to **SSH and GPG keys**.\n4. Click on **New SSH key**.\n5. Give it a title, and ensure that **Key type** is set to 'Authentication Key'.\n6. Paste your SSH public key into the provided **Key** field.\n7. Click **Add SSH key**.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Step 7: Start cloning repositories via SSH, not HTTPS links\n\nYou might have tried cloning git repositories from GitHub using HTTPS links like so:\n\n```bash\ngit clone https://github.com/\u003crepo_owner\u003e/\u003crepo_name\u003e\n```\n\n\u003c/br\u003e\n\nBut to use the new SSH key pair to clone and skip manually logging into GitHub, we run:\n\n```bash\ngit clone git@github.com:\u003crepo_owner\u003e/\u003crepo_name\u003e.git\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\n**To find this string...**\n1. Go to the repository you want to clone from GitHub.\n2. Click on the green **\u003c\u003e Code** button.\n3. Clicon on the **SSH** tab.\n4. Copy the SSH URL to the clipboard.\n5. Paste it as an argument to the `git clone` command.\n\n\u003c/br\u003e\n\u003c/br\u003e\n","slug":"ssh-and-github","title":"Connecting to GitHub via SSH keys","section":"Git basics","icon":"code","filePath":"/home/runner/work/itu-bds-sdse/itu-bds-sdse/lessons/06-git-basics/S-ssh-and-github.md","nextSlug":"/itu-bds-sdse/lessons/branching-strategies/working-with-branches","prevSlug":"/itu-bds-sdse/lessons/git-basics/gitignore"}},"__N_SSG":true},"page":"/lessons/[section]/[slug]","query":{"section":"git-basics","slug":"ssh-and-github"},"buildId":"aGU_TgP1G33XsxgAaS_TT","assetPrefix":"/itu-bds-sdse","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

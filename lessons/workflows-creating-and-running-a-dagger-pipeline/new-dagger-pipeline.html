@@ -1,0 +1,195 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><link rel="apple-touch-icon" sizes="180x180" href="/itu-bds-sdse/images/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/itu-bds-sdse/images/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/x-icon" href="/itu-bds-sdse/images/favicon.ico"/><title>New Dagger pipeline – Data Science in Production: MLOps and Software Engineering</title><meta name="description" content="Data Science in Production: MLOps and Software Engineering"/><meta name="keywords" content="your,Google,keywords,here"/><meta name="og:description" content="Data Science in Production: MLOps and Software Engineering"/><meta name="og:title" content="New Dagger pipeline – Data Science in Production: MLOps and Software Engineering"/><meta name="og:image" content="/itu-bds-sdse/images/social-share-cover.jpg"/><meta name="twitter:card" content="summary_large_image"/><meta name="next-head-count" content="14"/><link data-next-font="size-adjust" rel="preconnect" href="/" crossorigin="anonymous"/><link rel="preload" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" as="style"/><link rel="stylesheet" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/itu-bds-sdse/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"></script><script src="/itu-bds-sdse/_next/static/chunks/webpack-8116fd4d628798fe.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/framework-ecc4130bc7a58a64.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/main-348f16897b94a0d5.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/_app-fa68bd1b4993f298.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/lessons/%5Bsection%5D/%5Bslug%5D-c2cb604784d7e04f.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_buildManifest.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="remix-app"><header class="navbar"><h1 class="navbar-brand"><a href="/itu-bds-sdse">Data Science in Production: MLOps and Software Engineering</a></h1><div class="navbar-info"></div></header><div class="content-container"><div class="main"><div class="lesson-container"><div class="lesson"><div class="lesson-content"><h2>Create a new pipeline</h2>
+</br>
+
+<h3>Pseudo structure of the pipeline (in Go)</h3>
+<pre><code class="hljs language-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-comment">// Create a shared background context</span>
+
+    <span class="hljs-comment">// Run pipeline stages</span>
+    stage()
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">stage</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-comment">// Create a Dagger client</span>
+    <span class="hljs-comment">// Define the code you want to run</span>
+}
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>For our example, we want to create a pipeline that does the following:</p>
+<ol>
+<li>Sets up a Docker container from a specific image.</li>
+<li>Takes a python file from a local directory on the host environment.</li>
+<li>Runs the python file in a Docker container.</li>
+<li>Copies the output from the Docker container to a local directory on the host environment.</li>
+</ol>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p><img src="https://media1.tenor.com/m/U902tn7xZ_wAAAAC/adventure-time-jake.gif" alt="Lets do this"></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Directories and files</h2>
+<p>We need to create some directories and files for this to work. This is what we are aiming for:</p>
+<p><img src="../../images/lessons/dagger/dagger-files.png" alt="Directory structure"></p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>First create the <code>go</code> directory and initialize the Go module:</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">mkdir</span> go
+
+<span class="hljs-built_in">cd</span> go
+
+go mod init daggerpipeline
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>Then create the <code>pipeline.go</code> file:</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">touch</span> pipeline.go
+</code></pre></br>
+</br>
+
+<p>Add the following code to the <code>pipeline.go</code> file:</p>
+<pre><code class="hljs language-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;context&quot;</span>
+    <span class="hljs-string">&quot;fmt&quot;</span>
+
+    <span class="hljs-string">&quot;dagger.io/dagger&quot;</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-comment">// Create a shared context</span>
+    ctx := context.Background()
+
+    <span class="hljs-comment">// Run the stages of the pipeline</span>
+    <span class="hljs-keyword">if</span> err := Build(ctx); err != <span class="hljs-literal">nil</span> {
+        fmt.Println(<span class="hljs-string">&quot;Error:&quot;</span>, err)
+        <span class="hljs-built_in">panic</span>(err)
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Build</span><span class="hljs-params">(ctx context.Context)</span></span> <span class="hljs-type">error</span> {
+    <span class="hljs-comment">// Initialize Dagger client</span>
+    client, err := dagger.Connect(ctx)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+    <span class="hljs-keyword">defer</span> client.Close()
+
+    python := client.Container().From(<span class="hljs-string">&quot;python:3.12.2-bookworm&quot;</span>).
+        WithDirectory(<span class="hljs-string">&quot;python&quot;</span>, client.Host().Directory(<span class="hljs-string">&quot;python-files&quot;</span>)).
+        WithExec([]<span class="hljs-type">string</span>{<span class="hljs-string">&quot;python&quot;</span>, <span class="hljs-string">&quot;--version&quot;</span>})
+
+    python = python.WithExec([]<span class="hljs-type">string</span>{<span class="hljs-string">&quot;python&quot;</span>, <span class="hljs-string">&quot;python/hello.py&quot;</span>})
+
+    _, err = python.
+        Directory(<span class="hljs-string">&quot;output&quot;</span>).
+        Export(ctx, <span class="hljs-string">&quot;output&quot;</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+}
+</code></pre></br>
+</br>
+
+<p>We need to download the Go dependencies as well:</p>
+<pre><code class="hljs language-bash">go mod tidy
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>Next, create a directory for the python file and add a python file called <code>hello.py</code>:</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">mkdir</span> python-files
+
+<span class="hljs-built_in">cd</span> python-files
+
+<span class="hljs-built_in">touch</span> hello.py
+</code></pre><p>The content of <code>hello.py</code>:</p>
+<pre><code class="hljs language-python"><span class="hljs-comment"># Write to a file in a new directory called &quot;output&quot;</span>
+<span class="hljs-keyword">import</span> os
+
+os.makedirs(<span class="hljs-string">&quot;output&quot;</span>, exist_ok=<span class="hljs-literal">True</span>)
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;output/hello-from-python.txt&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> f:
+    f.write(<span class="hljs-string">&quot;Hello from Python in Dagger!\n&quot;</span>)
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>All good now! Next, we will try and run it locally.</p>
+<p>Remember to navigate back to the <code>go</code> directory before running Dagger!</p>
+</br>
+</br>
+
+<p>You can also find the complete example here <a href="https://github.com/lasselundstenjensen/itu-bds-sdse-dagger-and-github/tree/main/go">GitHub</a>.</p>
+</br>
+</br>
+</div><div class="lesson-links"><a href="/itu-bds-sdse/lessons/workflows-introducing-dagger/typical-structure" class="prev">← Previous</a><a href="/itu-bds-sdse/lessons/workflows-creating-and-running-a-dagger-pipeline/but-first-how-does-this-work" class="next">Next →</a></div></div><div class="details-bg"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="154" height="154" viewBox="0 0 154 154"><defs><clipPath id="clip-path"><rect id="Rectangle_2238" data-name="Rectangle 2238" width="154" height="154" transform="translate(9467 350)" fill="#fff" stroke="#707070" stroke-width="1"></rect></clipPath><clipPath id="clip-corner-image-active"><rect width="154" height="154"></rect></clipPath></defs><g id="corner-image-active" clip-path="url(#clip-corner-image-active)"><g id="Corner-image-active-2" data-name="Corner-image-active" transform="translate(-9467 -350)" clip-path="url(#clip-path)"><path id="Subtraction_34" data-name="Subtraction 34" d="M-3857.365,1740.766h0l-7.07-7.07,12.89-12.89v14.142l-5.818,5.818Zm-14.142-14.142h0l-7.071-7.07,27.033-27.033v14.143l-19.96,19.96Zm-14.143-14.143h0l-7.07-7.069,41.175-41.175v14.142Zm-14.142-14.142h0l-7.07-7.069,55.317-55.317v14.142Zm-14.142-14.142h0l-7.07-7.069,69.459-69.459v14.142Zm-14.142-14.142h0l-7.07-7.069,76.739-76.739h6.862v7.28Zm-14.143-14.143h0l-7.07-7.069,62.6-62.6h14.142Zm-14.142-14.142h0l-7.07-7.069,48.454-48.454h14.142Zm-14.142-14.142h0l-7.07-7.069,34.312-34.312h14.142Zm-14.142-14.142h0l-7.07-7.069,20.17-20.17h14.142Zm-14.142-14.142h0l-7.071-7.071,6.027-6.027h14.144l-13.1,13.1Zm367.24-56.114v-.909l.455.455-.453.453Z" transform="translate(13472.546 -1236.766)" fill="var(--corner-fill)"></path></g></g></svg></div></div></div></div><footer class="footer"><ul class="socials"><li class="social"><a href="https://github.com/lasselundstenjensen/itu-bds-sdse"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-github-social"><rect width="32" height="32"></rect></clipPath></defs><g id="github-social" clip-path="url(#clip-github-social)"><g id="Group_272" data-name="Group 272" transform="translate(13522.5 -6994)"><path id="Subtraction_33" data-name="Subtraction 33" d="M-24967.5,8041a15.9,15.9,0,0,1-11.312-4.688A15.893,15.893,0,0,1-24983.5,8025a15.893,15.893,0,0,1,4.689-11.315A15.894,15.894,0,0,1-24967.5,8009a15.894,15.894,0,0,1,11.313,4.686A15.893,15.893,0,0,1-24951.5,8025a15.893,15.893,0,0,1-4.689,11.313A15.9,15.9,0,0,1-24967.5,8041Zm-3.781-4.571h0v3.918h7.895v-6.665a1.836,1.836,0,0,0-1.2-1.718c5.1-.617,7.467-2.975,7.467-7.424a7.176,7.176,0,0,0-1.637-4.728,6.74,6.74,0,0,0,.275-1.812,4.34,4.34,0,0,0-.52-2.452.574.574,0,0,0-.359-.1c-1.061,0-3.465,1.411-3.936,1.694a16.644,16.644,0,0,0-4.2-.489,16.379,16.379,0,0,0-3.969.445c-.846-.5-2.91-1.649-3.859-1.649a.566.566,0,0,0-.354.095,4.3,4.3,0,0,0-.521,2.452,6.7,6.7,0,0,0,.244,1.718,7.346,7.346,0,0,0-1.6,4.822,7.263,7.263,0,0,0,1.533,4.985c1.193,1.359,3.115,2.165,5.871,2.464a1.826,1.826,0,0,0-1.129,1.693v.5h0l-.006,0a7.121,7.121,0,0,1-2.033.363,2.608,2.608,0,0,1-.965-.158,4.438,4.438,0,0,1-1.836-1.881,2.361,2.361,0,0,0-1.248-1.091,3.472,3.472,0,0,0-1.217-.3.584.584,0,0,0-.545.224.282.282,0,0,0,.027.367,1.875,1.875,0,0,0,.447.307,4.732,4.732,0,0,1,.561.355,10.726,10.726,0,0,1,1.682,2.755c.043.092.078.163.105.217a3.876,3.876,0,0,0,2.42,1.185,6.036,6.036,0,0,0,.607.025c.875,0,1.988-.124,2-.125Z" transform="translate(11461 -1015)" fill="var(--footer-icons)"></path><g id="Ellipse_670" data-name="Ellipse 670" transform="translate(-13522.5 6994)" fill="none" stroke="var(--footer-icons)" stroke-width="1"><circle cx="16" cy="16" r="16" stroke="none"></circle><circle cx="16" cy="16" r="15.5" fill="none"></circle></g></g></g></svg></a></li><li class="social"><a href="https://linkedin.com/in/lasselundstenjensen"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-linkedin-social"><rect width="32" height="32"></rect></clipPath></defs><g id="linkedin-social" clip-path="url(#clip-linkedin-social)"><g id="Group_270" data-name="Group 270" transform="translate(-86.349 -633.073)"><path id="Path_375" data-name="Path 375" d="M115.789,633.073a2.324,2.324,0,0,1,1.682.676,2.194,2.194,0,0,1,.695,1.627V662.8a2.131,2.131,0,0,1-.695,1.609,2.314,2.314,0,0,1-1.646.659H88.69a2.307,2.307,0,0,1-1.646-.659,2.128,2.128,0,0,1-.695-1.609V635.376a2.19,2.19,0,0,1,.695-1.627,2.322,2.322,0,0,1,1.682-.676h27.063Zm-20.224,9.672a2.561,2.561,0,0,0,0-3.584,2.658,2.658,0,0,0-1.938-.712,2.724,2.724,0,0,0-1.957.712,2.371,2.371,0,0,0-.75,1.792,2.4,2.4,0,0,0,.731,1.792,2.605,2.605,0,0,0,1.9.713h.037A2.7,2.7,0,0,0,95.565,642.745ZM96,645.434H91.213V659.88H96Zm17.3,6.144a7.007,7.007,0,0,0-1.573-4.9,5.68,5.68,0,0,0-6.839-.769,5.663,5.663,0,0,0-1.426,1.573v-2.048H98.674q.036.841,0,7.717v6.728h4.791V651.8a3.592,3.592,0,0,1,.146-1.17,2.913,2.913,0,0,1,.878-1.206,2.429,2.429,0,0,1,1.609-.549,2.108,2.108,0,0,1,1.865.914,4.265,4.265,0,0,1,.549,2.341v7.752H113.3Z" fill="var(--footer-icons)"></path></g></g></svg></a></li><li class="social"><div class="terms"><p>Content Licensed Under CC-BY-NC-4.0</p><p>Code Samples and Excercises Licensed Under Apache 2.0</p><p>Site Designed by<!-- --> <a href="https://www.alexdanielson.com/">Alex Danielson</a></p></div></li></ul></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"attributes":{"title":"New Dagger pipeline"},"html":"\u003ch2\u003eCreate a new pipeline\u003c/h2\u003e\n\u003c/br\u003e\n\n\u003ch3\u003ePseudo structure of the pipeline (in Go)\u003c/h3\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-keyword\"\u003epackage\u003c/span\u003e main\n\n\u003cspan class=\"hljs-function\"\u003e\u003cspan class=\"hljs-keyword\"\u003efunc\u003c/span\u003e \u003cspan class=\"hljs-title\"\u003emain\u003c/span\u003e\u003cspan class=\"hljs-params\"\u003e()\u003c/span\u003e\u003c/span\u003e {\n    \u003cspan class=\"hljs-comment\"\u003e// Create a shared background context\u003c/span\u003e\n\n    \u003cspan class=\"hljs-comment\"\u003e// Run pipeline stages\u003c/span\u003e\n    stage()\n}\n\n\u003cspan class=\"hljs-function\"\u003e\u003cspan class=\"hljs-keyword\"\u003efunc\u003c/span\u003e \u003cspan class=\"hljs-title\"\u003estage\u003c/span\u003e\u003cspan class=\"hljs-params\"\u003e()\u003c/span\u003e\u003c/span\u003e {\n    \u003cspan class=\"hljs-comment\"\u003e// Create a Dagger client\u003c/span\u003e\n    \u003cspan class=\"hljs-comment\"\u003e// Define the code you want to run\u003c/span\u003e\n}\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eFor our example, we want to create a pipeline that does the following:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eSets up a Docker container from a specific image.\u003c/li\u003e\n\u003cli\u003eTakes a python file from a local directory on the host environment.\u003c/li\u003e\n\u003cli\u003eRuns the python file in a Docker container.\u003c/li\u003e\n\u003cli\u003eCopies the output from the Docker container to a local directory on the host environment.\u003c/li\u003e\n\u003c/ol\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003e\u003cimg src=\"https://media1.tenor.com/m/U902tn7xZ_wAAAAC/adventure-time-jake.gif\" alt=\"Lets do this\"\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eDirectories and files\u003c/h2\u003e\n\u003cp\u003eWe need to create some directories and files for this to work. This is what we are aiming for:\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"../../images/lessons/dagger/dagger-files.png\" alt=\"Directory structure\"\u003e\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eFirst create the \u003ccode\u003ego\u003c/code\u003e directory and initialize the Go module:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003e\u003cspan class=\"hljs-built_in\"\u003emkdir\u003c/span\u003e go\n\n\u003cspan class=\"hljs-built_in\"\u003ecd\u003c/span\u003e go\n\ngo mod init daggerpipeline\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eThen create the \u003ccode\u003epipeline.go\u003c/code\u003e file:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003e\u003cspan class=\"hljs-built_in\"\u003etouch\u003c/span\u003e pipeline.go\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eAdd the following code to the \u003ccode\u003epipeline.go\u003c/code\u003e file:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-keyword\"\u003epackage\u003c/span\u003e main\n\n\u003cspan class=\"hljs-keyword\"\u003eimport\u003c/span\u003e (\n    \u003cspan class=\"hljs-string\"\u003e\u0026quot;context\u0026quot;\u003c/span\u003e\n    \u003cspan class=\"hljs-string\"\u003e\u0026quot;fmt\u0026quot;\u003c/span\u003e\n\n    \u003cspan class=\"hljs-string\"\u003e\u0026quot;dagger.io/dagger\u0026quot;\u003c/span\u003e\n)\n\n\u003cspan class=\"hljs-function\"\u003e\u003cspan class=\"hljs-keyword\"\u003efunc\u003c/span\u003e \u003cspan class=\"hljs-title\"\u003emain\u003c/span\u003e\u003cspan class=\"hljs-params\"\u003e()\u003c/span\u003e\u003c/span\u003e {\n    \u003cspan class=\"hljs-comment\"\u003e// Create a shared context\u003c/span\u003e\n    ctx := context.Background()\n\n    \u003cspan class=\"hljs-comment\"\u003e// Run the stages of the pipeline\u003c/span\u003e\n    \u003cspan class=\"hljs-keyword\"\u003eif\u003c/span\u003e err := Build(ctx); err != \u003cspan class=\"hljs-literal\"\u003enil\u003c/span\u003e {\n        fmt.Println(\u003cspan class=\"hljs-string\"\u003e\u0026quot;Error:\u0026quot;\u003c/span\u003e, err)\n        \u003cspan class=\"hljs-built_in\"\u003epanic\u003c/span\u003e(err)\n    }\n}\n\n\u003cspan class=\"hljs-function\"\u003e\u003cspan class=\"hljs-keyword\"\u003efunc\u003c/span\u003e \u003cspan class=\"hljs-title\"\u003eBuild\u003c/span\u003e\u003cspan class=\"hljs-params\"\u003e(ctx context.Context)\u003c/span\u003e\u003c/span\u003e \u003cspan class=\"hljs-type\"\u003eerror\u003c/span\u003e {\n    \u003cspan class=\"hljs-comment\"\u003e// Initialize Dagger client\u003c/span\u003e\n    client, err := dagger.Connect(ctx)\n    \u003cspan class=\"hljs-keyword\"\u003eif\u003c/span\u003e err != \u003cspan class=\"hljs-literal\"\u003enil\u003c/span\u003e {\n        \u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e err\n    }\n    \u003cspan class=\"hljs-keyword\"\u003edefer\u003c/span\u003e client.Close()\n\n    python := client.Container().From(\u003cspan class=\"hljs-string\"\u003e\u0026quot;python:3.12.2-bookworm\u0026quot;\u003c/span\u003e).\n        WithDirectory(\u003cspan class=\"hljs-string\"\u003e\u0026quot;python\u0026quot;\u003c/span\u003e, client.Host().Directory(\u003cspan class=\"hljs-string\"\u003e\u0026quot;python-files\u0026quot;\u003c/span\u003e)).\n        WithExec([]\u003cspan class=\"hljs-type\"\u003estring\u003c/span\u003e{\u003cspan class=\"hljs-string\"\u003e\u0026quot;python\u0026quot;\u003c/span\u003e, \u003cspan class=\"hljs-string\"\u003e\u0026quot;--version\u0026quot;\u003c/span\u003e})\n\n    python = python.WithExec([]\u003cspan class=\"hljs-type\"\u003estring\u003c/span\u003e{\u003cspan class=\"hljs-string\"\u003e\u0026quot;python\u0026quot;\u003c/span\u003e, \u003cspan class=\"hljs-string\"\u003e\u0026quot;python/hello.py\u0026quot;\u003c/span\u003e})\n\n    _, err = python.\n        Directory(\u003cspan class=\"hljs-string\"\u003e\u0026quot;output\u0026quot;\u003c/span\u003e).\n        Export(ctx, \u003cspan class=\"hljs-string\"\u003e\u0026quot;output\u0026quot;\u003c/span\u003e)\n    \u003cspan class=\"hljs-keyword\"\u003eif\u003c/span\u003e err != \u003cspan class=\"hljs-literal\"\u003enil\u003c/span\u003e {\n        \u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e err\n    }\n\n    \u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e \u003cspan class=\"hljs-literal\"\u003enil\u003c/span\u003e\n}\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eWe need to download the Go dependencies as well:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003ego mod tidy\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eNext, create a directory for the python file and add a python file called \u003ccode\u003ehello.py\u003c/code\u003e:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-bash\"\u003e\u003cspan class=\"hljs-built_in\"\u003emkdir\u003c/span\u003e python-files\n\n\u003cspan class=\"hljs-built_in\"\u003ecd\u003c/span\u003e python-files\n\n\u003cspan class=\"hljs-built_in\"\u003etouch\u003c/span\u003e hello.py\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eThe content of \u003ccode\u003ehello.py\u003c/code\u003e:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-python\"\u003e\u003cspan class=\"hljs-comment\"\u003e# Write to a file in a new directory called \u0026quot;output\u0026quot;\u003c/span\u003e\n\u003cspan class=\"hljs-keyword\"\u003eimport\u003c/span\u003e os\n\nos.makedirs(\u003cspan class=\"hljs-string\"\u003e\u0026quot;output\u0026quot;\u003c/span\u003e, exist_ok=\u003cspan class=\"hljs-literal\"\u003eTrue\u003c/span\u003e)\n\n\u003cspan class=\"hljs-keyword\"\u003ewith\u003c/span\u003e \u003cspan class=\"hljs-built_in\"\u003eopen\u003c/span\u003e(\u003cspan class=\"hljs-string\"\u003e\u0026quot;output/hello-from-python.txt\u0026quot;\u003c/span\u003e, \u003cspan class=\"hljs-string\"\u003e\u0026quot;w\u0026quot;\u003c/span\u003e) \u003cspan class=\"hljs-keyword\"\u003eas\u003c/span\u003e f:\n    f.write(\u003cspan class=\"hljs-string\"\u003e\u0026quot;Hello from Python in Dagger!\\n\u0026quot;\u003c/span\u003e)\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eAll good now! Next, we will try and run it locally.\u003c/p\u003e\n\u003cp\u003eRemember to navigate back to the \u003ccode\u003ego\u003c/code\u003e directory before running Dagger!\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eYou can also find the complete example here \u003ca href=\"https://github.com/lasselundstenjensen/itu-bds-sdse-dagger-and-github/tree/main/go\"\u003eGitHub\u003c/a\u003e.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n","markdown":"\n## Create a new pipeline\n\n\u003c/br\u003e\n\n### Pseudo structure of the pipeline (in Go)\n\n```go\npackage main\n\nfunc main() {\n    // Create a shared background context\n\n    // Run pipeline stages\n    stage()\n}\n\nfunc stage() {\n    // Create a Dagger client\n    // Define the code you want to run\n}\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nFor our example, we want to create a pipeline that does the following:\n\n1. Sets up a Docker container from a specific image.\n2. Takes a python file from a local directory on the host environment.\n3. Runs the python file in a Docker container.\n4. Copies the output from the Docker container to a local directory on the host environment.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n![Lets do this](https://media1.tenor.com/m/U902tn7xZ_wAAAAC/adventure-time-jake.gif)\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Directories and files\n\nWe need to create some directories and files for this to work. This is what we are aiming for:\n\n![Directory structure](../../images/lessons/dagger/dagger-files.png)\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nFirst create the `go` directory and initialize the Go module:\n\n```bash\nmkdir go\n\ncd go\n\ngo mod init daggerpipeline\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nThen create the `pipeline.go` file:\n\n```bash\ntouch pipeline.go\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\nAdd the following code to the `pipeline.go` file:\n\n```go\npackage main\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\t\"dagger.io/dagger\"\n)\n\nfunc main() {\n\t// Create a shared context\n\tctx := context.Background()\n\n\t// Run the stages of the pipeline\n\tif err := Build(ctx); err != nil {\n\t\tfmt.Println(\"Error:\", err)\n\t\tpanic(err)\n\t}\n}\n\nfunc Build(ctx context.Context) error {\n\t// Initialize Dagger client\n\tclient, err := dagger.Connect(ctx)\n\tif err != nil {\n\t\treturn err\n\t}\n\tdefer client.Close()\n\n\tpython := client.Container().From(\"python:3.12.2-bookworm\").\n\t\tWithDirectory(\"python\", client.Host().Directory(\"python-files\")).\n\t\tWithExec([]string{\"python\", \"--version\"})\n\n\tpython = python.WithExec([]string{\"python\", \"python/hello.py\"})\n\n\t_, err = python.\n\t\tDirectory(\"output\").\n\t\tExport(ctx, \"output\")\n\tif err != nil {\n\t\treturn err\n\t}\n\n\treturn nil\n}\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\nWe need to download the Go dependencies as well:\n\n```bash\ngo mod tidy\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nNext, create a directory for the python file and add a python file called `hello.py`:\n\n```bash\nmkdir python-files\n\ncd python-files\n\ntouch hello.py\n```\n\nThe content of `hello.py`:\n\n```python\n# Write to a file in a new directory called \"output\"\nimport os\n\nos.makedirs(\"output\", exist_ok=True)\n\nwith open(\"output/hello-from-python.txt\", \"w\") as f:\n    f.write(\"Hello from Python in Dagger!\\n\")\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nAll good now! Next, we will try and run it locally.\n\nRemember to navigate back to the `go` directory before running Dagger!\n\n\u003c/br\u003e\n\u003c/br\u003e\n\nYou can also find the complete example here [GitHub](https://github.com/lasselundstenjensen/itu-bds-sdse-dagger-and-github/tree/main/go).\n\n\u003c/br\u003e\n\u003c/br\u003e\n","slug":"new-dagger-pipeline","title":"New Dagger pipeline","section":"Creating and running a Dagger pipeline","icon":"code","filePath":"/home/runner/work/itu-bds-sdse/itu-bds-sdse/lessons/10-workflows-creating-and-running-a-dagger-pipeline/A-new-dagger-pipeline.md","nextSlug":"/itu-bds-sdse/lessons/workflows-creating-and-running-a-dagger-pipeline/but-first-how-does-this-work","prevSlug":"/itu-bds-sdse/lessons/workflows-introducing-dagger/typical-structure"}},"__N_SSG":true},"page":"/lessons/[section]/[slug]","query":{"section":"workflows-creating-and-running-a-dagger-pipeline","slug":"new-dagger-pipeline"},"buildId":"aGU_TgP1G33XsxgAaS_TT","assetPrefix":"/itu-bds-sdse","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

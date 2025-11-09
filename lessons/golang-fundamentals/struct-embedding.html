@@ -1,0 +1,148 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><link rel="apple-touch-icon" sizes="180x180" href="/itu-bds-sdse/images/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/itu-bds-sdse/images/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/png" sizes="16x16" href="/itu-bds-sdse/images/favicon-16x16.png"/><link rel="icon" type="image/x-icon" href="/itu-bds-sdse/images/favicon.ico"/><title>Struct embedding – Data Science in Production: MLOps and Software Engineering</title><meta name="description" content="Fundamentals of the Go programming language."/><meta name="keywords" content="Software engineering,Go"/><meta name="og:description" content="Fundamentals of the Go programming language."/><meta name="og:title" content="Struct embedding – Data Science in Production: MLOps and Software Engineering"/><meta name="og:image" content="/itu-bds-sdse/images/social-share-cover.jpg"/><meta name="twitter:card" content="summary_large_image"/><meta name="next-head-count" content="14"/><link data-next-font="size-adjust" rel="preconnect" href="/" crossorigin="anonymous"/><link rel="preload" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" as="style"/><link rel="stylesheet" href="/itu-bds-sdse/_next/static/css/aaf20f4dad916972.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/itu-bds-sdse/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"></script><script src="/itu-bds-sdse/_next/static/chunks/webpack-8116fd4d628798fe.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/framework-ecc4130bc7a58a64.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/main-348f16897b94a0d5.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/_app-fa68bd1b4993f298.js" defer=""></script><script src="/itu-bds-sdse/_next/static/chunks/pages/lessons/%5Bsection%5D/%5Bslug%5D-c2cb604784d7e04f.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_buildManifest.js" defer=""></script><script src="/itu-bds-sdse/_next/static/aGU_TgP1G33XsxgAaS_TT/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="remix-app"><header class="navbar"><h1 class="navbar-brand"><a href="/itu-bds-sdse">Data Science in Production: MLOps and Software Engineering</a></h1><div class="navbar-info"></div></header><div class="content-container"><div class="main"><div class="lesson-container"><div class="lesson"><div class="lesson-content"><h2>Struct embedding</h2>
+<p>Let&#39;s say we want to create a workshop based on our <code>Course</code> struct.</p>
+<p>We could create a new struct <code>Workshop</code> and copy all the fields from <code>Course</code> into it. But that would be a lot of duplication.</p>
+<p>Let&#39;s start by creating a new struct <code>Workshop</code>:</p>
+<pre><code class="hljs language-go"><span class="hljs-keyword">type</span> Workshop <span class="hljs-keyword">struct</span> {
+    Course Course
+    Date   time.Time
+}
+</code></pre></br>
+
+<p>We can instantiate and print it:</p>
+<pre><code class="hljs language-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">var</span> w = Workshop{
+        Course: Course{Name: <span class="hljs-string">&quot;Go&quot;</span>, Instructor: Instructor{FirstName: <span class="hljs-string">&quot;Lasse&quot;</span>, LastName: <span class="hljs-string">&quot;Jensen&quot;</span>}},
+        Date:   time.Now(),
+    }
+    fmt.Printf(<span class="hljs-string">&quot;%v&quot;</span>, w)
+}
+</code></pre></br>
+
+<p>Looks good? Well, it works, but we can do better.</p>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>To avoid duplication, we can embed the <code>Course</code> struct into the <code>Workshop</code> struct:</p>
+<pre><code class="hljs language-go"><span class="hljs-keyword">type</span> Workshop <span class="hljs-keyword">struct</span> {
+    Course
+    Date time.Time
+}
+</code></pre><p>We simply remove the identifier <code>Course</code> and keep the type to embed it.</p>
+</br>
+
+<blockquote>
+<p>Is it extending the <code>Course</code> struct? No, under the hood it copies the fields from <code>Course</code> into <code>Workshop</code>.</p>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>A downside of using embedding is that fields cannot be set directly when creating an instance of the <code>Workshop</code> struct.</p>
+<pre><code class="hljs language-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">var</span> w = Workshop{
+        Name: <span class="hljs-string">&quot;Go&quot;</span>, <span class="hljs-comment">// Error: unknown field &#x27;Name&#x27; in struct literal</span>
+        Instructor: Instructor{FirstName: <span class="hljs-string">&quot;Lasse&quot;</span>, LastName: <span class="hljs-string">&quot;Jensen&quot;</span>}, <span class="hljs-comment">// Error: unknown field &#x27;Instructor&#x27; in struct literal</span>
+        Date: time.Now(),
+    }
+    fmt.Printf(<span class="hljs-string">&quot;%v&quot;</span>, w)
+}
+</code></pre></br>
+
+<p>To set the fields, we need to use the <code>Course</code> type:</p>
+<pre><code class="hljs language-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">var</span> w = Workshop{
+        Course: Course{Name: <span class="hljs-string">&quot;Go&quot;</span>, Instructor: Instructor{FirstName: <span class="hljs-string">&quot;Lasse&quot;</span>, LastName: <span class="hljs-string">&quot;Jensen&quot;</span>}},
+        Date:   time.Now(),
+    }
+    fmt.Printf(<span class="hljs-string">&quot;%v&quot;</span>, w)
+}
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>One way to make this look nicer is to use the <strong>factory pattern</strong>:</p>
+<pre><code class="hljs language-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewWorkshop</span><span class="hljs-params">(courseName <span class="hljs-type">string</span>, instructor Instructor, date time.Time)</span></span> Workshop {
+    <span class="hljs-keyword">return</span> Workshop{
+        Course: Course{Name: courseName, Instructor: instructor},
+        Date:   date,
+    }
+}
+</code></pre></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Order of properties</h2>
+<p>What happens if we have the same field in both the <code>Workshop</code> and <code>Course</code> structs?</p>
+</br>
+
+<pre><code class="hljs language-go"><span class="hljs-keyword">type</span> Workshop <span class="hljs-keyword">struct</span> {
+    Course
+    Date time.Time
+    Name <span class="hljs-type">string</span> <span class="hljs-comment">// Error: duplicate field &#x27;Name&#x27; ???</span>
+}
+</code></pre></br>
+
+<blockquote>
+<p>Will we get an error? No, Go will use the field from the <code>Workshop</code> struct as it is the &quot;closest&quot;.</p>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p>We can still set the name of the <code>Course.Name</code> field, but we need to be explicit:</p>
+</br>
+
+<pre><code class="hljs language-go">w.Name = <span class="hljs-string">&quot;Go workshop&quot;</span>
+
+w.Course.Name = <span class="hljs-string">&quot;Go course&quot;</span>
+</code></pre></br>
+
+<blockquote>
+<p><code>w.Course.Name</code> is also called an embedding property.</p>
+</blockquote>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<h2>Sharing of methods</h2>
+<p>When you embed a struct, you also get access to its methods. Neat!</p>
+</br>
+</br>
+</div><div class="lesson-links"><a href="/itu-bds-sdse/lessons/golang-fundamentals/implementing-interfaces" class="prev">← Previous</a><a href="/itu-bds-sdse/lessons/golang-fundamentals/defining-interfaces" class="next">Next →</a></div></div><div class="details-bg"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="154" height="154" viewBox="0 0 154 154"><defs><clipPath id="clip-path"><rect id="Rectangle_2238" data-name="Rectangle 2238" width="154" height="154" transform="translate(9467 350)" fill="#fff" stroke="#707070" stroke-width="1"></rect></clipPath><clipPath id="clip-corner-image-active"><rect width="154" height="154"></rect></clipPath></defs><g id="corner-image-active" clip-path="url(#clip-corner-image-active)"><g id="Corner-image-active-2" data-name="Corner-image-active" transform="translate(-9467 -350)" clip-path="url(#clip-path)"><path id="Subtraction_34" data-name="Subtraction 34" d="M-3857.365,1740.766h0l-7.07-7.07,12.89-12.89v14.142l-5.818,5.818Zm-14.142-14.142h0l-7.071-7.07,27.033-27.033v14.143l-19.96,19.96Zm-14.143-14.143h0l-7.07-7.069,41.175-41.175v14.142Zm-14.142-14.142h0l-7.07-7.069,55.317-55.317v14.142Zm-14.142-14.142h0l-7.07-7.069,69.459-69.459v14.142Zm-14.142-14.142h0l-7.07-7.069,76.739-76.739h6.862v7.28Zm-14.143-14.143h0l-7.07-7.069,62.6-62.6h14.142Zm-14.142-14.142h0l-7.07-7.069,48.454-48.454h14.142Zm-14.142-14.142h0l-7.07-7.069,34.312-34.312h14.142Zm-14.142-14.142h0l-7.07-7.069,20.17-20.17h14.142Zm-14.142-14.142h0l-7.071-7.071,6.027-6.027h14.144l-13.1,13.1Zm367.24-56.114v-.909l.455.455-.453.453Z" transform="translate(13472.546 -1236.766)" fill="var(--corner-fill)"></path></g></g></svg></div></div></div></div><footer class="footer"><ul class="socials"><li class="social"><a href="https://github.com/lasselundstenjensen/itu-bds-sdse"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-github-social"><rect width="32" height="32"></rect></clipPath></defs><g id="github-social" clip-path="url(#clip-github-social)"><g id="Group_272" data-name="Group 272" transform="translate(13522.5 -6994)"><path id="Subtraction_33" data-name="Subtraction 33" d="M-24967.5,8041a15.9,15.9,0,0,1-11.312-4.688A15.893,15.893,0,0,1-24983.5,8025a15.893,15.893,0,0,1,4.689-11.315A15.894,15.894,0,0,1-24967.5,8009a15.894,15.894,0,0,1,11.313,4.686A15.893,15.893,0,0,1-24951.5,8025a15.893,15.893,0,0,1-4.689,11.313A15.9,15.9,0,0,1-24967.5,8041Zm-3.781-4.571h0v3.918h7.895v-6.665a1.836,1.836,0,0,0-1.2-1.718c5.1-.617,7.467-2.975,7.467-7.424a7.176,7.176,0,0,0-1.637-4.728,6.74,6.74,0,0,0,.275-1.812,4.34,4.34,0,0,0-.52-2.452.574.574,0,0,0-.359-.1c-1.061,0-3.465,1.411-3.936,1.694a16.644,16.644,0,0,0-4.2-.489,16.379,16.379,0,0,0-3.969.445c-.846-.5-2.91-1.649-3.859-1.649a.566.566,0,0,0-.354.095,4.3,4.3,0,0,0-.521,2.452,6.7,6.7,0,0,0,.244,1.718,7.346,7.346,0,0,0-1.6,4.822,7.263,7.263,0,0,0,1.533,4.985c1.193,1.359,3.115,2.165,5.871,2.464a1.826,1.826,0,0,0-1.129,1.693v.5h0l-.006,0a7.121,7.121,0,0,1-2.033.363,2.608,2.608,0,0,1-.965-.158,4.438,4.438,0,0,1-1.836-1.881,2.361,2.361,0,0,0-1.248-1.091,3.472,3.472,0,0,0-1.217-.3.584.584,0,0,0-.545.224.282.282,0,0,0,.027.367,1.875,1.875,0,0,0,.447.307,4.732,4.732,0,0,1,.561.355,10.726,10.726,0,0,1,1.682,2.755c.043.092.078.163.105.217a3.876,3.876,0,0,0,2.42,1.185,6.036,6.036,0,0,0,.607.025c.875,0,1.988-.124,2-.125Z" transform="translate(11461 -1015)" fill="var(--footer-icons)"></path><g id="Ellipse_670" data-name="Ellipse 670" transform="translate(-13522.5 6994)" fill="none" stroke="var(--footer-icons)" stroke-width="1"><circle cx="16" cy="16" r="16" stroke="none"></circle><circle cx="16" cy="16" r="15.5" fill="none"></circle></g></g></g></svg></a></li><li class="social"><a href="https://linkedin.com/in/lasselundstenjensen"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><defs><clipPath id="clip-linkedin-social"><rect width="32" height="32"></rect></clipPath></defs><g id="linkedin-social" clip-path="url(#clip-linkedin-social)"><g id="Group_270" data-name="Group 270" transform="translate(-86.349 -633.073)"><path id="Path_375" data-name="Path 375" d="M115.789,633.073a2.324,2.324,0,0,1,1.682.676,2.194,2.194,0,0,1,.695,1.627V662.8a2.131,2.131,0,0,1-.695,1.609,2.314,2.314,0,0,1-1.646.659H88.69a2.307,2.307,0,0,1-1.646-.659,2.128,2.128,0,0,1-.695-1.609V635.376a2.19,2.19,0,0,1,.695-1.627,2.322,2.322,0,0,1,1.682-.676h27.063Zm-20.224,9.672a2.561,2.561,0,0,0,0-3.584,2.658,2.658,0,0,0-1.938-.712,2.724,2.724,0,0,0-1.957.712,2.371,2.371,0,0,0-.75,1.792,2.4,2.4,0,0,0,.731,1.792,2.605,2.605,0,0,0,1.9.713h.037A2.7,2.7,0,0,0,95.565,642.745ZM96,645.434H91.213V659.88H96Zm17.3,6.144a7.007,7.007,0,0,0-1.573-4.9,5.68,5.68,0,0,0-6.839-.769,5.663,5.663,0,0,0-1.426,1.573v-2.048H98.674q.036.841,0,7.717v6.728h4.791V651.8a3.592,3.592,0,0,1,.146-1.17,2.913,2.913,0,0,1,.878-1.206,2.429,2.429,0,0,1,1.609-.549,2.108,2.108,0,0,1,1.865.914,4.265,4.265,0,0,1,.549,2.341v7.752H113.3Z" fill="var(--footer-icons)"></path></g></g></svg></a></li><li class="social"><div class="terms"><p>Content Licensed Under CC-BY-NC-4.0</p><p>Code Samples and Excercises Licensed Under Apache 2.0</p><p>Site Designed by<!-- --> <a href="https://www.alexdanielson.com/">Alex Danielson</a></p></div></li></ul></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"attributes":{"description":"Fundamentals of the Go programming language.","title":"Struct embedding","keywords":["Software engineering","Go"]},"html":"\u003ch2\u003eStruct embedding\u003c/h2\u003e\n\u003cp\u003eLet\u0026#39;s say we want to create a workshop based on our \u003ccode\u003eCourse\u003c/code\u003e struct.\u003c/p\u003e\n\u003cp\u003eWe could create a new struct \u003ccode\u003eWorkshop\u003c/code\u003e and copy all the fields from \u003ccode\u003eCourse\u003c/code\u003e into it. But that would be a lot of duplication.\u003c/p\u003e\n\u003cp\u003eLet\u0026#39;s start by creating a new struct \u003ccode\u003eWorkshop\u003c/code\u003e:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-keyword\"\u003etype\u003c/span\u003e Workshop \u003cspan class=\"hljs-keyword\"\u003estruct\u003c/span\u003e {\n    Course Course\n    Date   time.Time\n}\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003eWe can instantiate and print it:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-function\"\u003e\u003cspan class=\"hljs-keyword\"\u003efunc\u003c/span\u003e \u003cspan class=\"hljs-title\"\u003emain\u003c/span\u003e\u003cspan class=\"hljs-params\"\u003e()\u003c/span\u003e\u003c/span\u003e {\n    \u003cspan class=\"hljs-keyword\"\u003evar\u003c/span\u003e w = Workshop{\n        Course: Course{Name: \u003cspan class=\"hljs-string\"\u003e\u0026quot;Go\u0026quot;\u003c/span\u003e, Instructor: Instructor{FirstName: \u003cspan class=\"hljs-string\"\u003e\u0026quot;Lasse\u0026quot;\u003c/span\u003e, LastName: \u003cspan class=\"hljs-string\"\u003e\u0026quot;Jensen\u0026quot;\u003c/span\u003e}},\n        Date:   time.Now(),\n    }\n    fmt.Printf(\u003cspan class=\"hljs-string\"\u003e\u0026quot;%v\u0026quot;\u003c/span\u003e, w)\n}\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003eLooks good? Well, it works, but we can do better.\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eTo avoid duplication, we can embed the \u003ccode\u003eCourse\u003c/code\u003e struct into the \u003ccode\u003eWorkshop\u003c/code\u003e struct:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-keyword\"\u003etype\u003c/span\u003e Workshop \u003cspan class=\"hljs-keyword\"\u003estruct\u003c/span\u003e {\n    Course\n    Date time.Time\n}\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eWe simply remove the identifier \u003ccode\u003eCourse\u003c/code\u003e and keep the type to embed it.\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003eIs it extending the \u003ccode\u003eCourse\u003c/code\u003e struct? No, under the hood it copies the fields from \u003ccode\u003eCourse\u003c/code\u003e into \u003ccode\u003eWorkshop\u003c/code\u003e.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eA downside of using embedding is that fields cannot be set directly when creating an instance of the \u003ccode\u003eWorkshop\u003c/code\u003e struct.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-function\"\u003e\u003cspan class=\"hljs-keyword\"\u003efunc\u003c/span\u003e \u003cspan class=\"hljs-title\"\u003emain\u003c/span\u003e\u003cspan class=\"hljs-params\"\u003e()\u003c/span\u003e\u003c/span\u003e {\n    \u003cspan class=\"hljs-keyword\"\u003evar\u003c/span\u003e w = Workshop{\n        Name: \u003cspan class=\"hljs-string\"\u003e\u0026quot;Go\u0026quot;\u003c/span\u003e, \u003cspan class=\"hljs-comment\"\u003e// Error: unknown field \u0026#x27;Name\u0026#x27; in struct literal\u003c/span\u003e\n        Instructor: Instructor{FirstName: \u003cspan class=\"hljs-string\"\u003e\u0026quot;Lasse\u0026quot;\u003c/span\u003e, LastName: \u003cspan class=\"hljs-string\"\u003e\u0026quot;Jensen\u0026quot;\u003c/span\u003e}, \u003cspan class=\"hljs-comment\"\u003e// Error: unknown field \u0026#x27;Instructor\u0026#x27; in struct literal\u003c/span\u003e\n        Date: time.Now(),\n    }\n    fmt.Printf(\u003cspan class=\"hljs-string\"\u003e\u0026quot;%v\u0026quot;\u003c/span\u003e, w)\n}\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cp\u003eTo set the fields, we need to use the \u003ccode\u003eCourse\u003c/code\u003e type:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-function\"\u003e\u003cspan class=\"hljs-keyword\"\u003efunc\u003c/span\u003e \u003cspan class=\"hljs-title\"\u003emain\u003c/span\u003e\u003cspan class=\"hljs-params\"\u003e()\u003c/span\u003e\u003c/span\u003e {\n    \u003cspan class=\"hljs-keyword\"\u003evar\u003c/span\u003e w = Workshop{\n        Course: Course{Name: \u003cspan class=\"hljs-string\"\u003e\u0026quot;Go\u0026quot;\u003c/span\u003e, Instructor: Instructor{FirstName: \u003cspan class=\"hljs-string\"\u003e\u0026quot;Lasse\u0026quot;\u003c/span\u003e, LastName: \u003cspan class=\"hljs-string\"\u003e\u0026quot;Jensen\u0026quot;\u003c/span\u003e}},\n        Date:   time.Now(),\n    }\n    fmt.Printf(\u003cspan class=\"hljs-string\"\u003e\u0026quot;%v\u0026quot;\u003c/span\u003e, w)\n}\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eOne way to make this look nicer is to use the \u003cstrong\u003efactory pattern\u003c/strong\u003e:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-function\"\u003e\u003cspan class=\"hljs-keyword\"\u003efunc\u003c/span\u003e \u003cspan class=\"hljs-title\"\u003eNewWorkshop\u003c/span\u003e\u003cspan class=\"hljs-params\"\u003e(courseName \u003cspan class=\"hljs-type\"\u003estring\u003c/span\u003e, instructor Instructor, date time.Time)\u003c/span\u003e\u003c/span\u003e Workshop {\n    \u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e Workshop{\n        Course: Course{Name: courseName, Instructor: instructor},\n        Date:   date,\n    }\n}\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eOrder of properties\u003c/h2\u003e\n\u003cp\u003eWhat happens if we have the same field in both the \u003ccode\u003eWorkshop\u003c/code\u003e and \u003ccode\u003eCourse\u003c/code\u003e structs?\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-keyword\"\u003etype\u003c/span\u003e Workshop \u003cspan class=\"hljs-keyword\"\u003estruct\u003c/span\u003e {\n    Course\n    Date time.Time\n    Name \u003cspan class=\"hljs-type\"\u003estring\u003c/span\u003e \u003cspan class=\"hljs-comment\"\u003e// Error: duplicate field \u0026#x27;Name\u0026#x27; ???\u003c/span\u003e\n}\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003eWill we get an error? No, Go will use the field from the \u003ccode\u003eWorkshop\u003c/code\u003e struct as it is the \u0026quot;closest\u0026quot;.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003cp\u003eWe can still set the name of the \u003ccode\u003eCourse.Name\u003c/code\u003e field, but we need to be explicit:\u003c/p\u003e\n\u003c/br\u003e\n\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003ew.Name = \u003cspan class=\"hljs-string\"\u003e\u0026quot;Go workshop\u0026quot;\u003c/span\u003e\n\nw.Course.Name = \u003cspan class=\"hljs-string\"\u003e\u0026quot;Go course\u0026quot;\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\u003c/br\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003e\u003ccode\u003ew.Course.Name\u003c/code\u003e is also called an embedding property.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n\u003ch2\u003eSharing of methods\u003c/h2\u003e\n\u003cp\u003eWhen you embed a struct, you also get access to its methods. Neat!\u003c/p\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n","markdown":"\n## Struct embedding\n\nLet's say we want to create a workshop based on our `Course` struct.\n\nWe could create a new struct `Workshop` and copy all the fields from `Course` into it. But that would be a lot of duplication.\n\nLet's start by creating a new struct `Workshop`:\n\n```go\ntype Workshop struct {\n    Course Course\n    Date   time.Time\n}\n```\n\n\u003c/br\u003e\n\nWe can instantiate and print it:\n\n```go\nfunc main() {\n    var w = Workshop{\n        Course: Course{Name: \"Go\", Instructor: Instructor{FirstName: \"Lasse\", LastName: \"Jensen\"}},\n        Date:   time.Now(),\n    }\n    fmt.Printf(\"%v\", w)\n}\n```\n\n\u003c/br\u003e\n\nLooks good? Well, it works, but we can do better.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nTo avoid duplication, we can embed the `Course` struct into the `Workshop` struct:\n\n```go\ntype Workshop struct {\n    Course\n    Date time.Time\n}\n```\n\nWe simply remove the identifier `Course` and keep the type to embed it.\n\n\u003c/br\u003e\n\n\u003e Is it extending the `Course` struct? No, under the hood it copies the fields from `Course` into `Workshop`.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nA downside of using embedding is that fields cannot be set directly when creating an instance of the `Workshop` struct.\n\n```go\nfunc main() {\n    var w = Workshop{\n        Name: \"Go\", // Error: unknown field 'Name' in struct literal\n        Instructor: Instructor{FirstName: \"Lasse\", LastName: \"Jensen\"}, // Error: unknown field 'Instructor' in struct literal\n        Date: time.Now(),\n    }\n    fmt.Printf(\"%v\", w)\n}\n```\n\n\u003c/br\u003e\n\nTo set the fields, we need to use the `Course` type:\n\n```go\nfunc main() {\n    var w = Workshop{\n        Course: Course{Name: \"Go\", Instructor: Instructor{FirstName: \"Lasse\", LastName: \"Jensen\"}},\n        Date:   time.Now(),\n    }\n    fmt.Printf(\"%v\", w)\n}\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nOne way to make this look nicer is to use the **factory pattern**:\n\n```go\nfunc NewWorkshop(courseName string, instructor Instructor, date time.Time) Workshop {\n    return Workshop{\n        Course: Course{Name: courseName, Instructor: instructor},\n        Date:   date,\n    }\n}\n```\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Order of properties\n\nWhat happens if we have the same field in both the `Workshop` and `Course` structs?\n\n\u003c/br\u003e\n\n```go\ntype Workshop struct {\n    Course\n    Date time.Time\n    Name string // Error: duplicate field 'Name' ???\n}\n```\n\n\u003c/br\u003e\n\n\u003e Will we get an error? No, Go will use the field from the `Workshop` struct as it is the \"closest\".\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\nWe can still set the name of the `Course.Name` field, but we need to be explicit:\n\n\u003c/br\u003e\n\n```go\nw.Name = \"Go workshop\"\n\nw.Course.Name = \"Go course\"\n```\n\n\u003c/br\u003e\n\n\u003e `w.Course.Name` is also called an embedding property.\n\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\u003c/br\u003e\n\n## Sharing of methods\n\nWhen you embed a struct, you also get access to its methods. Neat!\n\n\u003c/br\u003e\n\u003c/br\u003e\n","slug":"struct-embedding","title":"Struct embedding","section":"Go fundamentals","icon":"code","filePath":"/home/runner/work/itu-bds-sdse/itu-bds-sdse/lessons/04-golang-fundamentals/P-struct-embedding.md","nextSlug":"/itu-bds-sdse/lessons/golang-fundamentals/defining-interfaces","prevSlug":"/itu-bds-sdse/lessons/golang-fundamentals/implementing-interfaces"}},"__N_SSG":true},"page":"/lessons/[section]/[slug]","query":{"section":"golang-fundamentals","slug":"struct-embedding"},"buildId":"aGU_TgP1G33XsxgAaS_TT","assetPrefix":"/itu-bds-sdse","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
