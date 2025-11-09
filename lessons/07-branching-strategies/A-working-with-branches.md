@@ -89,7 +89,7 @@ As a contributor to a codebase, you use branches to work on new features, bug fi
 </br>
 </br>
 
-When you become part of a cross-functional team working with software, it is important to master versioning your code and litterally not break the shared codebase—"the source of truth"—for other team members. Branches play a crucial role here and is a great place to experiment.
+When you become part of a cross-functional team working with software, it is important to master versioning your code and not leave the shared codebase—"the source of truth"—broken for other team members. You should always leave the shared codebase in a working state. Branches play a crucial role here and is a great place to experiment.
 
 But do not fall in the trap of having long-lived branches. **You** will end up with the responsibility of merging and resolving conflicts. This is not a fun task.
 
