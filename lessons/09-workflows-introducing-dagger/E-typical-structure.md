@@ -62,18 +62,31 @@ Dagger functions are relatively new and while they would in practice be more ide
 
 ![Dagger how it works with OCI](../../images/lessons/dagger/dagger-oci.png)
 
-</br>
-
-1. Your Go program imports the Dagger Go library.
-2. Using the Go library, your program opens a new session to a Dagger Engine: either by connecting to an existing engine, or by provisioning one on-the-fly.
-3. Using the Go library, your program prepares API requests describing pipelines to run, then sends them to the engine. Docker containers are created on the fly as per the code specifications, in this case in Go.
-4. When the engine receives an API request, it computes a Directed Acyclic Graph (DAG) of low-level operations required to compute the result, and starts processing operations concurrently.
-5. When all operations in the pipeline have been resolved, the engine sends the pipeline result back to your program.
-6. Your program may use the pipeline's result as input to new pipelines.
-
-</br>
-
 *Source: https://archive.docs.dagger.io/0.9/sdk/go/*
+
+</br>
+
+When you run a Dagger pipeline using the Go SDK, the following happens:
+
+1. **Client initialization**: Your Go program imports the Dagger Go SDK and creates a client connection by calling `dagger.Connect(ctx)`. The SDK handles all the GraphQL translation internally—you don't need to know GraphQL.
+
+2. **Engine provisioning**: The client either connects to an existing Dagger Engine or automatically provisions a new one on-the-fly. The Engine runs as an OCI-compatible (Open Container Initiative) container and acts as the runtime for your pipeline.
+
+3. **Session creation**: Once connected, your client opens a session with the Engine. Each session gets its own GraphQL server instance that manages the API requests for that session.
+
+4. **Pipeline definition**: Your Go code defines the pipeline operations (like creating containers, mounting directories, executing commands) using the SDK's type-safe API. These operations are translated into GraphQL queries that describe your workflow.
+
+5. **Lazy evaluation**: The Engine uses lazy evaluation—operations are only executed when their results are actually needed. For example, if you define a container build but never request its output, the build won't run. This allows the Engine to optimize away unnecessary work.
+
+6. **DAG computation**: When a result is requested (a "leaf value" like `stdout` or exported files), the Engine computes a Directed Acyclic Graph (DAG) of all operations needed to produce that result. This graph represents the execution plan.
+
+7. **Concurrent execution**: The Engine executes operations in the DAG concurrently wherever possible, maximizing parallelism and performance while respecting dependencies between operations.
+
+8. **Result delivery**: Once all required operations complete, the Engine returns the results to your Go program. These results can be used as inputs to subsequent pipeline stages or exported to your local filesystem.
+
+</br>
+
+*Source: https://docs.dagger.io/manuals/developer/architecture/ and https://docs.dagger.io/api/internals/*
 
 </br>
 </br>
