@@ -4,6 +4,9 @@
 >
 > Content inspired in part by Maximiliano Firtman's Go course and ThePrimeagen's Git course.
 
+This is a totally cool edit that I made to the repo 
+
+
 <h1 align="center">Course Website Starter Template</h1> <br>
 
 <p align="center">
