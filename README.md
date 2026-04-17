@@ -3,7 +3,7 @@
 > Course Website Starter Template by Brian Holt.
 >
 > Content inspired in part by Maximiliano Firtman's Go course and ThePrimeagen's Git course.
-
+ 
 <h1 align="center">Course Website Starter Template</h1> <br>
 
 <p align="center">
