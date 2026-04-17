@@ -1,0 +1,74 @@
+order,sectionTitle,lessonTitle,slug,sectionIcon,filePath,description
+01A,Learning goals,Learning goals,learning-goals/goals,info-circle,/lessons/learning-goals/goals,The learning goals for this course.
+01B,Learning goals,Go,learning-goals/go,info-circle,/lessons/learning-goals/go,""
+01C,Learning goals,Git,learning-goals/git,info-circle,/lessons/learning-goals/git,""
+01D,Learning goals,Workflow Automation,learning-goals/workflow-automation,info-circle,/lessons/learning-goals/workflow-automation,""
+02A,Object Oriented Programming,Quick overview of Object Oriented Programming,notes-on-object-oriented-programming/quick-overview,info-circle,/lessons/notes-on-object-oriented-programming/quick-overview,We look at inheritance vs composition
+02B,Object Oriented Programming,Inheritance,notes-on-object-oriented-programming/inheritance,info-circle,/lessons/notes-on-object-oriented-programming/inheritance,We look at inheritance vs composition
+02C,Object Oriented Programming,Object Oriented Programming in Go,notes-on-object-oriented-programming/what-about-oo-in-go,info-circle,/lessons/notes-on-object-oriented-programming/what-about-oo-in-go,We look at inheritance vs composition
+02D,Object Oriented Programming,Composition,notes-on-object-oriented-programming/composition,info-circle,/lessons/notes-on-object-oriented-programming/composition,We look at inheritance vs composition
+02E,Object Oriented Programming,Differences between inheritance in Python and composition in Go,notes-on-object-oriented-programming/summary,info-circle,/lessons/notes-on-object-oriented-programming/summary,We look at inheritance vs composition
+03A,The Go Programming Language,Introduction,golang-introduction/intro,code,/lessons/golang-introduction/intro,The introduction to this course.
+03B,The Go Programming Language,What is Go?,golang-introduction/what-is-go,code,/lessons/golang-introduction/what-is-go,""
+03C,The Go Programming Language,Who are the creators?,golang-introduction/who-are-the-creators,code,/lessons/golang-introduction/who-are-the-creators,""
+03D,The Go Programming Language,Why Go?,golang-introduction/why-go,code,/lessons/golang-introduction/why-go,""
+03E,The Go Programming Language,Language characteristics,golang-introduction/language-characteristics,code,/lessons/golang-introduction/language-characteristics,""
+03F,The Go Programming Language,Timeline,golang-introduction/timeline,code,/lessons/golang-introduction/timeline,""
+03G,The Go Programming Language,Go.dev overview,golang-introduction/godev,code,/lessons/golang-introduction/godev,""
+03H,The Go Programming Language,Who is using Go?,golang-introduction/companies-using-go,code,/lessons/golang-introduction/companies-using-go,""
+03I,The Go Programming Language,Philosophy and tools,golang-introduction/philosophy-and-tools,code,/lessons/golang-introduction/philosophy-and-tools,""
+03J,The Go Programming Language,Stuff to install,golang-introduction/stuff-to-install,code,/lessons/golang-introduction/stuff-to-install,""
+03K,The Go Programming Language,Multi-platform and common use cases,golang-introduction/multi-platform-and-common-use-cases,code,/lessons/golang-introduction/multi-platform-and-common-use-cases,""
+04A,Go fundamentals,The basics,golang-fundamentals/the-basics,code,/lessons/golang-fundamentals/the-basics,Fundamentals of the Go programming language.
+04B,Go fundamentals,"Variables, Types, and Constants",golang-fundamentals/variables-types-const,code,/lessons/golang-fundamentals/variables-types-const,Fundamentals of the Go programming language.
+04C,Go fundamentals,Data types,golang-fundamentals/data-types,code,/lessons/golang-fundamentals/data-types,Fundamentals of the Go programming language.
+04D,Go fundamentals,Packages,golang-fundamentals/packages,code,/lessons/golang-fundamentals/packages,Fundamentals of the Go programming language.
+04E,Go fundamentals,Visibility,golang-fundamentals/visibility,code,/lessons/golang-fundamentals/visibility,Fundamentals of the Go programming language.
+04F,Go fundamentals,Numbers and collections,golang-fundamentals/numbers-and-collections,code,/lessons/golang-fundamentals/numbers-and-collections,Fundamentals of the Go programming language.
+04G,Go fundamentals,Functions,golang-fundamentals/functions,code,/lessons/golang-fundamentals/functions,Fundamentals of the Go programming language.
+04H,Go fundamentals,Pointers and references,golang-fundamentals/pointers-and-references,code,/lessons/golang-fundamentals/pointers-and-references,Fundamentals of the Go programming language.
+04I,Go fundamentals,"panic, defer, recover, and error handling",golang-fundamentals/panic-defer-recover-error-handling,code,/lessons/golang-fundamentals/panic-defer-recover-error-handling,Fundamentals of the Go programming language.
+04J,Go fundamentals,Control structures,golang-fundamentals/control-structures,code,/lessons/golang-fundamentals/control-structures,Fundamentals of the Go programming language.
+04K,Go fundamentals,Type definitions and methods,golang-fundamentals/type-definitions-and-methods,code,/lessons/golang-fundamentals/type-definitions-and-methods,Fundamentals of the Go programming language.
+04L,Go fundamentals,Structs,golang-fundamentals/structs,code,/lessons/golang-fundamentals/structs,Fundamentals of the Go programming language.
+04M,Go fundamentals,Struct methods,golang-fundamentals/struct-methods,code,/lessons/golang-fundamentals/struct-methods,Fundamentals of the Go programming language.
+04N,Go fundamentals,Factories,golang-fundamentals/factories,code,/lessons/golang-fundamentals/factories,Fundamentals of the Go programming language.
+04O,Go fundamentals,Implementing interfaces,golang-fundamentals/implementing-interfaces,code,/lessons/golang-fundamentals/implementing-interfaces,Fundamentals of the Go programming language.
+04P,Go fundamentals,Struct embedding,golang-fundamentals/struct-embedding,code,/lessons/golang-fundamentals/struct-embedding,Fundamentals of the Go programming language.
+04Q,Go fundamentals,Interfaces,golang-fundamentals/defining-interfaces,code,/lessons/golang-fundamentals/defining-interfaces,Fundamentals of the Go programming language.
+04R,Go fundamentals,Goroutines,golang-fundamentals/goroutines,code,/lessons/golang-fundamentals/goroutines,Fundamentals of the Go programming language.
+04S,Go fundamentals,Channels,golang-fundamentals/channels,code,/lessons/golang-fundamentals/channels,Fundamentals of the Go programming language.
+04T,Go fundamentals,Testing,golang-fundamentals/testing,code,/lessons/golang-fundamentals/testing,Fundamentals of the Go programming language.
+05A,Go exercises,Singly Linked List,go-exercises/linked-list,code,/lessons/go-exercises/linked-list,Fundamentals of the Go programming language.
+05B,Go exercises,Temperature converter,go-exercises/temperature-converter,code,/lessons/go-exercises/temperature-converter,Fundamentals of the Go programming language.
+06A,Git basics,Introduction,git-basics/introduction,code,/lessons/git-basics/introduction,Basics of Git.
+06B,Git basics,git config,git-basics/git-config,code,/lessons/git-basics/git-config,Basics of Git.
+06C,Git basics,Creating a new repository,git-basics/creating-a-repo,code,/lessons/git-basics/creating-a-repo,Basics of Git.
+06D,Git basics,Basic commands and commit,git-basics/basic-commands-and-commit,code,/lessons/git-basics/basic-commands-and-commit,Basics of Git.
+06E,Git basics,Branches,git-basics/branches,code,/lessons/git-basics/branches,Basics of Git.
+06F,Git basics,Merging,git-basics/merging,code,/lessons/git-basics/merging,Basics of Git.
+06G,Git basics,HEAD and reflog,git-basics/head-and-reflog,code,/lessons/git-basics/head-and-reflog,Basics of Git.
+06H,Git basics,Remote and Fetch,git-basics/remote-and-fetch,code,/lessons/git-basics/remote-and-fetch,Basics of Git.
+06I,Git basics,Pull,git-basics/pull,code,/lessons/git-basics/pull,Basics of Git.
+06J,Git basics,Push,git-basics/push,code,/lessons/git-basics/push,Basics of Git.
+06K,Git basics,Stashing changes,git-basics/stashing-changes,code,/lessons/git-basics/stashing-changes,Basics of Git.
+06L,Git basics,Interactive rebasing and squashing,git-basics/interactive-rebase-and-squashing,code,/lessons/git-basics/interactive-rebase-and-squashing,Basics of Git.
+06M,Git basics,Searching git logs,git-basics/searching-logs,code,/lessons/git-basics/searching-logs,Basics of Git.
+06N,Git basics,Reverting changes,git-basics/revert,code,/lessons/git-basics/revert,Basics of Git.
+06O,Git basics,Resetting,git-basics/reset,code,/lessons/git-basics/reset,Basics of Git.
+06P,Git basics,Tags,git-basics/tags,code,/lessons/git-basics/tags,Basics of Git.
+06Q,Git basics,Semantic commit messages,git-basics/semantic-commit-messages,code,/lessons/git-basics/semantic-commit-messages,Basics of Git.
+06R,Git basics,.gitignore,git-basics/gitignore,code,/lessons/git-basics/gitignore,Basics of Git.
+06S,Git basics,Connecting to GitHub via SSH keys,git-basics/ssh-and-github,code,/lessons/git-basics/ssh-and-github,SSH and GitHub
+07A,Branching strategies,Working with branches,branching-strategies/working-with-branches,info-circle,/lessons/branching-strategies/working-with-branches,Branching strategies.
+07B,Branching strategies,Gitflow,branching-strategies/gitflow,info-circle,/lessons/branching-strategies/gitflow,Branching strategies.
+07C,Branching strategies,Trunk-based development,branching-strategies/trunk-based-development,info-circle,/lessons/branching-strategies/trunk-based-development,Branching strategies.
+08A,Developer behavior,Good developer habits,developer-behavior/good-developer-habits,info-circle,/lessons/developer-behavior/good-developer-habits,Basics of Git.
+08B,Developer behavior,Working with GitHub in a team,developer-behavior/working-with-github-in-a-team,info-circle,/lessons/developer-behavior/working-with-github-in-a-team,Basics of Git.
+09C,Introducing Dagger,What is Dagger?,workflows-introducing-dagger/what-is-dagger,code,/lessons/workflows-introducing-dagger/what-is-dagger,""
+09D,Introducing Dagger,The common scenario and Dagger benefits,workflows-introducing-dagger/common-scenario-and-benefits,code,/lessons/workflows-introducing-dagger/common-scenario-and-benefits,""
+09E,Introducing Dagger,Typical Dagger pipeline structure,workflows-introducing-dagger/typical-structure,code,/lessons/workflows-introducing-dagger/typical-structure,""
+10A,Creating and running a Dagger pipeline,New Dagger pipeline,workflows-creating-and-running-a-dagger-pipeline/new-dagger-pipeline,code,/lessons/workflows-creating-and-running-a-dagger-pipeline/new-dagger-pipeline,""
+10B,Creating and running a Dagger pipeline,"But first, how does this work?",workflows-creating-and-running-a-dagger-pipeline/but-first-how-does-this-work,code,/lessons/workflows-creating-and-running-a-dagger-pipeline/but-first-how-does-this-work,""
+10C,Creating and running a Dagger pipeline,Running a Dagger pipeline locally,workflows-creating-and-running-a-dagger-pipeline/run-dagger-pipeline-locally,code,/lessons/workflows-creating-and-running-a-dagger-pipeline/run-dagger-pipeline-locally,""
+11A,Embedding in a GitHub Workflow,Running Dagger in a GitHub Action workflow,workflows-embedding-in-a-github-workflow/running-workflows,code,/lessons/workflows-embedding-in-a-github-workflow/running-workflows,""
