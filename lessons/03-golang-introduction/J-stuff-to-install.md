@@ -49,7 +49,11 @@ Using Homebrew for package management is recommended. You can install Homebrew b
 
 ## Go
 
-1. Install Go from [here](https://golang.org/dl/) or if you are using Homebrew, run `brew install go`.
+1. Install Go from [here](https://go.dev/doc/install) or if you are using Homebrew, run `brew install go`.
+</br>
+</br>
+Notes for Windows users:  
+The install page will require you to download the file using the big blue download button (please note if you are on Windows with WSL you will need to download and follow the Linux file and instructions). Once you have the Go tar file on your machine you will need to move into your WSL filesystem, this can be done easily in Windows Explorer by copying the file. Then click the Linux part on the left side with a small penguin, one here you click Ubuntu, then home, then your username. Once here you can paste the tar file. From there you can follow the install guide linked above from Go's own website to install the CLI tool. Please note this is not the same as the VS Code extension you will need both to work with Go in this course.
 
 2. Install the following [Go extension](https://marketplace.visualstudio.com/items?itemName=golang.go) in VSCode:
 ![Extensions](../../images/lessons/golang-introduction/vscode-go-extension.png)
