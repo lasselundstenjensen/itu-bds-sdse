@@ -452,7 +452,7 @@ The fast-forward merge happened because the ***common ancestor*** of the `main` 
 
 > **Cleanup**
 > 
-> If you followed the exercises up unti now, you can delete the `merge-feature-two` and the `feature-two` branches.
+> If you followed the exercises up unti now, you can delete the `feature-two` branch.
 >
 > Use `git branch -d <branch-name>` to delete a branch.
 
