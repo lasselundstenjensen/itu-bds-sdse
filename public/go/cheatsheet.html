@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Go Cheat Sheet</title>
+<meta name="description" content="Four-page Go cheat sheet: syntax, keywords, built-ins, special functions, concurrency and gotchas. Condensed companion to the full Go reference.">
+<style>
+  :root{
+    --secondary:#ffbb00; --highlight:#f0f6fc; --bg-main:#0d1117; --bg-card:#161b22;
+    --line:#30363d; --muted:#8b949e; --bad:#f85149; --ok:#3fb950;
+    --kw:#ff7b72; --bi:#d2a8ff; --ty:#ffa657; --str:#7ee787; --num:#79c0ff; --com:#7d8590;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg-main);color:var(--highlight);
+    font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  code,pre{font-family:"SF Mono",SFMono-Regular,ui-monospace,Menlo,Consolas,monospace}
+
+  .page{max-width:1500px;margin:0 auto;padding:16px 18px 40px}
+
+  header{
+    display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+    border-bottom:2px solid var(--secondary);padding-bottom:7px;margin-bottom:12px;
+  }
+  header h1{margin:0;font-size:1.25rem;letter-spacing:-.2px}
+  header h1 em{color:var(--secondary);font-style:normal}
+  header .sub{color:var(--muted);font-size:.76rem}
+  header .sub a{color:var(--secondary)}
+
+  .sheet{column-count:3;column-gap:13px}
+  @media(max-width:1150px){.sheet{column-count:2}}
+  @media(max-width:720px){.sheet{column-count:1}}
+
+  .card{
+    break-inside:avoid;page-break-inside:avoid;display:inline-block;width:100%;
+    background:var(--bg-card);border:1px solid var(--line);border-radius:5px;
+    padding:6px 8px 7px;margin:0 0 9px;
+  }
+  .card h2{
+    margin:0 0 4px;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--secondary);font-weight:700;border-bottom:1px solid var(--line);padding-bottom:3px;
+  }
+  .card h3{margin:6px 0 2px;font-size:.68rem;color:var(--muted);font-weight:600;letter-spacing:.03em}
+  .card h3:first-of-type{margin-top:2px}
+
+  pre{margin:0;font-size:11px;line-height:1.42;white-space:pre-wrap;word-break:break-word;color:#c9d1d9}
+  pre + pre{margin-top:3px}
+  .card p{margin:3px 0 0;font-size:11px;color:var(--muted)}
+  .card p b{color:var(--highlight)}
+  .card p code,.card li code,table code{color:var(--secondary);font-size:10.5px}
+
+  table{width:100%;border-collapse:collapse;font-size:10.5px;margin:2px 0 0}
+  td,th{padding:1.5px 4px 1.5px 0;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.05)}
+  th{color:var(--muted);font-weight:600;text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em}
+  td:first-child{white-space:nowrap;color:var(--secondary);font-family:"SF Mono",ui-monospace,Menlo,monospace}
+  tr:last-child td{border-bottom:0}
+  table.plain td:first-child{color:inherit;font-family:inherit;white-space:normal}
+
+  ul{margin:2px 0 0;padding-left:13px;font-size:11px}
+  li{margin:1px 0}
+
+  .warn{color:var(--bad)}
+  .good{color:var(--ok)}
+  .tag{
+    float:right;font-size:8.5px;letter-spacing:.05em;color:var(--ok);
+    border:1px solid rgba(63,185,80,.4);border-radius:8px;padding:0 4px;font-weight:600;
+    text-transform:none;position:relative;top:1px;
+  }
+
+  .tok-kw{color:var(--kw)}.tok-bi{color:var(--bi)}.tok-ty{color:var(--ty)}
+  .tok-str{color:var(--str)}.tok-num{color:var(--num)}.tok-com{color:var(--com);font-style:italic}
+  .tok-fn{color:var(--bi)}.tok-pkg{color:var(--num)}
+
+  .hint{
+    position:fixed;right:12px;bottom:12px;background:var(--secondary);color:#0d1117;
+    border:0;border-radius:5px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;
+  }
+
+  @media print{
+    @page{size:A4 portrait;margin:8mm}
+    :root{
+      --highlight:#111;--muted:#555;--line:#ccc;--bg-card:#fff;
+      --kw:#a1080e;--bi:#6f2da8;--ty:#a14a00;--str:#0a6b2d;--num:#0b4f9e;--com:#666;--secondary:#8a6400;
+    }
+    body{background:#fff;color:#111;font-size:11px}
+    .page{max-width:none;padding:0}
+    .sheet{column-count:3;column-gap:5mm}
+    .card{border-color:#d5d5d5;padding:3px 5px 4px;margin-bottom:4px;background:#fff}
+    .card h2{font-size:9px;padding-bottom:1.5px;margin-bottom:3px;color:#000;border-bottom:1px solid #000}
+    .card h3{font-size:8.6px;margin:3.5px 0 1px}
+    pre{font-size:8.5px;line-height:1.32}
+    .card p,ul{font-size:8.5px}
+    table{font-size:8.3px}
+    th{font-size:7.4px}
+    .card p code,.card li code,table code{font-size:8.3px}
+    .tag{font-size:7px}
+    header{margin-bottom:4px;padding-bottom:3px}
+    header h1{font-size:12px}
+    header .sub{font-size:7.5px}
+    .hint{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1><em>Go</em> cheat sheet</h1>
+</header>
+
+<div class="sheet">
+
+<div class="card">
+<h2>File skeleton</h2>
+<pre><code>package main            // one per file
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/me/pkg" // own/3rd-party
+)
+
+const Name = "sdse"
+type T struct{ N int }
+func (t T) String() string { return t.N }
+func main() { fmt.Println(os.Args) }</code></pre>
+<p><b>Hard rules:</b> unused import or local var = compile error. Opening brace on the same line
+(semicolons are auto-inserted). One package per directory. No cyclic imports.</p>
+</div>
+
+<div class="card">
+<h2>25 keywords</h2>
+<table>
+<tr><td>package import</td><td>file header</td></tr>
+<tr><td>func var const type</td><td>declare</td></tr>
+<tr><td>struct interface map chan</td><td>composite types</td></tr>
+<tr><td>if else switch case default fallthrough</td><td>branch</td></tr>
+<tr><td>for range break continue goto</td><td>loop / jump</td></tr>
+<tr><td>return</td><td>exit function</td></tr>
+<tr><td>go select defer</td><td>concurrency / cleanup</td></tr>
+</table>
+<p><b>Not keywords</b> (shadowable, don't): <code>true false nil iota any comparable error</code>,
+type names, and the built-in functions.</p>
+</div>
+
+<div class="card">
+<h2>Declare &amp; assign</h2>
+<pre><code>var x int           // zero value 0
+var y = 42          // inferred
+var z int = 42
+w := 42             // func bodies ONLY
+
+var (
+	name  string
+	tries = 3
+)
+
+a, b := 1, "two"    // multiple
+a, err := f()       // := needs 1 new name
+a, b = b, a         // swap: RHS evaluated first</code></pre>
+<p class="warn"><b>Shadowing:</b> <code>err := ...</code> inside an <code>if</code>/<code>for</code> body makes a
+<i>new</i> err that dies at the brace. Top cause of vanishing errors.</p>
+</div>
+
+<div class="card">
+<h2>Zero values</h2>
+<table>
+<tr><td>0</td><td>all numerics</td></tr>
+<tr><td>false</td><td>bool</td></tr>
+<tr><td>""</td><td>string (never nil)</td></tr>
+<tr><td>nil</td><td>pointer slice map chan func interface</td></tr>
+<tr><td>{...}</td><td>struct/array: each element zeroed</td></tr>
+</table>
+<p>Design so the zero value works: <code>sync.Mutex</code>, <code>bytes.Buffer</code>,
+<code>strings.Builder</code> all need no constructor.</p>
+</div>
+
+<div class="card">
+<h2>const &amp; iota</h2>
+<pre><code>const Pi = 3.14159      // untyped: adapts
+const S string = "hi"   // typed
+// const t = time.Now() // ERROR: runtime value
+
+type Level int
+const (
+	Debug Level = iota  // 0, resets per block
+	Info                // 1 (expr repeats)
+	Warn                // 2
+)
+const (
+	_  = iota
+	KB = 1 &lt;&lt; (10 * iota) // 1024
+	MB                    // 1048576
+)</code></pre>
+<p>Only bool, string, numbers. Untyped consts carry arbitrary precision until used.</p>
+</div>
+
+<div class="card">
+<h2>Types &amp; conversion</h2>
+<pre><code>int uint int8..64 uint8..64 uintptr
+float32 float64 complex64 complex128
+bool string
+byte = uint8     rune = int32
+any  = interface{}            // 1.18+
+error                         // an INTERFACE</code></pre>
+<pre><code>f := float64(i)      // ALWAYS explicit
+n, err := strconv.Atoi("42")  // str&lt;->num
+var x int32; var y int64
+z := int64(x) + y    // no mixed arithmetic</code></pre>
+<p class="warn"><code>string(65)</code> is <code>"A"</code>, not <code>"65"</code> — use <code>strconv.Itoa</code>.
+<code>uint8(300)</code> wraps silently to 44.</p>
+</div>
+
+<div class="card">
+<h2>Strings, bytes, runes</h2>
+<pre><code>s := "Gø"
+len(s)                    // 3 — BYTES not chars
+s[0]                      // 71 — a byte
+utf8.RuneCountInString(s) // 2 — chars
+[]rune(s); []byte(s)      // allocates
+
+for i, r := range s { }   // decodes UTF-8;
+                          // i jumps by rune width
+
+var b strings.Builder     // concat in a loop
+b.WriteString("x")
+b.String()</code></pre>
+<p>Immutable: <code>s[0]='H'</code> won't compile. <code>+=</code> in a loop reallocates every pass.</p>
+</div>
+
+<div class="card">
+<h2>Slices</h2>
+<pre><code>var s []int            // nil, but append-able
+s = append(s, 1, 2)    // ALWAYS reassign
+t := []int{1,2,3,4,5}
+u := make([]int, 0, 10)  // len 0, cap 10
+
+t[1:3] // [2 3] half-open   t[:2]  t[2:]
+copy(dst, src)  // min(len) elems
+clear(s)        // zero all         (1.21+)
+slices.Contains/Sort/Clone/Index     (1.21+)</code></pre>
+<pre><code>view := orig[1:3]   // SHARES backing array
+view[0] = 99        // orig changes too
+view = append(view, 7) // writes through if
+                       // cap allows, else
+                       // reallocates+detaches</code></pre>
+<p class="warn">Aliasing depends on capacity → bugs are intermittent. Need independence?
+<code>slices.Clone(v)</code> or three-index <code>v[1:3:3]</code>.</p>
+</div>
+
+<div class="card">
+<h2>Maps</h2>
+<pre><code>m := map[string]int{"a": 1}
+n := make(map[string]int)
+var p map[string]int  // nil: reads OK,
+                      // WRITES PANIC
+
+m["b"] = 2
+v := m["nope"]        // 0, no error
+v, ok := m["nope"]    // comma-ok
+delete(m, "a")        // no-op if absent
+len(m); clear(m)                    (1.21+)
+
+for k, v := range m { }  // RANDOM ORDER
+slices.Sorted(maps.Keys(m))         (1.23+)</code></pre>
+<p>Keys must be comparable (no slice/map/func). Set = <code>map[K]struct{}</code> (0 bytes per value).</p>
+</div>
+
+<div class="card">
+<h2>Pointers</h2>
+<pre><code>p := &amp;x        // *int
+*p = 20        // write through
+q := new(int)  // zeroed, returns *int
+var r *int     // nil: *r panics
+
+func byVal(c Counter)  { c.n++ } // copy
+func byPtr(c *Counter) { c.n++ } // original
+byPtr(&amp;c)</code></pre>
+<table>
+<tr><td>copied</td><td>num bool string array struct</td></tr>
+<tr><td>header copied,<br>data shared</td><td>slice map chan func interface</td></tr>
+</table>
+<p>No pointer arithmetic. Returning <code>&amp;Local{}</code> is safe — escape analysis decides heap vs stack.</p>
+</div>
+
+<div class="card">
+<h2>if / for</h2>
+<pre><code>if v, err := f(); err != nil {   // init stmt
+} else if x &gt; 5 {
+} else { }
+
+for i := 0; i &lt; 10; i++ { }  // C-style
+for x &lt; 100 { }              // while
+for { }                      // infinite
+for i, v := range xs { }
+for k, v := range m { }      // random order
+for i, r := range s { }      // string: runes
+for v := range ch { }        // until closed
+for i := range 10 { }        // 1.22+
+for v := range seq { }       // 1.23+ iterator
+
+outer:
+for i := range g {
+	for j := range g[i] {
+		break outer      // or continue outer
+	}
+}</code></pre>
+<p><b>1.22+:</b> loop vars are per-iteration, so closing over them in a goroutine is now safe.</p>
+</div>
+
+<div class="card">
+<h2>switch</h2>
+<pre><code>switch day {
+case "sat", "sun":     // multiple values
+	x()
+case "mon":
+	fallthrough        // explicit, rare
+default:
+}
+
+switch {               // = if/else chain
+case n &gt;= 90: g = "A"
+case n &gt;= 80: g = "B"
+}
+
+switch v := x.(type) { // TYPE switch
+case nil:
+case int:    use(v * 2)   // v is int
+case string: use(len(v))  // v is string
+case error:  return v
+default:     fmt.Printf("%T", v)
+}</code></pre>
+<p>No implicit fallthrough. <code>x</code> must be an interface value in a type switch.</p>
+</div>
+
+<div class="card">
+<h2>Functions</h2>
+<pre><code>func add(a, b int) int { return a + b }
+
+func div(a, b float64) (float64, error) {
+	if b == 0 { return 0, errors.New("÷0") }
+	return a / b, nil
+}
+
+func split(sum int) (x, y int) { // named
+	x = sum / 2
+	y = sum - x
+	return                       // naked
+}
+
+func sum(nums ...int) int { }    // variadic
+sum(1,2,3); sum(xs...)           // spread
+
+double := func(x int) int { return x*2 }
+
+func counter() func() int {      // closure
+	n := 0
+	return func() int { n++; return n }
+}</code></pre>
+<p>Multiple returns are why Go needs no exceptions. Variadic param must be last.</p>
+</div>
+
+<div class="card">
+<h2>defer</h2>
+<pre><code>f, err := os.Open(p)
+if err != nil { return err }
+defer f.Close()      // runs on EVERY exit
+mu.Lock()
+defer mu.Unlock()</code></pre>
+<pre><code>x := 1
+defer fmt.Println(x) // prints 1: ARGS
+x = 2                // EVALUATED NOW
+
+for i := 0; i &lt; 3; i++ {
+	defer fmt.Print(i)  // LIFO -> 210
+}
+
+func t() (n int, err error) {
+	defer func() {
+		if err != nil { n = 0 } // can rewrite
+	}()                         // named results
+	return doWork()
+}</code></pre>
+<p class="warn">Runs at <b>function</b> return, not block end — never <code>defer</code> in a long loop.</p>
+</div>
+
+<div class="card">
+<h2>Type definitions</h2>
+<pre><code>type Celsius float64   // NEW distinct type
+type Temp = float64    // ALIAS, same type
+
+func (c Celsius) String() string {
+	return fmt.Sprintf("%.1f°C", float64(c))
+}
+c = Celsius(f)         // conversion needed</code></pre>
+<table>
+<tr><td>definition</td><td>distinct; starts with no methods; you add your own</td></tr>
+<tr><td>alias</td><td>interchangeable; shares methods; can't add</td></tr>
+</table>
+<p>A defined type keeps the underlying type's <i>operators</i> but inherits no methods.
+Any type can have methods — not just structs.</p>
+</div>
+
+<div class="card">
+<h2>Structs</h2>
+<pre><code>type Student struct {
+	Name    string
+	Email   string
+	Courses []string
+	active  bool        // unexported
+}
+
+s := Student{Name: "Ada"}   // KEYED always
+p := &amp;Student{Name: "Ada"}
+p.Name                      // auto-deref, no ->
+
+type Point struct{ X, Y int }
+Point{1,2} == Point{1,2}    // true, field-wise
+                            // (slice field = no ==)
+type Empty struct{}         // 0 bytes
+done := make(chan struct{})</code></pre>
+<h3>Tags (read by reflection)</h3>
+<pre><code>Name  string `json:"name" db:"full_name"`
+Email string `json:"email,omitempty"`
+Age   int    `json:"-"`     // never marshalled</code></pre>
+<p>Tag typos fail silently — run <code>go vet</code>.</p>
+</div>
+
+<div class="card">
+<h2>Methods &amp; receivers</h2>
+<pre><code>func (c Counter) Value() int { return c.n }
+func (c *Counter) Inc()      { c.n++ }
+
+c.Inc()   // = (&amp;c).Inc(), compiler helps
+p.Value() // = (*p).Value()</code></pre>
+<table>
+<tr><td>pointer</td><td>mutates; large struct; holds a mutex</td></tr>
+<tr><td>value</td><td>small/immutable; map, slice, basic type</td></tr>
+</table>
+<p class="warn"><b>Method sets:</b> <code>T</code> has only value-receiver methods; <code>*T</code> has both.
+So <code>*Counter</code> satisfies an interface needing <code>Inc()</code> but <code>Counter</code> does
+<i>not</i> — interface satisfaction gets no auto-address help.</p>
+<p>Be consistent: if one method needs a pointer, give them all pointers.</p>
+</div>
+
+<div class="card">
+<h2>Factories</h2>
+<pre><code>// no constructors; convention is NewT
+func NewCounter(start int) *Counter {
+	return &amp;Counter{n: start}
+}
+
+func NewStudent(n string) (*Student, error) {
+	if n == "" {
+		return nil, errors.New("name required")
+	}
+	return &amp;Student{Name: n}, nil
+}
+// one main type per pkg? call it New()</code></pre>
+</div>
+
+<div class="card">
+<h2>Interfaces</h2>
+<pre><code>type Shape interface {
+	Area() float64
+	Perimeter() float64
+}
+type ReadWriter interface {  // embed
+	io.Reader
+	io.Writer
+}
+
+// satisfied IMPLICITLY — no "implements"
+func (c Circle) Area() float64 { }
+func (c Circle) Perimeter() float64 { }
+var s Shape = Circle{R: 2}
+
+var _ Shape = (*Circle)(nil) // compile check</code></pre>
+<h3>Assertions</h3>
+<pre><code>s := x.(string)      // panics if wrong
+s, ok := x.(string)  // comma-ok
+if sh, ok := x.(Shape); ok { }</code></pre>
+<p>Accept interfaces, return structs. Define them where <i>consumed</i>. Keep them tiny
+(<code>io.Reader</code> = 1 method). Don't write one until there are 2 implementations.</p>
+<p class="warn"><b>Nil trap:</b> an interface is nil only if type <i>and</i> value are nil. Returning a nil
+<code>*MyError</code> as <code>error</code> makes <code>err != nil</code> TRUE.</p>
+</div>
+
+<div class="card">
+<h2>Embedding</h2>
+<pre><code>type Employee struct {
+	Person          // no field name
+	Company string
+}
+e := Employee{Person: Person{Name:"Ada"}}
+e.Name            // promoted field
+e.Greet()         // promoted method
+e.Person.Greet()  // long form
+
+func (e Employee) Greet() string {  // shadow
+	return e.Person.Greet() + " @" + e.Company
+}
+
+type LoggingStore struct {
+	Store           // embed INTERFACE:
+	log *slog.Logger // wrap one method,
+}                    // delegate the rest</code></pre>
+<p class="warn">Not polymorphism: a <code>Person</code> method calling <code>Greet()</code> always gets
+<code>Person.Greet</code>. No virtual dispatch to the outer type — use an interface for that.</p>
+</div>
+
+<div class="card">
+<h2>Generics <span class="tag">1.18+</span></h2>
+<pre><code>func Map[T, U any](xs []T, f func(T) U) []U {
+	out := make([]U, 0, len(xs))
+	for _, x := range xs { out = append(out, f(x)) }
+	return out
+}
+Map(xs, func(s string) int { return len(s) })
+
+type Number interface {
+	~int | ~float64   // ~ = underlying type
+}
+func Sum[T Number](xs []T) T {
+	var total T       // zero of T
+	for _, x := range xs { total += x }
+	return total
+}
+
+type Stack[T any] struct{ items []T }
+func (s *Stack[T]) Push(v T) { }
+st := &amp;Stack[int]{}</code></pre>
+<table>
+<tr><td>any</td><td>anything</td></tr>
+<tr><td>comparable</td><td>== !=</td></tr>
+<tr><td>cmp.Ordered</td><td>&lt; &gt; (1.21+)</td></tr>
+</table>
+<p>Check <code>slices</code>/<code>maps</code> first. Interface = behaviour varies; generic = same logic,
+different type.</p>
+</div>
+
+<div class="card">
+<h2>Errors are values</h2>
+<pre><code>type error interface { Error() string }
+
+errors.New("not found")
+fmt.Errorf("load %s: %v", p, err)  // no wrap
+fmt.Errorf("load %s: %w", p, err)  // WRAPS
+
+var ErrNotFound = errors.New("not found")
+
+type ValidationError struct{ Field string }
+func (e *ValidationError) Error() string { }</code></pre>
+<pre><code>errors.Is(err, ErrNotFound)   // sentinel
+var ve *ValidationError
+errors.As(err, &amp;ve)           // + binds ve
+errors.Unwrap(err)            // one level
+errors.Join(e1, e2)                 (1.20+)</code></pre>
+<p class="warn">Never <code>err == ErrX</code> (breaks on wrap) and never match on
+<code>err.Error()</code> text.</p>
+<p>Lowercase, no trailing punctuation. Add context going up. Handle <b>once</b>: log or return, not both.</p>
+</div>
+
+<div class="card">
+<h2>panic / recover</h2>
+<pre><code>panic("unreachable")   // unwinds, runs defers
+
+func safe() (err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("recovered: %v", r)
+		}
+	}()                // ONLY works in a defer
+	risky()
+	return nil
+}</code></pre>
+<table>
+<tr><td>nil deref</td><td>index out of range</td></tr>
+<tr><td>bad type assert</td><td>write to nil map</td></tr>
+<tr><td>divide by zero</td><td>close closed/nil chan</td></tr>
+</table>
+<p>OK to panic: impossible states, <code>MustCompile</code>-style init, per-request recovery in a server.</p>
+<p class="warn"><code>recover</code> does <b>not</b> cross goroutines — an unrecovered panic in any goroutine
+kills the process.</p>
+</div>
+
+<div class="card">
+<h2>Goroutines &amp; sync</h2>
+<pre><code>go doWork()        // returns immediately
+go func() { }()    // args eval'd at `go`</code></pre>
+<pre><code>var wg sync.WaitGroup
+for _, u := range urls {
+	wg.Add(1)          // BEFORE go
+	go func() {
+		defer wg.Done()
+		fetch(u)
+	}()
+}
+wg.Wait()
+
+wg.Go(func(){ fetch(u) })          // 1.25+</code></pre>
+<table>
+<tr><td>Mutex</td><td>Lock/Unlock + defer</td></tr>
+<tr><td>RWMutex</td><td>many readers, 1 writer</td></tr>
+<tr><td>Once</td><td>once.Do(f)</td></tr>
+<tr><td>atomic</td><td>Int64, CompareAndSwap</td></tr>
+<tr><td>errgroup</td><td>WaitGroup + first error</td></tr>
+</table>
+<p class="warn">When <code>main</code> returns, every goroutine dies mid-flight. Nothing waits for you.</p>
+<p class="good"><b>Run <code>go test -race ./...</code></b> — put it in CI.</p>
+</div>
+
+<div class="card">
+<h2>Channels</h2>
+<pre><code>ch  := make(chan int)      // UNBUFFERED
+buf := make(chan int, 10)  // buffered
+var nilCh chan int         // blocks forever
+
+ch &lt;- 42          // send
+v := &lt;-ch         // receive
+v, ok := &lt;-ch     // ok=false when drained
+close(ch)         // SENDER closes, only once
+for v := range ch { }   // until closed
+
+func prod(out chan&lt;- int) { }  // send-only
+func cons(in  &lt;-chan int) { }  // recv-only</code></pre>
+<table>
+<tr><th>op</th><th>nil</th><th>open</th><th>closed</th></tr>
+<tr><td>recv</td><td>blocks</td><td>blocks</td><td>zero,false</td></tr>
+<tr><td>send</td><td>blocks</td><td>blocks</td><td class="warn">panic</td></tr>
+<tr><td>close</td><td class="warn">panic</td><td>ok</td><td class="warn">panic</td></tr>
+</table>
+<p>Don't communicate by sharing memory; share memory by communicating.</p>
+</div>
+
+<div class="card">
+<h2>select &amp; context</h2>
+<pre><code>select {
+case v := &lt;-ch1:
+case ch2 &lt;- 42:
+case &lt;-time.After(2*time.Second):
+case &lt;-ctx.Done(): return ctx.Err()
+default:            // makes it NON-BLOCKING
+}
+
+for {               // worker loop
+	select {
+	case job, ok := &lt;-jobs:
+		if !ok { return }
+		handle(job)
+	case &lt;-ctx.Done():
+		return
+	}
+}</code></pre>
+<pre><code>ctx, cancel := context.WithCancel(parent)
+defer cancel()                    // ALWAYS
+ctx, cancel = context.WithTimeout(ctx, 5*time.Second)
+func f(ctx context.Context, ...) // first param</code></pre>
+<p>Ready cases are picked <b>at random</b>. <code>select{}</code> blocks forever.</p>
+<p>Patterns: worker pool · fan-out/fan-in · pipeline · done-channel.</p>
+</div>
+
+<div class="card">
+<h2>Built-in functions</h2>
+<table>
+<tr><td>len cap</td><td>length / capacity</td></tr>
+<tr><td>make(T,n,c)</td><td>init slice, map, chan → T</td></tr>
+<tr><td>new(T)</td><td>zeroed alloc → *T</td></tr>
+<tr><td>append</td><td>grow slice (use result!)</td></tr>
+<tr><td>copy(d,s)</td><td>min(len) elements</td></tr>
+<tr><td>delete(m,k)</td><td>remove key</td></tr>
+<tr><td>clear(v)</td><td>empty map / zero slice <span class="tag">1.21</span></td></tr>
+<tr><td>min max</td><td>ordered values <span class="tag">1.21</span></td></tr>
+<tr><td>close(ch)</td><td>finish a channel</td></tr>
+<tr><td>panic recover</td><td>abort / resume</td></tr>
+<tr><td>complex real imag</td><td>complex numbers</td></tr>
+<tr><td>print println</td><td>stderr, unspecified — use fmt</td></tr>
+</table>
+<p><code>make</code> works on exactly 3 types (slice/map/chan) — the ones with runtime internals.</p>
+</div>
+
+<div class="card">
+<h2>Special names</h2>
+<pre><code>func main()              // pkg main, entry
+func init()              // pre-main, any number
+                         // per file, uncallable</code></pre>
+<h3>go test</h3>
+<pre><code>func TestXxx(t *testing.T)       // _test.go
+func BenchmarkXxx(b *testing.B)  // b.N loop
+func FuzzXxx(f *testing.F)
+func ExampleXxx()   // checked if "// Output:"
+func TestMain(m *testing.M)  // setup/teardown
+t.Run/Parallel/Cleanup/Helper/Errorf</code></pre>
+<h3>Stdlib interfaces</h3>
+<table>
+<tr><td>String()</td><td>fmt.Stringer — used by %v/%s</td></tr>
+<tr><td>Error()</td><td>error (beats String)</td></tr>
+<tr><td>Unwrap()</td><td>feeds errors.Is/As</td></tr>
+<tr><td>Read/Write/Close</td><td>io.Reader/Writer/Closer</td></tr>
+<tr><td>ServeHTTP</td><td>http.Handler</td></tr>
+<tr><td>MarshalJSON</td><td>json.Marshaler</td></tr>
+</table>
+<h3>Conventions</h3>
+<table>
+<tr><td>New…</td><td>factory</td></tr>
+<tr><td>Must…</td><td>panics instead of erroring</td></tr>
+<tr><td>Err… / …Error</td><td>sentinel value / error type</td></tr>
+<tr><td>…er</td><td>1-method interface</td></tr>
+<tr><td>GetX()</td><td class="warn">never — it's just X()</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>Blank identifier</h2>
+<pre><code>_, err := fmt.Println("x")   // discard
+for _, v := range xs { }     // skip index
+import _ "github.com/lib/pq" // init() only
+var _ Shape = (*Circle)(nil) // assert</code></pre>
+</div>
+
+<div class="card">
+<h2>Packages &amp; modules</h2>
+<pre><code>type Student struct {
+	Name  string   // exported
+	email string   // package-private
+}
+// visibility = capital letter; the unit of
+// encapsulation is the PACKAGE, not the type</code></pre>
+<pre><code>import (
+	"net/http"              // -> http
+	mrand "math/rand"       // alias
+	_ "github.com/lib/pq"   // side effects
+)   // NO dot imports</code></pre>
+<table>
+<tr><td>cmd/&lt;name&gt;/</td><td>one dir per binary</td></tr>
+<tr><td>internal/</td><td>import-blocked outside parent</td></tr>
+<tr><td>testdata/</td><td>ignored by the build</td></tr>
+<tr><td>*_test.go</td><td>test-only compile</td></tr>
+</table>
+<pre><code>go mod init &lt;path&gt;   go mod tidy
+go get pkg@v1.2.3    go work init ./a ./b</code></pre>
+<p>Names: short, lowercase, singular, no <code>utils</code>. The package name prefixes every call site.</p>
+</div>
+
+<div class="card">
+<h2>go command</h2>
+<table>
+<tr><td>go run .</td><td>compile + run</td></tr>
+<tr><td>go build ./...</td><td>compile all</td></tr>
+<tr><td>go test ./...</td><td>all tests</td></tr>
+<tr><td>go test -race</td><td>race detector</td></tr>
+<tr><td>go test -v -run TestX</td><td>filter by regex</td></tr>
+<tr><td>go test -cover</td><td>coverage</td></tr>
+<tr><td>go test -bench=. -benchmem</td><td>benchmarks</td></tr>
+<tr><td>go vet ./...</td><td>real-bug static checks</td></tr>
+<tr><td>gofmt -l -w .</td><td>canonical format</td></tr>
+<tr><td>goimports -w .</td><td>fmt + fix imports</td></tr>
+<tr><td>go doc fmt.Println</td><td>docs in terminal</td></tr>
+</table>
+<pre><code>GOOS=linux GOARCH=arm64 go build  // cross
+CGO_ENABLED=0 go build   // static, FROM scratch
+go build -ldflags="-X main.version=1.2.3"</code></pre>
+<p>CI gate: <code>test -z "$(gofmt -l .)"</code>. One style, no options, no arguments.</p>
+</div>
+
+<div class="card">
+<h2>fmt verbs</h2>
+<pre><code>fmt.Println(a, b)        fmt.Printf("%s\n", s)
+fmt.Sprintf(...)         fmt.Fprintf(w, ...)
+fmt.Errorf("ctx: %w", err)</code></pre>
+<table>
+<tr><td>%v %+v %#v</td><td>default · <b>with field names</b> · Go syntax</td></tr>
+<tr><td>%T</td><td>dynamic type</td></tr>
+<tr><td>%s %q</td><td>string · quoted</td></tr>
+<tr><td>%d %b %o %x</td><td>int base 10/2/8/16</td></tr>
+<tr><td>%f %.2f %e %g</td><td>float forms</td></tr>
+<tr><td>%t %c %U %p</td><td>bool · rune · U+00F8 · pointer</td></tr>
+<tr><td>%w</td><td>wrap (Errorf only)</td></tr>
+<tr><td>%8.2f %-20s %08d</td><td>width · left · zero-pad</td></tr>
+</table>
+<p><code>%!d(string=hi)</code> = wrong verb; <code>go vet</code> catches it at build time.</p>
+</div>
+
+<div class="card">
+<h2>Gotchas</h2>
+<table class="plain">
+<tr><td>Dropping <code>append</code>'s result</td><td>append is lost → <code>s = append(...)</code></td></tr>
+<tr><td>Write to nil map</td><td>panic → <code>make</code> it</td></tr>
+<tr><td><code>err</code> shadowed by <code>:=</code></td><td>failure vanishes</td></tr>
+<tr><td>Typed nil as <code>error</code></td><td><code>err != nil</code> with no error</td></tr>
+<tr><td><code>len(s)</code> on non-ASCII</td><td>bytes ≠ chars</td></tr>
+<tr><td><code>err == ErrX</code></td><td>breaks on wrap → <code>errors.Is</code></td></tr>
+<tr><td>Map order</td><td>randomised on purpose</td></tr>
+<tr><td><code>defer</code> in a hot loop</td><td>handles pile up</td></tr>
+<tr><td>Sub-slice of a huge array</td><td>keeps it all alive → Clone</td></tr>
+<tr><td><code>string(65)</code></td><td>"A" → <code>strconv.Itoa</code></td></tr>
+<tr><td>Unread channel</td><td>goroutine leak</td></tr>
+<tr><td>Receiver closes a channel</td><td>panic on next send</td></tr>
+<tr><td><code>for _, s := range xs</code> + mutate</td><td>it's a copy → <code>xs[i].F</code></td></tr>
+<tr><td>Value receiver + mutex</td><td>copies the lock (vet flags it)</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>Proverbs</h2>
+<ul>
+<li>Clear is better than clever.</li>
+<li>Errors are values.</li>
+<li>Don't just check errors, handle them gracefully.</li>
+<li>Don't communicate by sharing memory; share memory by communicating.</li>
+<li>The bigger the interface, the weaker the abstraction.</li>
+<li>Make the zero value useful.</li>
+<li>A little copying is better than a little dependency.</li>
+<li>gofmt's style is no one's favourite, yet gofmt is everyone's favourite.</li>
+</ul>
+</div>
+
+
+</div><!-- /sheet -->
+</div><!-- /page -->
+
+<button class="hint" onclick="window.print()">⌘P — print / save PDF</button>
+
+<script>
+const KW = new Set("break case chan const continue default defer else fallthrough for func go goto if import interface map package range return select struct switch type var".split(" "));
+const BI = new Set("append cap clear close complex copy delete imag len make max min new panic print println real recover".split(" "));
+const TY = new Set("bool string error any comparable int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptr byte rune float32 float64 complex64 complex128 true false nil iota".split(" "));
+const RE = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|(`[^`]*`|"(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*')|(\b0[xXbBoO][0-9a-fA-F_]+\b|\b\d[\d_]*(?:\.[\d_]*)?(?:[eE][+-]?\d+)?i?\b)|([A-Za-z_]\w*)/g;
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+function highlight(src){
+  let out="",last=0,m; RE.lastIndex=0;
+  while((m=RE.exec(src))!==null){
+    out+=esc(src.slice(last,m.index)); last=m.index+m[0].length;
+    if(m[1])      out+='<span class="tok-com">'+esc(m[1])+'</span>';
+    else if(m[2]) out+='<span class="tok-str">'+esc(m[2])+'</span>';
+    else if(m[3]) out+='<span class="tok-num">'+esc(m[3])+'</span>';
+    else{
+      const w=m[4],next=src[last]; let cls=null;
+      if(KW.has(w))cls="tok-kw"; else if(BI.has(w))cls="tok-bi";
+      else if(TY.has(w))cls="tok-ty"; else if(next==="(")cls="tok-fn";
+      else if(next==="."&&/^[a-z]+$/.test(w))cls="tok-pkg";
+      out+=cls?'<span class="'+cls+'">'+w+'</span>':esc(w);
+    }
+  }
+  return out+esc(src.slice(last));
+}
+document.querySelectorAll("pre > code").forEach(el=>{
+  el.innerHTML = highlight(el.textContent.replace(/^\n/,"").replace(/\s+$/,""));
+});
+// Embedded as a preview inside a lesson page: drop the floating print button.
+if (window.self !== window.top) {
+  const b = document.querySelector(".hint");
+  if (b) b.remove();
+}
+</script>
+</body>
+</html>
