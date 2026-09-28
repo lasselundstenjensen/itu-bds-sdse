@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mentimeter copy sheet: Go fundamentals (hard concepts)</title>
+<style>
+  :root{
+    --bg:#0d1117;
+    --card:#161b22;
+    --inner:#21262d;
+    --line:#30363d;
+    --text:#f0f6fc;
+    --muted:#8b949e;
+    --accent:#ffbb00;
+    --ok:#3fb950;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  code,pre{font-family:"SF Mono",SFMono-Regular,ui-monospace,Menlo,Consolas,monospace}
+  main{max-width:960px;margin:0 auto;padding:2rem 1rem 5rem}
+  h1{margin:0 0 .5rem;font-size:1.7rem}
+  h2{margin:0;font-size:1.25rem}
+  h3{margin:1.25rem 0 .4rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  a{color:var(--accent)}
+  p.lead{color:var(--muted);margin:.25rem 0 1.5rem}
+  code{background:var(--inner);padding:.05rem .3rem;border-radius:4px;font-size:.9em}
+  table{border-collapse:collapse;width:100%;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:.35rem .6rem;text-align:left}
+  th{background:var(--inner)}
+
+  .help{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1rem 1.25rem;margin-bottom:2rem}
+  .help ol{margin:.25rem 0 0;padding-left:1.25rem}
+  .swatch{background:var(--bg);white-space:nowrap}
+
+  section.q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.25rem 1.5rem;margin:1.5rem 0}
+  .q-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1px solid var(--line);padding-bottom:.6rem}
+  .q-head span{color:var(--muted);font-size:.85rem;white-space:nowrap}
+
+  .field{display:flex;align-items:flex-start;gap:.75rem;background:var(--inner);border:1px solid var(--line);border-radius:6px;padding:.5rem .75rem;margin:.35rem 0}
+  .field .txt{flex:1 1 auto;min-width:0}
+  .field.correct{border-color:var(--ok);background:rgba(63,185,80,.1)}
+  .badge{display:inline-block;font-size:.72rem;font-weight:600;color:var(--bg);background:var(--ok);border-radius:4px;padding:0 .4rem;margin-left:.5rem;vertical-align:middle}
+  .letter{color:var(--muted);font-weight:600;width:1.2rem;flex:0 0 auto}
+  .count{color:var(--muted);font-size:.75rem;white-space:nowrap;padding-top:.2rem}
+
+  pre.code{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:.9rem 1rem;overflow-x:auto;font-size:.88rem;line-height:1.5}
+  .code-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+
+  .why{background:var(--inner);border:1px solid var(--line);border-radius:6px;padding:.6rem .9rem}
+  .why p{margin:.3rem 0}
+  .why ol{margin:.3rem 0;padding-left:1.25rem}
+  .notes{border-left:3px solid var(--accent);padding:.25rem .9rem;color:var(--muted);font-size:.92rem}
+  .notes p{margin:.3rem 0}
+  .row{display:flex;justify-content:space-between;align-items:center;gap:.75rem}
+
+  button{
+    flex:0 0 auto;font:inherit;font-size:.8rem;cursor:pointer;
+    color:var(--text);background:#2d333b;border:1px solid #484f58;border-radius:5px;padding:.2rem .6rem;
+  }
+  button:hover{border-color:var(--accent);color:var(--accent)}
+  button.done{border-color:var(--ok);color:var(--ok)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Mentimeter copy sheet: Go fundamentals (hard concepts)</h1>
+  <p class="lead">
+    9 quiz questions covering the harder parts of <code>lessons/04-golang-fundamentals</code>.
+    Every snippet was run with Go 1.27.
+  </p>
+
+  <div class="help">
+    <b>How to use this page</b>
+    <ol>
+      <li>In Mentimeter, add a <b>Select answer</b> quiz slide for each question below.</li>
+      <li>Click <b>Copy</b> next to the question and each answer, and paste them into Mentimeter.
+        The copied text is plain (no backticks and no A/B/C/D letters). Tick the answer marked <b>Correct</b>.</li>
+      <li>Quiz slides don't have much room for text, so add the code as an image: <b>Copy image</b> puts a PNG
+        on the clipboard, <b>Download PNG</b> saves it. Put it on the quiz slide, or on the slide before it. The image uses the same colours as the page:
+        <span id="legend"></span></li>
+      <li><b>Why</b> is the explanation to show or say after the vote. <b>Notes for the presenter</b> are not for the slides.</li>
+    </ol>
+  </div>
+
+  <h3>Overview</h3>
+  <table id="overview">
+    <thead><tr><th>#</th><th>Topic</th><th>Lesson</th><th>Correct</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <div id="questions"></div>
+</main>
+
+<script>
+const QUESTIONS = [
+  {
+    topic: "Pass by value vs. pointers",
+    lesson: "G, H",
+    question: "What does this print?",
+    code: `type Person struct {
+    Name string
+    Age  int
+}
+
+func birthday(p Person)   { p.Age++ }
+func birthdayP(p *Person) { p.Age++ }
+
+func main() {
+    p := Person{"Ada", 30}
+    birthday(p)
+    birthdayP(&p)
+    fmt.Println(p.Age)
+}`,
+    options: [
+      "30",
+      { t: "31", ok: true },
+      "32",
+      "Compile error: <code>p.Age++</code> on a pointer needs <code>(*p).Age++</code>",
+    ],
+    why: `<p><code>birthday</code> gets a copy, so its change is thrown away. <code>birthdayP</code> gets the
+      address, so its change sticks. Go dereferences the pointer automatically when you
+      access a field, which rules out D.</p>`,
+  },
+  {
+    topic: "defer, panic and recover",
+    lesson: "I",
+    question: "What does this print?",
+    code: `func main() {
+    defer fmt.Println("A")
+    defer func() {
+        recover()
+        fmt.Println("B")
+    }()
+    panic("boom")
+    fmt.Println("C")
+}`,
+    options: [
+      "<code>C</code> <code>B</code> <code>A</code>",
+      { t: "<code>B</code> <code>A</code>", ok: true },
+      "<code>A</code> <code>B</code>",
+      "It crashes with <code>panic: boom</code>",
+    ],
+    why: `<p>Deferred calls run last in, first out. The panic stops <code>main</code> immediately,
+      so <code>C</code> never prints. The deferred functions still run, and <code>recover()</code> stops the
+      panic, so the program exits normally.</p>`,
+  },
+  {
+    topic: "Slices vs. maps",
+    lesson: "F, J",
+    question: "What does this print?",
+    code: `courses := []string{"Go", "Git", "Go", "Dagger", "Git", "Go"}
+
+lastSeen := make(map[string]int)
+for i, c := range courses {
+    lastSeen[c] = i
+}
+
+fmt.Println(len(courses), len(lastSeen), lastSeen["Go"], lastSeen["Git"])`,
+    options: [
+      "<code>6 3 0 1</code>",
+      "<code>6 6 5 4</code>",
+      "<code>6 3 3 2</code>",
+      { t: "<code>6 3 5 4</code>", ok: true },
+    ],
+    why: `<p>Trace the loop. <code>range</code> over a slice gives the index <code>i</code> and the value
+      <code>c</code> on each pass (lesson J shows the same pattern for maps). Work through it:</p>
+      <table>
+        <thead><tr><th><code>i</code></th><th><code>c</code></th><th><code>lastSeen</code> after the pass</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>Go</td><td>Go:0</td></tr>
+          <tr><td>1</td><td>Git</td><td>Go:0 Git:1</td></tr>
+          <tr><td>2</td><td>Go</td><td>Go:2 Git:1</td></tr>
+          <tr><td>3</td><td>Dagger</td><td>Go:2 Git:1 Dagger:3</td></tr>
+          <tr><td>4</td><td>Git</td><td>Go:2 Git:4 Dagger:3</td></tr>
+          <tr><td>5</td><td>Go</td><td>Go:5 Git:4 Dagger:3</td></tr>
+        </tbody>
+      </table>
+      <p>The slice keeps all 6 values. The map has one entry per key, so it ends with 3
+      keys, and each assignment replaces the old value. <code>Go</code> was last seen at index 5
+      and <code>Git</code> at index 4.</p>`,
+    notes: `<p>Wrong answers show what the student believes: A means they think the first
+      value is kept, B means they think the map stores every assignment, and C means
+      they think the map counts how often each key appears.</p>`,
+  },
+  {
+    topic: "Struct embedding: whose Name is it?",
+    lesson: "H, M, P",
+    question: "What does this print?",
+    code: `type Course struct{ Name string }
+
+func (c *Course) Rename(n string) { c.Name = n }
+
+type Workshop struct {
+    Course
+    Name string
+}
+
+func main() {
+    w := Workshop{Course: Course{Name: "Go"}, Name: "Go workshop"}
+    w.Rename("Advanced Go")
+    c := w.Course
+    c.Name = "Intro"
+    fmt.Println(w.Name, "|", w.Course.Name)
+}`,
+    options: [
+      "<code>Advanced Go | Go</code>",
+      { t: "<code>Go workshop | Advanced Go</code>", ok: true },
+      "<code>Go workshop | Intro</code>",
+      "<code>Advanced Go | Intro</code>",
+    ],
+    why: `<p>Work through it one line at a time:</p>
+      <ol>
+        <li><code>w.Rename(...)</code> is a method promoted from <code>Course</code>. Go turns the call into
+          <code>w.Course.Rename(...)</code>, so <code>c</code> inside the method is a pointer to the embedded
+          <code>Course</code>, and <code>c.Name</code> is <code>Course</code>'s own <code>Name</code>. The method can't see
+          <code>Workshop.Name</code>. It only knows about the <code>Course</code> it belongs to.</li>
+        <li><code>c := w.Course</code> copies the embedded struct, because an embedded field is an
+          ordinary value field. Changing <code>c.Name</code> doesn't change <code>w</code>.</li>
+        <li><code>w.Name</code> is the shallower field, <code>Workshop.Name</code>, and nothing has changed it.</li>
+      </ol>`,
+    notes: `<p>This uses a pointer receiver (<code>*Course</code>), which puts lessons H and M
+      together. Show a pointer-receiver example before the quiz if that hasn't been done.</p>`,
+  },
+  {
+    topic: "Embedding and interfaces: which SignUp runs?",
+    lesson: "P, Q",
+    question: "What does this print?",
+    code: `type Signable interface{ SignUp() string }
+
+type Course struct{ Name string }
+
+func (c Course) SignUp() string { return "course:" + c.Name }
+
+type Workshop struct{ Course }
+
+type Bootcamp struct{ Workshop }
+
+func (b Bootcamp) SignUp() string { return "bootcamp:" + b.Name }
+
+func main() {
+    w := Workshop{Course{"Go"}}
+    b := Bootcamp{w}
+    items := []Signable{w, b}
+    w.Name = "Rust"
+    for _, s := range items {
+        fmt.Print(s.SignUp(), " ")
+    }
+}`,
+    options: [
+      "Compile error: <code>Workshop</code> doesn't implement <code>Signable</code>",
+      "<code>course:Rust bootcamp:Go</code>",
+      "<code>course:Go course:Go</code>",
+      { t: "<code>course:Go bootcamp:Go</code>", ok: true },
+    ],
+    why: `<p>Four things happen:</p>
+      <ol>
+        <li><code>Workshop</code> has no <code>SignUp</code> method of its own, but it gets one from <code>Course</code>, so
+          it implements <code>Signable</code> without saying so. That rules out A.</li>
+        <li><code>b.Name</code> is promoted through two levels, via <code>b.Workshop.Course.Name</code>.</li>
+        <li>Calling a method on an interface runs the method of the concrete type stored
+          in it. <code>Bootcamp</code> has its own <code>SignUp</code>, which hides the promoted one. That
+          rules out C.</li>
+        <li>Putting a struct into an interface (or into <code>Bootcamp{w}</code>) copies it. The
+          later <code>w.Name = "Rust"</code> changes only the local variable <code>w</code>. That rules out B.</li>
+      </ol>`,
+    notes: `<p>This leads into question 6. Here the outer <code>SignUp</code> wins because it is called on
+      the outer type. In question 6, a method on the inner type calls another method,
+      and the outer type's version never runs.</p>`,
+  },
+  {
+    topic: "Embedding is not inheritance",
+    lesson: "P",
+    question: "What does this print?",
+    code: `type Course struct{}
+
+func (c Course) Kind() string     { return "course" }
+func (c Course) Describe() string { return "This is a " + c.Kind() }
+
+type Workshop struct{ Course }
+
+func (w Workshop) Kind() string { return "workshop" }
+
+func main() {
+    w := Workshop{}
+    fmt.Println(w.Kind(), "/", w.Describe())
+}`,
+    options: [
+      "<code>workshop / This is a workshop</code>",
+      { t: "<code>workshop / This is a course</code>", ok: true },
+      "<code>course / This is a course</code>",
+      "Compile error: <code>Kind</code> is declared twice",
+    ],
+    why: `<p><code>w.Describe()</code> is really <code>w.Course.Describe()</code>. Inside that method the
+      receiver is a plain <code>Course</code>, and it knows nothing about the <code>Workshop</code> around it,
+      so <code>c.Kind()</code> calls <code>Course.Kind</code>. In Java, overriding <code>Kind</code> would change what
+      <code>Describe</code> does. In Go it doesn't. This is the key difference between
+      composition and inheritance.</p>`,
+  },
+  {
+    topic: "Implicit interface implementation",
+    lesson: "Q",
+    question: "Which types implement Signable?",
+    code: `type Signable interface {
+    SignUp() string
+}
+
+type Course struct{}
+func (c Course) SignUp() string { return "ok" }
+func (c Course) Cancel()        {}
+
+type Talk struct{}
+func (t Talk) SignUp() error { return nil }
+
+type Meetup struct{}
+func (m Meetup) Signup() string { return "ok" }`,
+    options: [
+      { t: "<code>Course</code> only", ok: true },
+      "<code>Course</code> and <code>Talk</code>",
+      "<code>Course</code> and <code>Meetup</code>",
+      "All three",
+    ],
+    why: `<p>Implementing an interface is implicit, but the method has to match
+      exactly. <code>Talk</code> returns the wrong type (<code>error</code>, not <code>string</code>). <code>Meetup</code> has
+      <code>Signup</code>, not <code>SignUp</code>. Extra methods such as <code>Cancel</code> don't matter.</p>`,
+  },
+  {
+    topic: "Goroutines and main",
+    lesson: "R",
+    question: "What gets printed?",
+    code: `func PrintMessage(message string) {
+    fmt.Println(message)
+}
+
+func main() {
+    go PrintMessage("Learning Go!")
+    fmt.Println("Goodbye!")
+}`,
+    options: [
+      "Always <code>Learning Go!</code> then <code>Goodbye!</code>",
+      "Always <code>Goodbye!</code> then <code>Learning Go!</code>",
+      { t: "Not guaranteed. Often only <code>Goodbye!</code>", ok: true },
+      "Compile error: a goroutine needs a channel",
+    ],
+    why: `<p>When <code>main</code> returns, the program exits and doesn't wait for other
+      goroutines. In 20 local runs, 17 printed only <code>Goodbye!</code> and 3 printed both. This
+      leads into the lesson's question: "How do you know when each goroutine has finished?"</p>`,
+  },
+  {
+    topic: "WaitGroups: what is guaranteed?",
+    lesson: "R, S",
+    question: "Which statement is true?",
+    code: `func main() {
+    var wg sync.WaitGroup
+    for i := 1; i <= 5; i++ {
+        wg.Add(1)
+        go func() {
+            defer wg.Done()
+            fmt.Print(i, " ")
+        }()
+    }
+    wg.Wait()
+    fmt.Println("done")
+}`,
+    options: [
+      "The order is guaranteed: Go always runs the most recently started goroutine first, then the rest in order",
+      { t: "<code>done</code> is always printed last, but the order of the numbers is not guaranteed", ok: true },
+      "The order of the numbers is guaranteed, but <code>done</code> can sometimes be printed before some of them",
+      "Nothing is guaranteed: the numbers and <code>done</code> can come out in any order",
+    ],
+    why: `<p><code>wg.Wait()</code> blocks until all 5 goroutines have called <code>wg.Done()</code>, so
+      <code>done</code> always comes last. That is the only promise here. The Go language makes
+      no promise about the order goroutines run in, so if the order matters you have
+      to enforce it yourself, for example with channels.</p>`,
+  },
+];
+
+const LETTERS = ["A", "B", "C", "D"];
+
+function el(tag, props = {}, children = []) {
+  const e = document.createElement(tag);
+  Object.assign(e, props);
+  for (const c of [].concat(children)) e.append(c);
+  return e;
+}
+
+// Plain text for pasting into Mentimeter: no markup, collapsed whitespace.
+function plain(html) {
+  const tmp = el("div", { innerHTML: html });
+  return tmp.textContent.replace(/\s+/g, " ").trim();
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    // Fallback for browsers that block the async clipboard on file:// pages.
+    const ta = el("textarea", { value: text });
+    document.body.append(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+  }
+}
+
+function flash(btn, label = "Copied") {
+  const old = btn.textContent;
+  btn.textContent = label;
+  btn.classList.add("done");
+  setTimeout(() => { btn.textContent = old; btn.classList.remove("done"); }, 1200);
+}
+
+function copyButton(getText, label = "Copy") {
+  const b = el("button", { type: "button", textContent: label });
+  b.addEventListener("click", async () => { await copyText(getText()); flash(b); });
+  return b;
+}
+
+// ---------- Go syntax highlighting (shared by the page and the PNG) ----------
+
+// GitHub dark colours. The page and the image both read from this map.
+const COLORS = {
+  plain:    { color: "#f0f6fc", label: "Other identifiers" },
+  keyword:  { color: "#ff7b72", label: "Keywords" },
+  type:     { color: "#ffa657", label: "Types" },
+  func:     { color: "#d2a8ff", label: "Functions and methods" },
+  builtin:  { color: "#79c0ff", label: "Built-ins and constants" },
+  param:    { color: "#f2cc60", label: "Parameters and receivers" },
+  string:   { color: "#a5d6ff", label: "Strings" },
+  number:   { color: "#79c0ff", label: "Numbers" },
+  comment:  { color: "#8b949e", label: "Comments" },
+  punct:    { color: "#c9d1d9", label: "Punctuation" },
+};
+
+const words = s => new Set(s.split(" "));
+const KEYWORDS = words("break case chan const continue default defer else fallthrough for func go goto if import interface map package range return select struct switch type var");
+const TYPES = words("any bool byte complex64 complex128 error float32 float64 int int8 int16 int32 int64 rune string uint uint8 uint16 uint32 uint64 uintptr");
+const BUILTINS = words("append cap clear close complex copy delete imag len make max min new panic print println real recover true false nil iota");
+const PACKAGES = words("errors fmt os strings sync time");
+
+const TOKEN = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|("(?:\\.|[^"\\\n])*"|`[^`]*`|'(?:\\.|[^'\\])*')|(\d+(?:\.\d+)?)|([A-Za-z_]\w*)|(\s+)|(\.\.\.|:=|.)/g;
+
+// Splits Go code into [{t: text, k: kind}] where kind is a key of COLORS (or "space").
+// A heuristic, not a parser: it knows enough to handle short quiz snippets.
+function highlightGo(code) {
+  const toks = [];
+  for (const m of code.matchAll(TOKEN)) {
+    const k = m[1] ? "comment" : m[2] ? "string" : m[3] ? "number" : m[4] ? "ident" : m[5] ? "space" : "punct";
+    toks.push({ t: m[0], k });
+  }
+  const sig = toks.filter(x => x.k !== "space");
+  const declared = new Set(sig.filter((x, i) => x.k === "ident" && sig[i - 1]?.t === "type").map(x => x.t));
+
+  let fn = null;          // the func signature being read: {depth, expect, params}
+  const scopes = [];      // bodies of funcs, with their parameter names: {level, params}
+  let braces = 0;
+
+  sig.forEach((x, i) => {
+    const prev = sig[i - 1], next = sig[i + 1];
+    if (x.k === "punct") {
+      if (fn && x.t === "(") { fn.depth++; fn.expect = fn.depth === 1; }
+      else if (fn && x.t === ")") fn.depth--;
+      else if (fn && x.t === "," && fn.depth === 1) fn.expect = true;
+      if (x.t === "{") {
+        if (fn && fn.depth === 0) { scopes.push({ level: braces, params: fn.params }); fn = null; }
+        braces++;
+      } else if (x.t === "}") {
+        braces--;
+        while (scopes.length && scopes.at(-1).level === braces) scopes.pop();
+      }
+      return;
+    }
+    if (x.k !== "ident") return;
+
+    const w = x.t;
+    const afterDot = prev?.t === ".";
+    if (KEYWORDS.has(w)) {
+      x.k = "keyword";
+      if (w === "func") fn = { depth: 0, expect: false, params: new Set() };
+    } else if (afterDot) {
+      // pkg.Type, x.Method(), x.Field
+      x.k = next?.t === "(" ? "func"
+          : PACKAGES.has(sig[i - 2]?.t) && /^[A-Z]/.test(w) ? "type"
+          : "plain";
+    } else if (fn && fn.depth === 1 && fn.expect &&
+               (next?.k === "ident" || ["*", "[", "..."].includes(next?.t))) {
+      x.k = "param";
+      fn.params.add(w);
+    } else if (declared.has(w) || TYPES.has(w)) {
+      x.k = "type";
+    } else if (BUILTINS.has(w)) {
+      x.k = "builtin";
+    } else if (next?.t === "(") {
+      x.k = "func";
+    } else if (scopes.some(s => s.params.has(w))) {
+      x.k = "param";
+    } else {
+      x.k = "plain";
+    }
+    if (fn) fn.expect = false;
+  });
+  return toks;
+}
+
+const escapeHtml = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function highlightHtml(code) {
+  return highlightGo(code).map(x =>
+    x.k === "space" ? x.t : `<span style="color:${COLORS[x.k].color}">${escapeHtml(x.t)}</span>`
+  ).join("");
+}
+
+// Groups tokens into lines of [{t, color}] for drawing on the canvas.
+function highlightLines(code) {
+  const lines = [[]];
+  for (const x of highlightGo(code)) {
+    const color = COLORS[x.k === "space" ? "plain" : x.k].color;
+    x.t.split("\n").forEach((part, j) => {
+      if (j > 0) lines.push([]);
+      if (part) lines.at(-1).push({ t: part, color });
+    });
+  }
+  return lines;
+}
+
+// Draws the highlighted code on a canvas so it can go on a slide as an image.
+function codeCanvas(code) {
+  const scale = 2, fontSize = 22, lineH = Math.round(fontSize * 1.5), pad = 36;
+  const font = `${fontSize}px "SF Mono", Menlo, Consolas, monospace`;
+  const lines = highlightLines(code);
+  const probe = document.createElement("canvas").getContext("2d");
+  probe.font = font;
+  const lineWidth = l => probe.measureText(l.map(s => s.t).join("")).width;
+  const width = Math.ceil(Math.max(...lines.map(lineWidth))) + pad * 2;
+  const height = lines.length * lineH + pad * 2;
+
+  const canvas = el("canvas", { width: width * scale, height: height * scale });
+  const ctx = canvas.getContext("2d");
+  ctx.scale(scale, scale);
+  ctx.fillStyle = "#0d1117";
+  ctx.fillRect(0, 0, width, height);
+  ctx.font = font;
+  ctx.textBaseline = "middle";
+  lines.forEach((segments, i) => {
+    let x = pad;
+    const y = pad + i * lineH + lineH / 2;
+    for (const s of segments) {
+      ctx.fillStyle = s.color;
+      ctx.fillText(s.t, x, y);
+      x += ctx.measureText(s.t).width;
+    }
+  });
+  return canvas;
+}
+
+function toBlob(canvas) {
+  return new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+}
+
+function renderQuestion(q, i) {
+  const n = i + 1;
+  const sec = el("section", { className: "q", id: `q${n}` });
+
+  sec.append(el("div", { className: "q-head" }, [
+    el("h2", { textContent: `${n}. ${q.topic}` }),
+    el("span", { textContent: `Lesson ${q.lesson}` }),
+  ]));
+
+  sec.append(el("h3", { textContent: "Question" }));
+  sec.append(field(q.question));
+
+  sec.append(el("h3", { textContent: "Code (use as an image)" }));
+  sec.append(el("pre", { className: "code", innerHTML: highlightHtml(q.code) }));
+  const imgCopy = el("button", { type: "button", textContent: "Copy image" });
+  imgCopy.addEventListener("click", async () => {
+    try {
+      // Pass the promise straight in: Safari requires the write to start in the click handler.
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": toBlob(codeCanvas(q.code)) })]);
+      flash(imgCopy);
+    } catch {
+      flash(imgCopy, "Not supported, use Download");
+    }
+  });
+  const imgDownload = el("button", { type: "button", textContent: "Download PNG" });
+  imgDownload.addEventListener("click", async () => {
+    const url = URL.createObjectURL(await toBlob(codeCanvas(q.code)));
+    el("a", { href: url, download: `go-fundamentals-q${n}.png` }).click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+  sec.append(el("div", { className: "code-actions" }, [
+    imgCopy, imgDownload, copyButton(() => q.code, "Copy code as text"),
+  ]));
+
+  sec.append(el("h3", { textContent: "Answers" }));
+  q.options.forEach((o, j) => {
+    const opt = typeof o === "string" ? { t: o } : o;
+    sec.append(field(opt.t, LETTERS[j], opt.ok));
+  });
+
+  // innerText only keeps line breaks for rendered elements, so copy from the block on the page.
+  const why = el("div", { className: "why", innerHTML: q.why });
+  sec.append(el("h3", { className: "row" }, [
+    el("span", { textContent: "Why" }),
+    copyButton(() => why.innerText.trim()),
+  ]));
+  sec.append(why);
+
+  if (q.notes) {
+    sec.append(el("h3", { textContent: "Notes for the presenter" }));
+    sec.append(el("div", { className: "notes", innerHTML: q.notes }));
+  }
+  return sec;
+}
+
+function field(html, letter, correct) {
+  const text = plain(html);
+  const txt = el("div", { className: "txt", innerHTML: html });
+  if (correct) txt.append(el("span", { className: "badge", textContent: "Correct" }));
+  const f = el("div", { className: "field" + (correct ? " correct" : "") });
+  if (letter) f.append(el("span", { className: "letter", textContent: letter }));
+  f.append(txt, el("span", { className: "count", textContent: `${text.length} chars` }), copyButton(() => text));
+  return f;
+}
+
+const legend = document.getElementById("legend");
+for (const k of ["keyword", "type", "func", "param", "builtin", "string", "number", "comment"]) {
+  legend.append(el("code", { className: "swatch", textContent: COLORS[k].label, style: `color:${COLORS[k].color}` }), " ");
+}
+
+const overview = document.querySelector("#overview tbody");
+const container = document.getElementById("questions");
+QUESTIONS.forEach((q, i) => {
+  const correct = q.options.findIndex(o => typeof o === "object" && o.ok);
+  overview.append(el("tr", {}, [
+    el("td", {}, el("a", { href: `#q${i + 1}`, textContent: String(i + 1) })),
+    el("td", { textContent: q.topic }),
+    el("td", { textContent: q.lesson }),
+    el("td", { textContent: LETTERS[correct] }),
+  ]));
+  container.append(renderQuestion(q, i));
+});
+</script>
+</body>
+</html>
