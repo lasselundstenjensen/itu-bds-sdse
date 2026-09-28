@@ -62,7 +62,7 @@ We simply remove the identifier `Course` and keep the type to embed it.
 
 </br>
 
-> Is it extending the `Course` struct? No, under the hood it copies the fields from `Course` into `Workshop`.
+> Is it extending the `Course` struct? No, `Workshop` gets a field named `Course`, and the fields and methods of `Course` are *promoted*, so we can use them directly on `Workshop`, e.g. `w.Name` instead of `w.Course.Name`.
 
 </br>
 </br>

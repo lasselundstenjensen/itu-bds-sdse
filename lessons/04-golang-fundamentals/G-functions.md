@@ -11,7 +11,7 @@ keywords:
 Go functions are similar to functions in other programming languages.
 
 - A function can take zero or more arguments.
-- Arguments can have default values.
+- Arguments cannot have default values.
 - The last argument can be variadic (variable lenght).
 
 </br>

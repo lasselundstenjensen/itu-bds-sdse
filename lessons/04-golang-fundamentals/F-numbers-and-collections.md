@@ -196,12 +196,21 @@ var countries = []string{"Denmark", "Sweden", "Norway"}
 println(len(countries))
 ```
 
-**Initialize with a capacity of 5.**
+**Initialize with a length of 5.**
 
-This defines the default increment size when the slice runs out of space.
+The slice already holds 5 empty strings, so an `append` adds a 6th value.
 
 ```go
 var countries = make([]string, 5)
+```
+
+**Initialize with a length of 0 and a capacity of 5.**
+
+Capacity is the space reserved up front. Go only allocates more memory when an `append` goes beyond it.
+
+```go
+var countries = make([]string, 0, 5)
+println(len(countries), cap(countries)) // 0 5
 ```
 
 </br>

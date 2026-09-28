@@ -159,7 +159,7 @@ for key, value := range myMap {
 ```go
 // Emulating a while loop
 quit := false
-for quit {
+for !quit {
     // process ... then set 'quit' to true to exit
 }
 

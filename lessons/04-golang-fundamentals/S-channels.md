@@ -93,7 +93,7 @@ fmt.Println(<-ch)
 fmt.Println(<-ch)
 ```
 
-> If you pull a message from the buffer, the thread will wait until a message is sent to the channel.
+> If the buffer is empty, receiving waits until a message is sent. If the buffer is full, sending waits until a message is received.
 
 </br>
 </br>
@@ -107,7 +107,8 @@ fmt.Println(<-ch)
 
 ## Things to be aware of
 
-* **Deadlocks** can occur if a channel is not closed.
+* **Deadlocks** occur when all goroutines are waiting, e.g. sending to an unbuffered channel that nothing receives from.
+* Close a channel when no more values will be sent. Otherwise a receiver looping over it with `range` waits forever.
 
 ```go
 close(channel)

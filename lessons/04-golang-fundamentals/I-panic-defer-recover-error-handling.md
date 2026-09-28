@@ -136,7 +136,7 @@ We do not have exceptions in Go.
 This is the typical design pattern when dealing with errors (~kind of pseudocode):
 
 ```go
-func readFile(file string) (string, err) {
+func readFile(file string) (string, error) {
     // attempt to read the file and set the 'ok' boolean
     if ok {
         return data, nil
