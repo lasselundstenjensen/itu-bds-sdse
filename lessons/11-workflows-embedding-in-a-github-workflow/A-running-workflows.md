@@ -92,21 +92,21 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
 
       - name: Set up Go
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@v7.0.0
         with:
-          go-version: 1.25.4
+          go-version: 1.27.1
           cache: false
 
       - name: Run Dagger pipeline
-        uses: dagger/dagger-for-github@v8.2.0
+        uses: dagger/dagger-for-github@v8.4.1
         with:
           workdir: go
           verb: run
           args: go run pipeline.go
-          version: "0.19.6"
+          version: "0.21.10"
 ```
 
 </br>

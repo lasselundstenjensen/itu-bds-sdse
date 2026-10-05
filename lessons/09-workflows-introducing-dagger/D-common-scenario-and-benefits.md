@@ -70,7 +70,7 @@ We will not cover this in the course as it is a separate topic.
 Dagger currently offers SDKs for the following languages:
 
 - [Go](https://pkg.go.dev/dagger.io/dagger)
-- [Python](https://dagger-io.readthedocs.io/en/sdk-python-v0.19.6/)
+- [Python](https://dagger-io.readthedocs.io/en/sdk-python-v0.21.10/)
 - [TypeScript](https://docs.dagger.io/reference/typescript/modules)
 - GraphQL
 - PHP
